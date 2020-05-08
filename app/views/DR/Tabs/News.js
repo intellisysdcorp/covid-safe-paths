@@ -20,7 +20,7 @@ export default function NewsScreen({ navigation }) {
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', handleBackPress);
-    fetch('https://covid-dr.appspot.com/newr')
+    fetch('https://covid-dr.appspot.com/news')
       .then(response => response.json())
       .then(data => {
         setNews(data.news);
@@ -38,7 +38,7 @@ export default function NewsScreen({ navigation }) {
     <NavigationBarWrapper
       title={languages.t('label.latest_news')}
       onBackPress={backToMain.bind(this)}>
-      <View style={styles.constainer}>
+      <View style={styles.container}>
         <ScrollView>
           <DataList data={news} />
         </ScrollView>
@@ -48,7 +48,7 @@ export default function NewsScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  constainer: {
+  container: {
     flex: 1,
   },
 
