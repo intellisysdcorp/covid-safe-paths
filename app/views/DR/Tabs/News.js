@@ -7,7 +7,9 @@ import {
   View,
 } from 'react-native';
 
+import imgNews from '../../../assets/images/news.jpg';
 import Button from '../../../components/Button';
+import HeaderImage from '../../../components/HeaderImage';
 import DataList from '../../../components/List';
 import NavigationBarWrapper from '../../../components/NavigationBarWrapper';
 import fetch from '../../../helpers/fetch';
@@ -68,21 +70,20 @@ export default function NewsScreen({ navigation }) {
       onBackPress={backToMain.bind(this)}>
       <View style={styles.container}>
         <ScrollView>
+          <HeaderImage imgUrl={imgNews} title='News' />
           <DataList data={news} />
+          <View style={styles.containerPagination}>
+            {isNotLastPage && isLoading ? (
+              <ActivityIndicator size='large' />
+            ) : (
+              <Button
+                onPress={onPress}
+                title={languages.t('label.launch_next')}
+              />
+            )}
+          </View>
         </ScrollView>
       </View>
-      {isNotLastPage && (
-        <View style={styles.containerPagination}>
-          {isLoading ? (
-            <ActivityIndicator size='large' />
-          ) : (
-            <Button
-              onPress={onPress}
-              title={languages.t('label.launch_next')}
-            />
-          )}
-        </View>
-      )}
     </NavigationBarWrapper>
   );
 }
