@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { BackHandler, ScrollView, StyleSheet, View } from 'react-native';
+import {
+  ActivityIndicator,
+  BackHandler,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 
+import Button from '../../../components/Button';
 import DataList from '../../../components/List';
 import NavigationBarWrapper from '../../../components/NavigationBarWrapper';
 import fetch from '../../../helpers/Fetch';
 import languages from '../../../locales/languages';
 
+const NEWS_URL = 'https://covid-dr.appspot.com/news';
+
 export default function NewsScreen({ navigation }) {
   const [news, setNews] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const backToMain = () => {
     navigation.goBack();
@@ -18,9 +28,26 @@ export default function NewsScreen({ navigation }) {
     return true;
   };
 
+  const onPress = () => {
+    const { order } = news[news.length - 1] || {};
+    if (!order) {
+      return;
+    }
+    setIsLoading(true);
+    fetch(`${NEWS_URL}?endAt=${order - 10}`)
+      .then(({ data }) => {
+        console.log(data.news[0]);
+        setNews(news.concat(data.news));
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setNews([]);
+      });
+  };
+
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', handleBackPress);
-    fetch('https://covid-dr.appspot.com/news')
+    fetch(NEWS_URL)
       .then(({ data }) => {
         setNews(data.news);
       })
@@ -41,6 +68,13 @@ export default function NewsScreen({ navigation }) {
         <ScrollView>
           <DataList data={news} />
         </ScrollView>
+      </View>
+      <View style={styles.containerPagination}>
+        {isLoading ? (
+          <ActivityIndicator size='large' />
+        ) : (
+          <Button onPress={onPress} title={languages.t('label.launch_next')} />
+        )}
       </View>
     </NavigationBarWrapper>
   );
