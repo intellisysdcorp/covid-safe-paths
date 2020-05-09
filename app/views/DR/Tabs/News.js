@@ -18,6 +18,7 @@ const NEWS_URL = 'https://covid-dr.appspot.com/news';
 export default function NewsScreen({ navigation }) {
   const [news, setNews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isNotLastPage, setIsNotLastPage] = useState(true);
 
   const backToMain = () => {
     navigation.goBack();
@@ -31,6 +32,7 @@ export default function NewsScreen({ navigation }) {
   const onPress = () => {
     const { order } = news[news.length - 1] || {};
     if (!order) {
+      setIsNotLastPage(false);
       return;
     }
     setIsLoading(true);
@@ -69,13 +71,18 @@ export default function NewsScreen({ navigation }) {
           <DataList data={news} />
         </ScrollView>
       </View>
-      <View style={styles.containerPagination}>
-        {isLoading ? (
-          <ActivityIndicator size='large' />
-        ) : (
-          <Button onPress={onPress} title={languages.t('label.launch_next')} />
-        )}
-      </View>
+      {isNotLastPage && (
+        <View style={styles.containerPagination}>
+          {isLoading ? (
+            <ActivityIndicator size='large' />
+          ) : (
+            <Button
+              onPress={onPress}
+              title={languages.t('label.launch_next')}
+            />
+          )}
+        </View>
+      )}
     </NavigationBarWrapper>
   );
 }
