@@ -10,7 +10,7 @@ import {
 import Button from '../../../components/Button';
 import DataList from '../../../components/List';
 import NavigationBarWrapper from '../../../components/NavigationBarWrapper';
-import fetch from '../../../helpers/Fetch';
+import fetch from '../../../helpers/fetch';
 import languages from '../../../locales/languages';
 
 const NEWS_URL = 'https://covid-dr.appspot.com/news';
