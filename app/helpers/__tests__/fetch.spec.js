@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import fetch from '../fetch';
+import fetch from '../Fetch';
 
 describe('helpers/fetch', () => {
   it('should call through a proxy server', () => {
