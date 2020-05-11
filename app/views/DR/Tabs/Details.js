@@ -6,9 +6,10 @@ import NavigationBarWrapper from '../../../components/NavigationBarWrapper';
 
 // This is to make the images responsive in the page of a new
 const fixerImage = `
-  for (const image of document.images){
-    image.style.width = "100%";
-  };
+  var imgs = document.images;
+  for(var i=0; i < imgs.length; i+=1 ) {
+    imgs[i].style.width = "100%";
+  }
 `;
 
 const Details = ({
