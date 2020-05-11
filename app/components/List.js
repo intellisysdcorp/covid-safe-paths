@@ -2,7 +2,6 @@ import * as React from 'react';
 import {
   ActivityIndicator,
   Image,
-  Linking,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -17,6 +16,8 @@ export default function DataList({
   styleDescription = {},
   styleDate = {},
   titleLinesNum = 1,
+  navigation: { navigate },
+  switchScreenTo,
 }) {
   if (data.length === 0) return <ActivityIndicator size='large' />;
 
@@ -24,11 +25,16 @@ export default function DataList({
     <>
       {data.map(
         (
-          { url = '#', img, title = '', dateLabel = '', content = '' },
+          { url = '', img, title = '', dateLabel = '', content = '' },
           index,
         ) => (
           <TouchableOpacity
-            onPress={() => Linking.openURL(url)}
+            onPress={() =>
+              navigate('DetailsScreen', {
+                switchScreenTo,
+                source: { uri: url },
+              })
+            }
             key={String(index)}
             style={styles.itemContainer}>
             <Image

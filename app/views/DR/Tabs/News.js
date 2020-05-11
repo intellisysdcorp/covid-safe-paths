@@ -71,7 +71,11 @@ export default function NewsScreen({ navigation }) {
       <View style={styles.container}>
         <ScrollView>
           <HeaderImage imgUrl={imgNews} title='News' />
-          <DataList data={news} />
+          <DataList
+            data={news}
+            navigation={navigation}
+            switchScreenTo='WebView'
+          />
           <View style={styles.containerPagination}>
             {isNotLastPage && isLoading ? (
               <ActivityIndicator size='large' />
