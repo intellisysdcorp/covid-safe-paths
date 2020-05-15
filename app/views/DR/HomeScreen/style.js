@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexWrap: 'wrap',
     flexDirection: 'row',
-    marginVertical: hp('2%'),
+    marginVertical: hp('0.5%'),
   },
   radioButtonLayout: {
     display: 'flex',
