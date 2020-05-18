@@ -16,7 +16,7 @@ export default function ReportScreen({ navigation }) {
 
   const setSelectedOption = selected => {
     setGlobalState({
-      type: 'ADD_ANSWERS', //{ answers: {usage} },
+      type: 'ADD_ANSWERS',
       value: { usage: selected },
     });
   };
