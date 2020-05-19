@@ -36,6 +36,7 @@ node_modules/
 npm-debug.log
 yarn-error.log
 package-lock.json
+yarn.lock
 
 # BUCK
 buck-out/
@@ -78,6 +79,7 @@ e2e/artifacts/*
 ios/COVIDSafePaths-staging.ipa
 ios/COVIDSafePaths-staging.app
 ios/COVIDSafePaths-staging.app.dSYM.zip
+ios/COVIDSafePaths.xcodeproj/project.pbxproj
 assets/
 
 # Local Realm Artifact
