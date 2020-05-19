@@ -13,6 +13,7 @@ import ht from '../locales/eula/ht.html';
 import { Button } from './Button';
 import { Checkbox } from './Checkbox';
 import { IconButton } from './IconButton';
+import { NavigationBarWrapper } from './NavigationBarWrapper';
 import { Typography } from './Typography';
 
 const EULA_FILES = { en, ht };
@@ -93,7 +94,7 @@ export const EulaModal = ({ selectedLocale, continueFunction }) => {
                 <Typography style={styles.smallDescriptionText}>
                   {t('onboarding.eula_message')}
                 </Typography>
-                <ButtonWrapper
+                <NavigationBarWrapper
                   title={t('onboarding.eula_continue')}
                   buttonColor={
                     canContinue ? Colors.BLUE_RIBBON : Colors.GRAY_BUTTON
