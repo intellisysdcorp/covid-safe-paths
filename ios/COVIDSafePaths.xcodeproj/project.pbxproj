@@ -64,7 +64,7 @@
 		7BE9CC19E97E417F8D85CDFA /* IBMPlexSans-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B27E26E7076641EFB4386943 /* IBMPlexSans-ExtraLightItalic.ttf */; };
 		7D162117A33142769A1CF048 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6B6E9F01529A48B89E6BCB00 /* Entypo.ttf */; };
 		84DE84679B5D4CD5B76AC9EF /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FB3036303E4021808E78F0 /* MaterialCommunityIcons.ttf */; };
-		895F94092474284D0098DE7C /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB61A68108700A75B9A /* Info.plist */; };
+		895F9410247437E00098DE7C /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB61A68108700A75B9A /* Info.plist */; };
 		8BB1FB188E5E41EDA5667932 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8AE2341CFD8D461F9BBD4612 /* Foundation.ttf */; };
 		90A6277721DD42F5B7295A01 /* IBMPlexMono-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9A6AB45FE446E085003E35 /* IBMPlexMono-Bold.ttf */; };
 		9CC78FF1CEE94C2E8C5EC4E4 /* IBMPlexMono-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAA9C6E73C124FF5AF424D48 /* IBMPlexMono-Thin.ttf */; };
@@ -621,6 +621,7 @@
 				7BE9CC19E97E417F8D85CDFA /* IBMPlexSans-ExtraLightItalic.ttf in Resources */,
 				64ACB99B89554C468148CCD6 /* IBMPlexSans-Italic.ttf in Resources */,
 				D2E57BD070F047E58DC57231 /* IBMPlexSans-Light.ttf in Resources */,
+				895F9410247437E00098DE7C /* Info.plist in Resources */,
 				D5B6EB5D4B314ACFADAAEFE9 /* IBMPlexSans-LightItalic.ttf in Resources */,
 				0F130FE6EA784DA193120BEF /* IBMPlexSans-Medium.ttf in Resources */,
 				C0BDDBE3FFC54A77A26D7C1B /* IBMPlexSans-MediumItalic.ttf in Resources */,
@@ -660,7 +661,6 @@
 				8BB1FB188E5E41EDA5667932 /* Foundation.ttf in Resources */,
 				F5751632B98A4552B39978DF /* Ionicons.ttf in Resources */,
 				84DE84679B5D4CD5B76AC9EF /* MaterialCommunityIcons.ttf in Resources */,
-				895F94092474284D0098DE7C /* Info.plist in Resources */,
 				9EAA52918505467BB4DC35AC /* MaterialIcons.ttf in Resources */,
 				9E7E34965AF844E0B19D929C /* Octicons.ttf in Resources */,
 				D80146D711354606A3EBFFA6 /* Roboto_medium.ttf in Resources */,

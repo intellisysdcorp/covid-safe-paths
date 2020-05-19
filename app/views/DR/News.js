@@ -9,8 +9,8 @@ import {
 
 import imgNews from '../../assets/images/news.jpg';
 import Button from '../../components/Button';
-import HeaderImage from '../../components/DR/ActionCards/HeaderImage';
-import DataList from '../../components/DR/ActionCards/List';
+import HeaderImage from '../../components/DR/HeaderImage';
+import DataList from '../../components/DR/List';
 import NavigationBarWrapper from '../../components/NavigationBarWrapper';
 import fetch from '../../helpers/Fetch';
 import sourceStructure from '../../helpers/imagesSource';
