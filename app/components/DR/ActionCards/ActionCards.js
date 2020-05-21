@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../../../constants/colors';
 import styles from './styles';
 
-const { ORANGE, GREEN, MAIN_BLUE } = Colors;
+const { ORANGE, GREEN, MAIN_BLUE, BLUE_RIBBON } = Colors;
 
 export function Feels({ navigation }) {
   return (
@@ -69,7 +69,7 @@ export function Aurora({ navigation }) {
             onPress={() => navigation.navigate('AuroraScreen')}
             style={[
               styles.buttons,
-              { backgroundColor: MAIN_BLUE, marginLeft: 10 },
+              { backgroundColor: BLUE_RIBBON, marginLeft: 10 },
             ]}>
             <Text style={styles.buttonText}>Conversar</Text>
           </Button>

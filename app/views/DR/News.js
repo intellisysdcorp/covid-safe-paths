@@ -1,3 +1,4 @@
+import { Button, Text } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -8,10 +9,10 @@ import {
 } from 'react-native';
 
 import imgNews from '../../assets/images/news.jpg';
-import { Button } from '../../components/Button';
 import HeaderImage from '../../components/DR/ActionCards/HeaderImage';
 import DataList from '../../components/DR/ActionCards/List';
 import NavigationBarWrapper from '../../components/NavigationBarWrapper';
+import buttonStyle from '../../constants/DR/buttonStyles';
 import fetch from '../../helpers/Fetch';
 import sourceStructure from '../../helpers/imagesSource';
 import languages from '../../locales/languages';
@@ -82,10 +83,11 @@ function NewsScreen({ navigation }) {
             {isNotLastPage && isLoading ? (
               <ActivityIndicator size='large' />
             ) : (
-              <Button
-                onPress={onPress}
-                title={languages.t('label.launch_next')}
-              />
+              <Button style={buttonStyle.buttonStyle} onPress={onPress}>
+                <Text style={buttonStyle.buttonText}>
+                  {languages.t('label.launch_next')}
+                </Text>
+              </Button>
             )}
           </View>
         </ScrollView>
@@ -98,7 +100,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-
   containerPagination: {
     alignItems: 'center',
     padding: 20,

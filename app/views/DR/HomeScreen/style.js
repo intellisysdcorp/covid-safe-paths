@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     marginLeft: -5,
   },
   dataText: {
+    fontWeight: 'bold',
     color: Colors.PINK,
     fontSize: wp('8%'),
   },
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
   },
   marginAndAlign: { alignItems: 'center', marginHorizontal: wp('2%') },
   mainHeader: {
-    backgroundColor: Colors.MAIN_BLUE,
+    backgroundColor: Colors.BLUE_RIBBON,
     borderBottomEndRadius: 13,
     borderBottomStartRadius: 13,
     paddingTop: 10,
