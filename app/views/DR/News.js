@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 import imgNews from '../../assets/images/news.jpg';
-import Button from '../../components/Button';
+import { Button } from '../../components/Button';
 import HeaderImage from '../../components/DR/ActionCards/HeaderImage';
 import DataList from '../../components/DR/ActionCards/List';
 import NavigationBarWrapper from '../../components/NavigationBarWrapper';
@@ -73,7 +73,6 @@ export default function NewsScreen({ navigation }) {
       <View style={styles.container}>
         <HeaderImage imgUrl={imgNews} title={languages.t('label.news_title')} />
         <ScrollView>
-          <HeaderImage imgUrl={imgNews} title='Noticias' />
           <DataList
             data={news}
             navigation={navigation}
