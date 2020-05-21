@@ -42,9 +42,8 @@ export default function HospitalMap({ navigation, route }) {
   const selectedMarker = type === 'hospital' ? hospitals : laboratories;
   const posIcon = type === 'hospital' ? posIconHos : posIconLab;
 
-  useEffect(async () => {
+  const handleChanges = async () => {
     navigation.setOptions({ headerTitle: 'Map' });
-
     if (type === 'hospital') {
       const value = await requestCovid19Hospitals();
       setHospitals(value);
@@ -77,6 +76,10 @@ export default function HospitalMap({ navigation, route }) {
         );
       });
     }
+  };
+
+  useEffect(() => {
+    handleChanges();
   }, []);
 
   const getCurrentLocation = async () => {
@@ -160,7 +163,6 @@ export default function HospitalMap({ navigation, route }) {
       </Text>
     </View>
   );
-
   return (
     <View style={[styles.flexContainer]}>
       <View style={styles.flexContainer}>

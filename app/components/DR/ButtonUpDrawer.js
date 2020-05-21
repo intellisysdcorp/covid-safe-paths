@@ -48,7 +48,7 @@ export default class BottomUpPanel extends Component {
     this.props.isOpen ? this.config.position.end : this.config.position.start,
   );
 
-  componentWillMount() {
+  componentDidMount() {
     this.animatedPosition.addListener(value => {
       // Every time that position changes then actualize the related properties. I.e: height, so the view
       // has the interpolated height
@@ -57,7 +57,7 @@ export default class BottomUpPanel extends Component {
       });
     });
     // Reset value once listener is registered to update depending animations
-    this.animatedPosition.setValue(this.animatedPosition.value);
+    // this.animatedPosition.setValue(this.animatedPosition);
   }
 
   // Handle isOpen prop changes to either open or close the window
@@ -155,7 +155,6 @@ export default class BottomUpPanel extends Component {
         toValue: 1,
         duration: 600,
         easing: Easing.linear,
-        useNativeDriver: true,
       }).start();
     });
   };
@@ -165,7 +164,6 @@ export default class BottomUpPanel extends Component {
     Animated.timing(this.animatedPosition, {
       toValue: this.config.position.start,
       duration: 600,
-      useNativeDriver: true,
     }).start(() =>
       this.setState({
         open: false,
@@ -175,7 +173,6 @@ export default class BottomUpPanel extends Component {
       toValue: 0,
       duration: 600,
       easing: Easing.linear,
-      useNativeDriver: true,
     }).start();
   };
 
