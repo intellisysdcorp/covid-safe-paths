@@ -5,6 +5,10 @@ target 'COVIDSafePaths' do
   # Pods for COVIDSafePaths
   project 'COVIDSafePaths.xcodeproj'
 
+  rn_maps_path = '../node_modules/react-native-maps' # This path is likely to be `../node_modules/react-native-maps` in your own project.
+
+  # See http://facebook.github.io/react-native/docs/integration-with-existing-apps.html#configuring-cocoapods-dependencies
+  
   pod 'Realm', :modular_headers => true
   pod 'RealmSwift', :modular_headers => true
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
@@ -46,13 +50,29 @@ target 'COVIDSafePaths' do
 
   pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
 
+   # react-native-maps dependencies
+   pod 'react-native-maps', path: rn_maps_path
+   pod 'react-native-google-maps', path: rn_maps_path  # Remove this line if you don't want to support GoogleMaps on iOS
+   pod 'GoogleMaps'  # Remove this line if you don't want to support GoogleMaps on iOS
+   pod 'Google-Maps-iOS-Utils' # Remove this line if you don't want to support GoogleMaps on iOS
 
-  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
 
   target 'COVIDSafePathsTests' do
     inherit! :search_paths
     # Pods for testing
   end
 
+  post_install do |installer|
+    installer.pods_project.targets.each do |target|
+      if target.name == 'react-native-google-maps'
+        target.build_configurations.each do |config|
+          config.build_settings['CLANG_ENABLE_MODULES'] = 'No'
+        end
+      end
+      if target.name == "React"
+        target.remove_from_project
+    end
+    end
+  end
   use_native_modules!
 end

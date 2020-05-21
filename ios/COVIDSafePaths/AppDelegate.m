@@ -17,6 +17,7 @@
 #import <MAURLocation.h>
 #import <MAURBackgroundGeolocationFacade.h>
 #import "COVIDSafePaths-Swift.h"
+#import <GoogleMaps/GoogleMaps.h>
 
 
 @implementation AppDelegate
@@ -33,6 +34,8 @@
   };
   
   [[SecureStorage shared] trimLocations];
+  
+  [GMSServices provideAPIKey:@"AIzaSyCZ_kazq1VXZKbZfzBYugMJsid2zK-ZJRo"];
   
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
