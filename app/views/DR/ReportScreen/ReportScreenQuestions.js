@@ -89,11 +89,11 @@ export default function ReportScreenQuestions({ navigation }) {
       content: <ThankYou />,
     },
   ];
-  const { MAIN_BLUE, LIGHT_GRAY, GREEN } = Colors;
+  const { MAIN_BLUE, LIGHT_GRAY, GREEN, WHITE } = Colors;
   return (
     <View
       style={{
-        backgroundColor: '#fff',
+        backgroundColor: WHITE,
         display: 'flex',
         flex: 1,
         flexDirection: 'column',
