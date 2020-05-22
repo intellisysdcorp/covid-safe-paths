@@ -15,7 +15,15 @@ on:
 jobs:
   build-android:
     runs-on: ubuntu-latest
+    env:
+      ENVFILE: .env.staging
     steps:
+      - name: Update Env from Secreets
+        env:
+          MAP_API_KEY: ${{ secrets.MAP_API_KEY }}
+        run: |
+           echo MAP_API_KEY=$MAP_API_KEY >> .env.staging
+
       - uses: actions/checkout@v2
 
       - name: Cache node_modules/
@@ -50,10 +58,18 @@ jobs:
         with:
           name: Debug APK
           path: android/app/build/outputs/apk/dev/debug/app-dev-debug.apk
-          
+
   build-ios:
     runs-on: macOS-latest
+    env:
+      ENVFILE: .env.staging
     steps:
+      - name: Update Env from Secreets
+        env:
+          MAP_API_KEY: ${{ secrets.MAP_API_KEY }}
+        run: |
+          echo MAP_API_KEY=$MAP_API_KEY >> .env.staging
+
       - uses: actions/checkout@master
 
       - name: Set XCode Version

@@ -15,7 +15,15 @@ on:
 jobs:
   build_staging_android:
     runs-on: ubuntu-latest
+    env:
+      ENVFILE: .env.staging
     steps:
+      - name: Update Env from Secreets
+        env:
+          MAP_API_KEY: ${{ secrets.MAP_API_KEY }}
+        run: |
+          echo MAP_API_KEY=$MAP_API_KEY >> .env.staging
+
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -63,7 +71,7 @@ jobs:
 
       - name: Install Ruby Dependencies
         if: steps.ruby_cache.outputs.cache-hit != 'true'
-        run: | 
+        run: |
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
         working-directory: ./android

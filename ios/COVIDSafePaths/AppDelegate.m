@@ -7,6 +7,7 @@
 
 #import "AppDelegate.h"
 
+#import "ReactNativeConfig.h"
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
@@ -27,16 +28,17 @@
   MAURBackgroundGeolocationFacade.locationTransform = ^(MAURLocation * location) {
     MAURLocation *locationToInsert = [location copy];
     [[SecureStorage shared] saveDeviceLocationWithBackgroundLocation:locationToInsert];
-    
+
     // nil out location so geolocation library doesn't save in its internval db
     location = nil;
     return location;
   };
-  
+
   [[SecureStorage shared] trimLocations];
-  
-  [GMSServices provideAPIKey:@"AIzaSyCZ_kazq1VXZKbZfzBYugMJsid2zK-ZJRo"];
-  
+    // then read individual keys like:
+  NSString *mapApIKey = [ReactNativeConfig envFor:@"MAP_API_KEY"];
+  [GMSServices provideAPIKey:mapApIKey];
+
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"COVIDSafePaths"

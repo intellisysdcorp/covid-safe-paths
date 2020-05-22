@@ -11,6 +11,12 @@ jobs:
     env:
       ENVFILE: .env.release
     steps:
+      - name: Update Env from Secreets
+        env:
+          MAP_API_KEY: ${{ secrets.MAP_API_KEY }}
+        run: |
+          echo MAP_API_KEY=$MAP_API_KEY >> .env.release
+
       - name: Checkout code
         uses: actions/checkout@v2
 
