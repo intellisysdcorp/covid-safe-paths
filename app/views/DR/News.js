@@ -83,7 +83,9 @@ function NewsScreen({ navigation }) {
             {isNotLastPage && isLoading ? (
               <ActivityIndicator size='large' />
             ) : (
-              <Button style={buttonStyle.buttonStyle} onPress={onPress}>
+              <Button
+                style={{ ...buttonStyle.buttonStyle, marginLeft: 0 }}
+                onPress={onPress}>
                 <Text style={buttonStyle.buttonText}>
                   {languages.t('label.launch_next')}
                 </Text>

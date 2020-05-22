@@ -56,7 +56,7 @@ const PermissionDescription = ({ title, status }) => {
   let icon;
   switch (status) {
     case PermissionStatusEnum.UNKNOWN:
-      icon = IconUnknown;
+      icon = null;
       break;
     case PermissionStatusEnum.GRANTED:
       icon = IconGranted;
