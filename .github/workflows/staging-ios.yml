@@ -12,15 +12,7 @@ on:
 jobs:
   build_staging_ios:
     runs-on: macOS-latest
-    env:
-      ENVFILE: .env.staging
     steps:
-      - name: Update Env from Secreets
-        env:
-          MAP_API_KEY: ${{ secrets.MAP_API_KEY }}
-        run: |
-          echo MAP_API_KEY=$MAP_API_KEY >> .env.staging
-
       - uses: actions/checkout@master
 
       - name: Set XCode Version
@@ -71,7 +63,7 @@ jobs:
             ssh-keyscan github.com >> ~/.ssh/known_hosts
             ssh-agent -a $SSH_AUTH_SOCK > /dev/null
             ssh-add - <<< "${{ secrets.MATCH_SSH_CERT }}"
-
+      
       - name: Build iOS Staging artifact for devices
         uses: maierj/fastlane-action@v1.4.0
         env:

@@ -167,7 +167,6 @@ export default function HospitalMap({ navigation, route }) {
     <View style={[styles.flexContainer]}>
       <View style={styles.flexContainer}>
         <MapView
-          provider={PROVIDER_GOOGLE}
           style={styles.map}
           region={{
             ...coordinates,
