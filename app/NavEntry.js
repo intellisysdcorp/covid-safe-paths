@@ -23,9 +23,10 @@ function MainNavigation() {
         tabStyle: [styles.bottomTabLabel],
       }}>
       <Tab.Screen
-        name={languages.t('navigation.home')}
+        name={'home'}
         component={HomeScreen}
         options={{
+          tabBarLabel: languages.t('navigation.home'),
           // eslint-disable-next-line react/display-name
           tabBarIcon: ({ focused, color }) => (
             <Ionicons
@@ -38,9 +39,10 @@ function MainNavigation() {
         }}
       />
       <Tab.Screen
-        name={languages.t('navigation.location_tracker')}
+        name={'Location'}
         component={LocationTracking}
         options={{
+          tabBarLabel: languages.t('navigation.location_tracker'),
           // eslint-disable-next-line react/display-name
           tabBarIcon: ({ focused, color }) => (
             <Ionicons
@@ -53,9 +55,10 @@ function MainNavigation() {
         }}
       />
       <Tab.Screen
-        name={languages.t('navigation.report')}
+        name={'ReportScreen'}
         component={ReportScreen}
         options={{
+          tabBarLabel: languages.t('navigation.report'),
           // eslint-disable-next-line react/display-name
           tabBarIcon: ({ focused, color }) => (
             <Ionicons
@@ -68,9 +71,10 @@ function MainNavigation() {
         }}
       />
       <Tab.Screen
-        name={languages.t('navigation.maps')}
+        name={'maps'}
         component={Maps}
         options={{
+          tabBarLabel: languages.t('navigation.maps'),
           // eslint-disable-next-line react/display-name
           tabBarIcon: ({ focused, color }) => (
             <Ionicons
@@ -83,9 +87,10 @@ function MainNavigation() {
         }}
       />
       <Tab.Screen
-        name={languages.t('navigation.news')}
+        name={'news'}
         component={NewsMainScreen}
         options={{
+          tabBarLabel: languages.t('navigation.news'),
           // eslint-disable-next-line react/display-name
           tabBarIcon: ({ focused, color }) => (
             <Ionicons

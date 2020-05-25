@@ -29,9 +29,7 @@ export function Feels({ navigation }) {
           </Text>
           <View style={{ justifyContent: 'center' }}>
             <Button
-              onPress={() =>
-                navigation.navigate(languages.t('navigation.report'))
-              }
+              onPress={() => navigation.navigate('ReportScreen')}
               style={[
                 styles.buttons,
                 {
@@ -103,9 +101,7 @@ export function LocationMatch({ navigation }) {
             </Text>
           </Left>
           <Button
-            onPress={() =>
-              navigation.navigate(languages.t('navigation.location_tracker'))
-            }
+            onPress={() => navigation.navigate('Location')}
             style={[
               styles.buttons,
               { backgroundColor: BLUE_RIBBON, marginLeft: 10 },
