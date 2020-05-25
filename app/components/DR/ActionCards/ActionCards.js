@@ -87,7 +87,6 @@ export function Aurora({ navigation }) {
 }
 
 export function LocationMatch({ navigation }) {
-  console.log(navigation);
   return (
     <View>
       <Card style={styles.bigCards}>

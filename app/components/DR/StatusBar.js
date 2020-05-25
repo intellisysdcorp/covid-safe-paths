@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import { NativeModules, Platform, StatusBar, View } from 'react-native';
-const { StatusBarManager } = NativeModules;
+import { Dimensions, Platform, StatusBar, View } from 'react-native';
+const { height, width } = Dimensions.get('window');
 
 const Statusbar = ({ backgroundColor, ...props }) => {
   const [HEIGHT, setHeight] = useState(0);
+
   if (Platform.OS === 'ios') {
-    StatusBarManager.getHeight(statusBarHeight => {
-      console.log(statusBarHeight.height);
-      setHeight(statusBarHeight.height);
-    });
+    if (height > 811 && width > 374 && HEIGHT === 0) {
+      setHeight(44);
+    } else if (height < 812 && width > 374 && HEIGHT === 0) {
+      setHeight(20);
+    }
   } else {
-    setHeight(StatusBarManager.HEIGHT);
+    setHeight(StatusBar.currentHeight);
   }
-  console.log(HEIGHT, 'HE');
   return (
     <View style={[{ height: HEIGHT }, { backgroundColor }]}>
       <StatusBar traslucent backgroundColor={backgroundColor} {...props} />
