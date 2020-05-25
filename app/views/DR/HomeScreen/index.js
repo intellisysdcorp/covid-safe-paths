@@ -16,6 +16,7 @@ import settingsIcon from '../../../assets/svgs/settingsIcon';
 import {
   Aurora,
   Feels,
+  LocationMatch,
 } from '../../../components/DR/ActionCards/ActionCards.js';
 import Colors from '../../../constants/colors';
 import languages from '../../../locales/languages';
@@ -89,7 +90,7 @@ export default class HomeScreen extends Component {
             <View style={styles.mainHeader}>
               <View style={styles.rowAndCenter}>
                 <Left>
-                  <Text style={[styles.text, { color: '#fff' }]}>
+                  <Text style={[styles.text, { color: Colors.WHITE }]}>
                     {date[0].toUpperCase() + date.slice(1)}
                   </Text>
                 </Left>
@@ -101,7 +102,11 @@ export default class HomeScreen extends Component {
                 <Feels navigation={navigation} />
                 <View style={styles.marginAndAlign}>
                   <View style={styles.actualSituationContent}>
-                    <Text style={[styles.subtitles, { alignSelf: 'center' }]}>
+                    <Text
+                      style={[
+                        styles.subtitles,
+                        { alignSelf: 'center', marginTop: wp('2%') },
+                      ]}>
                       {languages.t('label.current_situation_label')}
                     </Text>
                   </View>
@@ -153,6 +158,7 @@ export default class HomeScreen extends Component {
                     </Card>
                   </TouchableOpacity>
                 </View>
+                <LocationMatch navigation={this.props.navigation} />
                 <Aurora navigation={this.props.navigation} />
                 <View style={styles.footer}>
                   <View style={{ margin: wp('5%') }}>
