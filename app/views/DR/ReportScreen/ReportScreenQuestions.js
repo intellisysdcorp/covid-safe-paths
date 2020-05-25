@@ -89,7 +89,7 @@ export default function ReportScreenQuestions({ navigation }) {
       content: <ThankYou />,
     },
   ];
-  const { MAIN_BLUE, LIGHT_GRAY, GREEN, WHITE } = Colors;
+  const { BLUE_RIBBON, LIGHT_GRAY, GREEN, WHITE, BLACK } = Colors;
   return (
     <View
       style={{
@@ -149,7 +149,7 @@ export default function ReportScreenQuestions({ navigation }) {
               marginHorizontal: 6,
               height: 10,
               borderRadius: 5,
-              backgroundColor: index === currentStep ? MAIN_BLUE : LIGHT_GRAY,
+              backgroundColor: index === currentStep ? BLUE_RIBBON : LIGHT_GRAY,
             }}
           />
         ))}
@@ -188,7 +188,7 @@ export default function ReportScreenQuestions({ navigation }) {
               styles.buttonText,
               {
                 marginHorizontal: wp('5%'),
-                color: 'black',
+                color: BLACK,
               },
             ]}>
             Atrás
