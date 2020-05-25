@@ -9,7 +9,7 @@ import { GetStoreData } from './helpers/General';
 import NavEntry from './NavEntry';
 import AboutScreen from './views/About';
 import ChooseProviderScreen from './views/ChooseProvider';
-import HomeScreen from './views/DR/HomeScreen';
+import AuroraScreen from './views/DR/Aurora';
 import Report from './views/DR/ReportScreen/ReportScreenQuestions';
 import ResultsScreen from './views/DR/ReportScreen/Results';
 import UserInfo from './views/DR/UserInfoScreen/index';
@@ -145,7 +145,7 @@ class Entry extends Component {
           />
           <Stack.Screen
             name='AuroraScreen'
-            component={AboutScreen}
+            component={AuroraScreen}
             options={{ headerShown: false }}
           />
           <Stack.Screen
