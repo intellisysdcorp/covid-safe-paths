@@ -46,6 +46,7 @@ exports[`<Settings /> renders correctly with google import flag 1`] = `
       <View
         accessible={true}
         focusable={true}
+        isTVSelectable={true}
         style={
           Object {
             "alignItems": "center",
@@ -107,6 +108,7 @@ exports[`<Settings /> renders correctly with google import flag 1`] = `
           <View
             accessible={true}
             focusable={true}
+            isTVSelectable={true}
             style={
               Object {
                 "alignItems": "center",
@@ -169,6 +171,7 @@ exports[`<Settings /> renders correctly with google import flag 1`] = `
           <View
             accessible={true}
             focusable={true}
+            isTVSelectable={true}
             style={
               Object {
                 "alignItems": "center",
@@ -216,7 +219,7 @@ exports[`<Settings /> renders correctly with google import flag 1`] = `
                 }
                 use="body1"
               >
-                English
+                Unknown
               </Text>
             </View>
           </View>
@@ -350,71 +353,7 @@ exports[`<Settings /> renders correctly with google import flag 1`] = `
           <View
             accessible={true}
             focusable={true}
-            style={
-              Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "opacity": 1,
-                "paddingBottom": 18,
-                "paddingLeft": 0,
-                "paddingRight": 0,
-                "paddingTop": 18,
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "flexBasis": 0,
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                  "justifyContent": "center",
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "fontFamily": "IBMPlexSans",
-                    "fontSize": 18,
-                    "fontWeight": "normal",
-                    "lineHeight": 24,
-                    "writingDirection": "ltr",
-                  }
-                }
-                use="body1"
-              >
-                Choose Health Authority
-              </Text>
-              <Text
-                secondary={true}
-                style={
-                  Object {
-                    "fontFamily": "IBMPlexSans",
-                    "fontSize": 15,
-                    "fontWeight": "normal",
-                    "lineHeight": 24,
-                    "marginTop": 4,
-                    "writingDirection": "ltr",
-                  }
-                }
-                use="body3"
-              >
-                To be informed of exposures you will need to subscribe to a Health Authority.
-              </Text>
-            </View>
-          </View>
-          <View
-            style={
-              Object {
-                "height": 1,
-                "width": "100%",
-              }
-            }
-          />
-          <View
-            accessible={true}
-            focusable={true}
+            isTVSelectable={true}
             style={
               Object {
                 "alignItems": "center",
@@ -480,266 +419,7 @@ exports[`<Settings /> renders correctly with google import flag 1`] = `
           <View
             accessible={true}
             focusable={true}
-            style={
-              Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "opacity": 1,
-                "paddingBottom": 18,
-                "paddingLeft": 0,
-                "paddingRight": 0,
-                "paddingTop": 18,
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "flexBasis": 0,
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                  "justifyContent": "center",
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "fontFamily": "IBMPlexSans",
-                    "fontSize": 18,
-                    "fontWeight": "normal",
-                    "lineHeight": 24,
-                    "writingDirection": "ltr",
-                  }
-                }
-                use="body1"
-              >
-                Boletines
-              </Text>
-              <Text
-                secondary={true}
-                style={
-                  Object {
-                    "fontFamily": "IBMPlexSans",
-                    "fontSize": 15,
-                    "fontWeight": "normal",
-                    "lineHeight": 24,
-                    "marginTop": 4,
-                    "writingDirection": "ltr",
-                  }
-                }
-                use="body3"
-              >
-                Read about the latest COVID Bulletins updates from your health authority.
-              </Text>
-            </View>
-          </View>
-          <View
-            style={
-              Object {
-                "height": 1,
-                "width": "100%",
-              }
-            }
-          />
-          <View
-            accessible={true}
-            focusable={true}
-            style={
-              Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "opacity": 1,
-                "paddingBottom": 18,
-                "paddingLeft": 0,
-                "paddingRight": 0,
-                "paddingTop": 18,
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "flexBasis": 0,
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                  "justifyContent": "center",
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "fontFamily": "IBMPlexSans",
-                    "fontSize": 18,
-                    "fontWeight": "normal",
-                    "lineHeight": 24,
-                    "writingDirection": "ltr",
-                  }
-                }
-                use="body1"
-              >
-                Hospital map
-              </Text>
-              <Text
-                secondary={true}
-                style={
-                  Object {
-                    "fontFamily": "IBMPlexSans",
-                    "fontSize": 15,
-                    "fontWeight": "normal",
-                    "lineHeight": 24,
-                    "marginTop": 4,
-                    "writingDirection": "ltr",
-                  }
-                }
-                use="body3"
-              >
-                View all hospitals available for COVID.
-              </Text>
-            </View>
-          </View>
-          <View
-            style={
-              Object {
-                "height": 1,
-                "width": "100%",
-              }
-            }
-          />
-          <View
-            accessible={true}
-            focusable={true}
-            style={
-              Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "opacity": 1,
-                "paddingBottom": 18,
-                "paddingLeft": 0,
-                "paddingRight": 0,
-                "paddingTop": 18,
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "flexBasis": 0,
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                  "justifyContent": "center",
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "fontFamily": "IBMPlexSans",
-                    "fontSize": 18,
-                    "fontWeight": "normal",
-                    "lineHeight": 24,
-                    "writingDirection": "ltr",
-                  }
-                }
-                use="body1"
-              >
-                Laboratories map
-              </Text>
-              <Text
-                secondary={true}
-                style={
-                  Object {
-                    "fontFamily": "IBMPlexSans",
-                    "fontSize": 15,
-                    "fontWeight": "normal",
-                    "lineHeight": 24,
-                    "marginTop": 4,
-                    "writingDirection": "ltr",
-                  }
-                }
-                use="body3"
-              >
-                View all laboratories available for COVID.
-              </Text>
-            </View>
-          </View>
-          <View
-            style={
-              Object {
-                "height": 1,
-                "width": "100%",
-              }
-            }
-          />
-          <View
-            accessible={true}
-            focusable={true}
-            style={
-              Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "opacity": 1,
-                "paddingBottom": 18,
-                "paddingLeft": 0,
-                "paddingRight": 0,
-                "paddingTop": 18,
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "flexBasis": 0,
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                  "justifyContent": "center",
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "fontFamily": "IBMPlexSans",
-                    "fontSize": 18,
-                    "fontWeight": "normal",
-                    "lineHeight": 24,
-                    "writingDirection": "ltr",
-                  }
-                }
-                use="body1"
-              >
-                Recommendations
-              </Text>
-              <Text
-                secondary={true}
-                style={
-                  Object {
-                    "fontFamily": "IBMPlexSans",
-                    "fontSize": 15,
-                    "fontWeight": "normal",
-                    "lineHeight": 24,
-                    "marginTop": 4,
-                    "writingDirection": "ltr",
-                  }
-                }
-                use="body3"
-              >
-                Learn about COVID-19, its symptoms, frequently asked questions, and prevention measures.
-              </Text>
-            </View>
-          </View>
-          <View
-            style={
-              Object {
-                "height": 1,
-                "width": "100%",
-              }
-            }
-          />
-          <View
-            accessible={true}
-            focusable={true}
+            isTVSelectable={true}
             style={
               Object {
                 "alignItems": "center",
@@ -805,6 +485,7 @@ exports[`<Settings /> renders correctly with google import flag 1`] = `
           <View
             accessible={true}
             focusable={true}
+            isTVSelectable={true}
             style={
               Object {
                 "alignItems": "center",
@@ -964,6 +645,7 @@ exports[`<Settings /> renders correctly with google import flag 1`] = `
             accessibilityRole="button"
             accessible={true}
             focusable={true}
+            isTVSelectable={true}
             style={
               Object {
                 "alignContent": "center",
@@ -1069,6 +751,7 @@ exports[`<Settings /> renders correctly with google import flag 1`] = `
           <View
             accessible={true}
             focusable={true}
+            isTVSelectable={true}
             style={
               Object {
                 "alignItems": "center",
@@ -1118,6 +801,7 @@ exports[`<Settings /> renders correctly with google import flag 1`] = `
           <View
             accessible={true}
             focusable={true}
+            isTVSelectable={true}
             style={
               Object {
                 "alignItems": "center",
@@ -1167,6 +851,7 @@ exports[`<Settings /> renders correctly with google import flag 1`] = `
           <View
             accessible={true}
             focusable={true}
+            isTVSelectable={true}
             style={
               Object {
                 "alignItems": "center",
@@ -1266,6 +951,7 @@ exports[`<Settings /> renders correctly without google import flag 1`] = `
       <View
         accessible={true}
         focusable={true}
+        isTVSelectable={true}
         style={
           Object {
             "alignItems": "center",
@@ -1327,6 +1013,7 @@ exports[`<Settings /> renders correctly without google import flag 1`] = `
           <View
             accessible={true}
             focusable={true}
+            isTVSelectable={true}
             style={
               Object {
                 "alignItems": "center",
@@ -1389,6 +1076,7 @@ exports[`<Settings /> renders correctly without google import flag 1`] = `
           <View
             accessible={true}
             focusable={true}
+            isTVSelectable={true}
             style={
               Object {
                 "alignItems": "center",
@@ -1436,7 +1124,7 @@ exports[`<Settings /> renders correctly without google import flag 1`] = `
                 }
                 use="body1"
               >
-                English
+                Unknown
               </Text>
             </View>
           </View>
@@ -1570,71 +1258,7 @@ exports[`<Settings /> renders correctly without google import flag 1`] = `
           <View
             accessible={true}
             focusable={true}
-            style={
-              Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "opacity": 1,
-                "paddingBottom": 18,
-                "paddingLeft": 0,
-                "paddingRight": 0,
-                "paddingTop": 18,
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "flexBasis": 0,
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                  "justifyContent": "center",
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "fontFamily": "IBMPlexSans",
-                    "fontSize": 18,
-                    "fontWeight": "normal",
-                    "lineHeight": 24,
-                    "writingDirection": "ltr",
-                  }
-                }
-                use="body1"
-              >
-                Choose Health Authority
-              </Text>
-              <Text
-                secondary={true}
-                style={
-                  Object {
-                    "fontFamily": "IBMPlexSans",
-                    "fontSize": 15,
-                    "fontWeight": "normal",
-                    "lineHeight": 24,
-                    "marginTop": 4,
-                    "writingDirection": "ltr",
-                  }
-                }
-                use="body3"
-              >
-                To be informed of exposures you will need to subscribe to a Health Authority.
-              </Text>
-            </View>
-          </View>
-          <View
-            style={
-              Object {
-                "height": 1,
-                "width": "100%",
-              }
-            }
-          />
-          <View
-            accessible={true}
-            focusable={true}
+            isTVSelectable={true}
             style={
               Object {
                 "alignItems": "center",
@@ -1700,266 +1324,7 @@ exports[`<Settings /> renders correctly without google import flag 1`] = `
           <View
             accessible={true}
             focusable={true}
-            style={
-              Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "opacity": 1,
-                "paddingBottom": 18,
-                "paddingLeft": 0,
-                "paddingRight": 0,
-                "paddingTop": 18,
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "flexBasis": 0,
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                  "justifyContent": "center",
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "fontFamily": "IBMPlexSans",
-                    "fontSize": 18,
-                    "fontWeight": "normal",
-                    "lineHeight": 24,
-                    "writingDirection": "ltr",
-                  }
-                }
-                use="body1"
-              >
-                Boletines
-              </Text>
-              <Text
-                secondary={true}
-                style={
-                  Object {
-                    "fontFamily": "IBMPlexSans",
-                    "fontSize": 15,
-                    "fontWeight": "normal",
-                    "lineHeight": 24,
-                    "marginTop": 4,
-                    "writingDirection": "ltr",
-                  }
-                }
-                use="body3"
-              >
-                Read about the latest COVID Bulletins updates from your health authority.
-              </Text>
-            </View>
-          </View>
-          <View
-            style={
-              Object {
-                "height": 1,
-                "width": "100%",
-              }
-            }
-          />
-          <View
-            accessible={true}
-            focusable={true}
-            style={
-              Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "opacity": 1,
-                "paddingBottom": 18,
-                "paddingLeft": 0,
-                "paddingRight": 0,
-                "paddingTop": 18,
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "flexBasis": 0,
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                  "justifyContent": "center",
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "fontFamily": "IBMPlexSans",
-                    "fontSize": 18,
-                    "fontWeight": "normal",
-                    "lineHeight": 24,
-                    "writingDirection": "ltr",
-                  }
-                }
-                use="body1"
-              >
-                Hospital map
-              </Text>
-              <Text
-                secondary={true}
-                style={
-                  Object {
-                    "fontFamily": "IBMPlexSans",
-                    "fontSize": 15,
-                    "fontWeight": "normal",
-                    "lineHeight": 24,
-                    "marginTop": 4,
-                    "writingDirection": "ltr",
-                  }
-                }
-                use="body3"
-              >
-                View all hospitals available for COVID.
-              </Text>
-            </View>
-          </View>
-          <View
-            style={
-              Object {
-                "height": 1,
-                "width": "100%",
-              }
-            }
-          />
-          <View
-            accessible={true}
-            focusable={true}
-            style={
-              Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "opacity": 1,
-                "paddingBottom": 18,
-                "paddingLeft": 0,
-                "paddingRight": 0,
-                "paddingTop": 18,
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "flexBasis": 0,
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                  "justifyContent": "center",
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "fontFamily": "IBMPlexSans",
-                    "fontSize": 18,
-                    "fontWeight": "normal",
-                    "lineHeight": 24,
-                    "writingDirection": "ltr",
-                  }
-                }
-                use="body1"
-              >
-                Laboratories map
-              </Text>
-              <Text
-                secondary={true}
-                style={
-                  Object {
-                    "fontFamily": "IBMPlexSans",
-                    "fontSize": 15,
-                    "fontWeight": "normal",
-                    "lineHeight": 24,
-                    "marginTop": 4,
-                    "writingDirection": "ltr",
-                  }
-                }
-                use="body3"
-              >
-                View all laboratories available for COVID.
-              </Text>
-            </View>
-          </View>
-          <View
-            style={
-              Object {
-                "height": 1,
-                "width": "100%",
-              }
-            }
-          />
-          <View
-            accessible={true}
-            focusable={true}
-            style={
-              Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "opacity": 1,
-                "paddingBottom": 18,
-                "paddingLeft": 0,
-                "paddingRight": 0,
-                "paddingTop": 18,
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "flexBasis": 0,
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                  "justifyContent": "center",
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "fontFamily": "IBMPlexSans",
-                    "fontSize": 18,
-                    "fontWeight": "normal",
-                    "lineHeight": 24,
-                    "writingDirection": "ltr",
-                  }
-                }
-                use="body1"
-              >
-                Recommendations
-              </Text>
-              <Text
-                secondary={true}
-                style={
-                  Object {
-                    "fontFamily": "IBMPlexSans",
-                    "fontSize": 15,
-                    "fontWeight": "normal",
-                    "lineHeight": 24,
-                    "marginTop": 4,
-                    "writingDirection": "ltr",
-                  }
-                }
-                use="body3"
-              >
-                Learn about COVID-19, its symptoms, frequently asked questions, and prevention measures.
-              </Text>
-            </View>
-          </View>
-          <View
-            style={
-              Object {
-                "height": 1,
-                "width": "100%",
-              }
-            }
-          />
-          <View
-            accessible={true}
-            focusable={true}
+            isTVSelectable={true}
             style={
               Object {
                 "alignItems": "center",
@@ -2025,6 +1390,7 @@ exports[`<Settings /> renders correctly without google import flag 1`] = `
           <View
             accessible={true}
             focusable={true}
+            isTVSelectable={true}
             style={
               Object {
                 "alignItems": "center",
@@ -2120,6 +1486,7 @@ exports[`<Settings /> renders correctly without google import flag 1`] = `
           <View
             accessible={true}
             focusable={true}
+            isTVSelectable={true}
             style={
               Object {
                 "alignItems": "center",
@@ -2169,6 +1536,7 @@ exports[`<Settings /> renders correctly without google import flag 1`] = `
           <View
             accessible={true}
             focusable={true}
+            isTVSelectable={true}
             style={
               Object {
                 "alignItems": "center",
@@ -2218,6 +1586,7 @@ exports[`<Settings /> renders correctly without google import flag 1`] = `
           <View
             accessible={true}
             focusable={true}
+            isTVSelectable={true}
             style={
               Object {
                 "alignItems": "center",

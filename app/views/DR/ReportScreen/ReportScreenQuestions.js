@@ -13,6 +13,8 @@ import Header from '../../../components/DR/Header/index';
 import styles from '../../../components/DR/Header/style';
 import context from '../../../components/DR/Reduces/context';
 import Colors from '../../../constants/colors';
+import { COVID_ID } from '../../../constants/storage';
+import { SetStoreData } from '../../../helpers/General';
 import StepAdress from './sections/SetpAdress';
 import StepAge from './sections/StepAge';
 import StepCovidContact from './sections/StepCovidContact';
@@ -87,11 +89,11 @@ export default function ReportScreenQuestions({ navigation }) {
       content: <ThankYou />,
     },
   ];
-  const { MAIN_BLUE, LIGHT_GRAY, GREEN } = Colors;
+  const { BLUE_RIBBON, LIGHT_GRAY, GREEN, WHITE, BLACK } = Colors;
   return (
     <View
       style={{
-        backgroundColor: '#fff',
+        backgroundColor: WHITE,
         display: 'flex',
         flex: 1,
         flexDirection: 'column',
@@ -147,7 +149,7 @@ export default function ReportScreenQuestions({ navigation }) {
               marginHorizontal: 6,
               height: 10,
               borderRadius: 5,
-              backgroundColor: index === currentStep ? MAIN_BLUE : LIGHT_GRAY,
+              backgroundColor: index === currentStep ? BLUE_RIBBON : LIGHT_GRAY,
             }}
           />
         ))}
@@ -186,7 +188,7 @@ export default function ReportScreenQuestions({ navigation }) {
               styles.buttonText,
               {
                 marginHorizontal: wp('5%'),
-                color: 'black',
+                color: BLACK,
               },
             ]}>
             Atrás
@@ -199,7 +201,7 @@ export default function ReportScreenQuestions({ navigation }) {
           onPress={async () => {
             if (isLastStep) {
               const { covidId } = await sendDataToApi();
-              console.log('ELCOVID', covidId);
+              SetStoreData(COVID_ID, covidId);
               navigation.navigate('Results');
             }
             if (data === 'Tengo al menos uno de estos síntomas') {

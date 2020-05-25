@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import { PermissionsAndroid } from 'react-native';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -17,25 +17,27 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import sortByDistance from 'sort-by-distance';
 
-import posIconHos from '../../assets/images/pinPositiveHos.png';
-import posIconLab from '../../assets/images/pinPositiveLab.png';
-import BottonUpPanel from '../../components/DR/ButtonUpDrawer';
+import posIconHos from '../../../assets/images/pinPositiveHos.png';
+import posIconLab from '../../../assets/images/pinPositiveLab.png';
+import BottonUpPanel from '../../../components/DR/ButtonUpDrawer';
 import {
   requestCovid19Hospitals,
   requestCovid19Laboratories,
-} from '../../helpers/Request';
+} from '../../../helpers/Request';
 
 const latitudeDelta = 0.0052;
 const longitudeDelta = 0.0081;
 const rdCoords = { latitude: 18.7009, longitude: -70.1655 };
 const { height } = Dimensions.get('window');
 
-export default function HospitalMap({ navigation, route }) {
+export default function HospitalMap({ route, navigation }) {
   const [hospitals, setHospitals] = useState([]);
   const [laboratories, setLaboratories] = useState([]);
   const [coordinates, setCoordinates] = useState(rdCoords);
   const [bottomRef, setBottomRef] = useState(null);
   const [sortedMarkers, setSortedMarkers] = useState([]);
+  console.log(route);
+
   const { type } = route.params;
 
   // This is to change to hospitals or laboratories markers and icons depending on which screen you are

@@ -8,7 +8,6 @@ import {
   ImageBackground,
   Linking,
   NativeModules,
-  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -31,12 +30,13 @@ import settingsIcon from './../assets/svgs/settingsIcon';
 import StateAtRisk from './../assets/svgs/stateAtRisk';
 import StateNoContact from './../assets/svgs/stateNoContact';
 import StateUnknown from './../assets/svgs/stateUnknown';
-import { isPlatformAndroid, isPlatformiOS } from './../Util';
+import { isPlatformiOS } from './../Util';
 import { Button } from '../components/Button';
 import { Typography } from '../components/Typography';
 import Colors from '../constants/colors';
 import fontFamily from '../constants/fonts';
 import {
+  COVID_ID,
   CROSSED_PATHS,
   DEBUG_MODE,
   LOCATION_DATA,
@@ -88,12 +88,6 @@ const height = Dimensions.get('window').height;
 class LocationTracking extends Component {
   constructor(props) {
     super(props);
-
-    if (isPlatformAndroid()) {
-      StatusBar.setBackgroundColor(Colors.TRANSPARENT);
-      StatusBar.setBarStyle('light-content');
-      StatusBar.setTranslucent(true);
-    }
 
     this.state = {
       appState: AppState.currentState,
@@ -215,6 +209,34 @@ class LocationTracking extends Component {
           RemoveStoreData(LOCATION_DATA);
         });
       }
+    });
+
+    BackgroundGeolocation.on('location', async location => {
+      GetStoreData(COVID_ID)
+        .then(covidId => {
+          const body = JSON.stringify({
+            latitude: location.latitude,
+            longitude: location.longitude,
+            time: location.time,
+            covidId: covidId,
+          });
+
+          fetch('https://webapps.mepyd.gob.do/contact_tracing/api/UserTrace', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body,
+          })
+            .then(function(response) {
+              return response.json();
+            })
+            .then(data => {
+              return data;
+            })
+            .catch(error => {
+              console.error('[ERROR] ' + error);
+            });
+        })
+        .catch(error => console.log('[ERROR] ' + error));
     });
   }
 
@@ -420,11 +442,6 @@ class LocationTracking extends Component {
         <ImageBackground
           source={this.getBackground()}
           style={styles.backgroundImage}>
-          <StatusBar
-            barStyle='light-content'
-            backgroundColor='transparent'
-            translucent
-          />
           {this.getPulseIfNeeded()}
 
           <View style={styles.mainContainer}>

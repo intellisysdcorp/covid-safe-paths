@@ -8,9 +8,10 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Colors from '../../../constants/colors';
+import languages from '../../../locales/languages';
 import styles from './styles';
 
-const { ORANGE, GREEN, MAIN_BLUE } = Colors;
+const { ORANGE, GREEN, BLUE_RIBBON } = Colors;
 
 export function Feels({ navigation }) {
   return (
@@ -19,12 +20,12 @@ export function Feels({ navigation }) {
         <View style={styles.auroraContainer}>
           <Icon name='heartbeat' color={ORANGE} size={wp('7%')} />
           <Text style={[styles.textHeader, { marginLeft: 8 }]}>
-            ¿Cómo te sientes?
+            {languages.t('label.report_symptoms_title')}
           </Text>
         </View>
         <View style={{ flexDirection: 'column' }}>
           <Text style={styles.text}>
-            Analizaremos tus síntomas para validar o descartar el COVID-19
+            {languages.t('label.report_symptoms_description')}
           </Text>
           <View style={{ justifyContent: 'center' }}>
             <Button
@@ -37,7 +38,9 @@ export function Feels({ navigation }) {
                   marginTop: 15,
                 },
               ]}>
-              <Text style={styles.buttonText}>Reportar Síntomas</Text>
+              <Text style={styles.buttonText}>
+                {languages.t('label.report_symptoms_label')}
+              </Text>
             </Button>
           </View>
         </View>
@@ -56,22 +59,24 @@ export function Aurora({ navigation }) {
             source={require('../../../assets/images/aurora_logo.png')}
           />
           <Text style={[styles.textHeader, { marginLeft: 8 }]}>
-            Conversa con AuroraMSP
+            {languages.t('label.auroraMsp_title')}
           </Text>
         </View>
         <View style={styles.tester}>
           <Left>
             <Text style={styles.text}>
-              Tenga contacto directo con más de 200 médicos.
+              {languages.t('label.auroraMsp_description')}
             </Text>
           </Left>
           <Button
             onPress={() => navigation.navigate('AuroraScreen')}
             style={[
               styles.buttons,
-              { backgroundColor: MAIN_BLUE, marginLeft: 10 },
+              { backgroundColor: BLUE_RIBBON, marginLeft: 10 },
             ]}>
-            <Text style={styles.buttonText}>Conversar</Text>
+            <Text style={styles.buttonText}>
+              {languages.t('label.conversar_label')}
+            </Text>
           </Button>
         </View>
       </Card>
@@ -107,7 +112,7 @@ export function Contact({ isProfile }) {
         style={[
           styles.bigCards,
           {
-            backgroundColor: MAIN_BLUE,
+            backgroundColor: BLUE_RIBBON,
             height: hp('15%'),
             justifyContent: 'center',
           },
@@ -121,13 +126,13 @@ export function Contact({ isProfile }) {
             />
             <Left style={{ marginLeft: 15 }}>
               <Text style={[styles.text, { color: '#fff' }]}>
-                Linea informativa
+                {languages.t('label.phone_line_label')}
               </Text>
               <Text style={[styles.textHeader, { color: '#fff' }]}>*464</Text>
             </Left>
             <Button style={[buttonStyle, { backgroundColor: '#fff' }]}>
               <Text style={[buttonValueStyle, { color: '#0161F2' }]}>
-                Chatear
+                {languages.t('label.chat_label')}
               </Text>
             </Button>
           </Left>
@@ -143,12 +148,12 @@ export function Alerts() {
       <Card style={styles.bigCards}>
         <CardItem header>
           <Left>
-            <Icon name='bell-o' color={MAIN_BLUE} size={30} />
+            <Icon name='bell-o' color={BLUE_RIBBON} size={30} />
             <Text style={styles.textHeader}>Alertas</Text>
           </Left>
 
           <Right style={{ backgroundColor: '#fff' }}>
-            <Badge style={{ backgroundColor: MAIN_BLUE }}>
+            <Badge style={{ backgroundColor: BLUE_RIBBON }}>
               <Text>9 +</Text>
             </Badge>
           </Right>
