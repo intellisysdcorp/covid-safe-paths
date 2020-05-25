@@ -5,6 +5,7 @@ import { Card, Left, Text } from 'native-base';
 import React, { Component } from 'react';
 import {
   RefreshControl,
+  SafeAreaView,
   ScrollView,
   TouchableOpacity,
   View,
@@ -76,107 +77,110 @@ export default class HomeScreen extends Component {
     } = this;
 
     return (
-      <View style={{ flex: 1, backgroundColor: Colors.BLUE_RIBBON }}>
-        <View>
-          <ScrollView
-            contentContainerStyle={styles.scrollContainer}
-            refreshControl={
-              <RefreshControl
-                tintColor={Colors.LIGHT_GRAY}
-                refreshing={refreshing}
-                onRefresh={this.refresh}
-              />
-            }>
-            <View style={styles.mainHeader}>
-              <View style={styles.rowAndCenter}>
-                <Left>
-                  <Text style={[styles.text, { color: Colors.WHITE }]}>
-                    {date[0].toUpperCase() + date.slice(1)}
-                  </Text>
-                </Left>
-              </View>
-              <Text style={styles.headerText}>COVID-RD</Text>
-            </View>
-            <View style={{ marginHorizontal: wp('2%') }}>
-              <View style={styles.marginAndAlign}>
-                <Feels navigation={navigation} />
-                <View style={styles.marginAndAlign}>
-                  <View style={styles.actualSituationContent}>
-                    <Text
-                      style={[
-                        styles.subtitles,
-                        { alignSelf: 'center', marginTop: wp('2%') },
-                      ]}>
-                      {languages.t('label.current_situation_label')}
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={{ flex: 1, backgroundColor: Colors.BLUE_RIBBON }}>
+          <View>
+            <ScrollView
+              contentContainerStyle={styles.scrollContainer}
+              refreshControl={
+                <RefreshControl
+                  tintColor={Colors.LIGHT_GRAY}
+                  refreshing={refreshing}
+                  onRefresh={this.refresh}
+                />
+              }>
+              <View style={styles.mainHeader}>
+                <View style={styles.rowAndCenter}>
+                  <Left>
+                    <Text style={[styles.text, { color: Colors.WHITE }]}>
+                      {date[0].toUpperCase() + date.slice(1)}
                     </Text>
-                  </View>
-                  <Text style={[styles.subtitles, { color: '#747474' }]}>
-                    {updatedAt}
-                  </Text>
+                  </Left>
                 </View>
-                <View style={styles.actualSituationContainer}>
-                  <TouchableOpacity>
-                    <Card style={styles.infoCards}>
-                      <Text style={[styles.dataText]}>{cases}</Text>
-                      <Text style={styles.text}>
-                        {languages.t('label.positive_label')}
-                      </Text>
-                    </Card>
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Card style={styles.infoCards}>
+                <Text style={styles.headerText}>COVID-RD</Text>
+              </View>
+              <View style={{ marginHorizontal: wp('2%') }}>
+                <View style={styles.marginAndAlign}>
+                  <Feels navigation={navigation} />
+                  <View style={styles.marginAndAlign}>
+                    <View style={styles.actualSituationContent}>
                       <Text
                         style={[
-                          styles.dataText,
-                          { color: Colors.BUTTON_LIGHT_TEX },
+                          styles.subtitles,
+                          { alignSelf: 'center', marginTop: wp('2%') },
                         ]}>
-                        {deaths}
+                        {languages.t('label.current_situation_label')}
                       </Text>
-                      <Text style={styles.text}>
-                        {languages.t('label.deceased_label')}
-                      </Text>
-                    </Card>
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Card style={styles.infoCards}>
-                      <Text style={[styles.dataText, { color: Colors.GREEN }]}>
-                        {recovered}
-                      </Text>
-                      <Text style={styles.text}>
-                        {languages.t('label.recovered_label')}
-                      </Text>
-                    </Card>
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Card style={styles.infoCards}>
-                      <Text style={[styles.dataText, { color: Colors.SUN }]}>
-                        {todayCases}
-                      </Text>
-                      <Text style={styles.text}>
-                        {languages.t('label.case_day_label')}
-                      </Text>
-                    </Card>
-                  </TouchableOpacity>
-                </View>
-                <LocationMatch navigation={this.props.navigation} />
-                <Aurora navigation={this.props.navigation} />
-                <View style={styles.footer}>
-                  <View style={{ margin: wp('5%') }}>
-                    <Text
-                      style={[
-                        styles.text,
-                        { color: '#2f3133', textAlign: 'center' },
-                      ]}>
-                      {languages.t('label.home_screen_bottom_text')}
+                    </View>
+                    <Text style={[styles.subtitles, { color: '#747474' }]}>
+                      {updatedAt}
                     </Text>
+                  </View>
+                  <View style={styles.actualSituationContainer}>
+                    <TouchableOpacity>
+                      <Card style={styles.infoCards}>
+                        <Text style={[styles.dataText]}>{cases}</Text>
+                        <Text style={styles.text}>
+                          {languages.t('label.positive_label')}
+                        </Text>
+                      </Card>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                      <Card style={styles.infoCards}>
+                        <Text
+                          style={[
+                            styles.dataText,
+                            { color: Colors.BUTTON_LIGHT_TEX },
+                          ]}>
+                          {deaths}
+                        </Text>
+                        <Text style={styles.text}>
+                          {languages.t('label.deceased_label')}
+                        </Text>
+                      </Card>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                      <Card style={styles.infoCards}>
+                        <Text
+                          style={[styles.dataText, { color: Colors.GREEN }]}>
+                          {recovered}
+                        </Text>
+                        <Text style={styles.text}>
+                          {languages.t('label.recovered_label')}
+                        </Text>
+                      </Card>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                      <Card style={styles.infoCards}>
+                        <Text style={[styles.dataText, { color: Colors.SUN }]}>
+                          {todayCases}
+                        </Text>
+                        <Text style={styles.text}>
+                          {languages.t('label.case_day_label')}
+                        </Text>
+                      </Card>
+                    </TouchableOpacity>
+                  </View>
+                  <LocationMatch navigation={this.props.navigation} />
+                  <Aurora navigation={this.props.navigation} />
+                  <View style={styles.footer}>
+                    <View style={{ margin: wp('5%') }}>
+                      <Text
+                        style={[
+                          styles.text,
+                          { color: '#2f3133', textAlign: 'center' },
+                        ]}>
+                        {languages.t('label.home_screen_bottom_text')}
+                      </Text>
+                    </View>
                   </View>
                 </View>
               </View>
-            </View>
-            {this.getSettings()}
-          </ScrollView>
+              {this.getSettings()}
+            </ScrollView>
+          </View>
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }
