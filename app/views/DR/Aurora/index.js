@@ -22,8 +22,8 @@ export default function AuroraScreen({ navigation }) {
   return (
     <View style={{ flex: 1 }}>
       <View>
-        <TouchableOpacity
-          style={{ flexDirection: 'row', margin: 10, alignItems: 'center' }}
+        {/* <TouchableOpacity
+          style={{backgroundColor: '#000', flexDirection: 'row', margin: 10, alignItems: 'center', width: '100%' }}
           onPress={() => navigation.goBack()}>
           <Icon color='#3389ff' size={wp('4%') + 4} name='chevron-left' />
           <Text
@@ -33,7 +33,7 @@ export default function AuroraScreen({ navigation }) {
             }}>
             Atrás
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <WebView
         ref={ref => (webViewRef = ref)}

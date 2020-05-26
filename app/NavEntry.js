@@ -9,7 +9,6 @@ import HomeScreen from './views/DR/HomeScreen';
 import Maps from './views/DR/Maps';
 import NewsMainScreen from './views/DR/News';
 import ReportScreen from './views/DR/ReportScreen';
-import LocationTracking from './views/LocationTracking';
 
 const Tab = createBottomTabNavigator();
 
@@ -38,22 +37,7 @@ function MainNavigation() {
           ),
         }}
       />
-      <Tab.Screen
-        name={'Location'}
-        component={LocationTracking}
-        options={{
-          tabBarLabel: languages.t('navigation.location_tracker'),
-          // eslint-disable-next-line react/display-name
-          tabBarIcon: ({ focused, color }) => (
-            <Ionicons
-              focused={focused}
-              name='ios-radio'
-              size={25}
-              color={color}
-            />
-          ),
-        }}
-      />
+
       <Tab.Screen
         name={'ReportScreen'}
         component={ReportScreen}

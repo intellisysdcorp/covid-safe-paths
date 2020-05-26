@@ -4,7 +4,9 @@ import {
   createStackNavigator,
 } from '@react-navigation/stack';
 import React, { Component } from 'react';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
+import Colors from './constants/colors';
 import { GetStoreData } from './helpers/General';
 import NavEntry from './NavEntry';
 import AboutScreen from './views/About';
@@ -17,6 +19,7 @@ import { ExportScreen } from './views/Export';
 import { ExposureHistoryScreen } from './views/ExposureHistory/ExposureHistory';
 import ImportScreen from './views/Import';
 import { LicensesScreen } from './views/Licenses';
+import LocationTracking from './views/LocationTracking';
 import Onboarding1 from './views/onboarding/Onboarding1';
 import Onboarding2 from './views/onboarding/Onboarding2';
 import Onboarding3 from './views/onboarding/Onboarding3';
@@ -134,6 +137,11 @@ class Entry extends Component {
             options={{ headerShown: false }}
           />
           <Stack.Screen
+            name='Location'
+            component={LocationTracking}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
             name='Report'
             component={Report}
             options={{ headerShown: false }}
@@ -146,7 +154,16 @@ class Entry extends Component {
           <Stack.Screen
             name='AuroraScreen'
             component={AuroraScreen}
-            options={{ headerShown: false }}
+            options={{
+              headerTitle: '',
+              headerTintColor: Colors.WHITE,
+              headerBackTitle: 'atras',
+              headerStyle: {
+                backgroundColor: Colors.BLUE_RIBBON,
+                height: hp('7%'),
+              },
+              headerBackTitleStyle: { color: Colors.WHITE },
+            }}
           />
           <Stack.Screen
             name='UserInfo'
