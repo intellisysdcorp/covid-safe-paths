@@ -6,20 +6,17 @@ import {
 import React, { Component } from 'react';
 
 import { GetStoreData } from './helpers/General';
+import NavEntry from './NavEntry';
 import AboutScreen from './views/About';
 import ChooseProviderScreen from './views/ChooseProvider';
-import AdvicesScreen from './views/DR/Advices';
-import BulletinsScreen from './views/DR/Bulletins';
-import DetailsScreen from './views/DR/Details';
 import HomeScreen from './views/DR/HomeScreen';
-import MapScreen from './views/DR/Map';
-import NewsScreen from './views/DR/News';
+import Report from './views/DR/ReportScreen/ReportScreenQuestions';
+import ResultsScreen from './views/DR/ReportScreen/Results';
+import UserInfo from './views/DR/UserInfoScreen/index';
 import { ExportScreen } from './views/Export';
 import { ExposureHistoryScreen } from './views/ExposureHistory/ExposureHistory';
 import ImportScreen from './views/Import';
 import { LicensesScreen } from './views/Licenses';
-import LocationTracking from './views/LocationTracking';
-import { MainNavigate } from './views/Main';
 import Onboarding1 from './views/onboarding/Onboarding1';
 import Onboarding2 from './views/onboarding/Onboarding2';
 import Onboarding3 from './views/onboarding/Onboarding3';
@@ -61,7 +58,7 @@ class Entry extends Component {
           {this.state.initialRouteName === 'true' ? (
             <Stack.Screen
               name='InitialScreen'
-              component={HomeScreen}
+              component={NavEntry}
               options={{ headerShown: false }}
             />
           ) : (
@@ -98,32 +95,7 @@ class Entry extends Component {
           />
           <Stack.Screen
             name='HomeScreen'
-            component={HomeScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name='NewsScreen'
-            component={NewsScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name='BulletinsScreen'
-            component={BulletinsScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name='MapScreen'
-            component={MapScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name='AdvicesScreen'
-            component={AdvicesScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name='DetailsScreen'
-            component={DetailsScreen}
+            component={NavEntry}
             options={{ headerShown: false }}
           />
           <Stack.Screen
@@ -162,13 +134,23 @@ class Entry extends Component {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name='ReportScreen'
-            component={AboutScreen}
+            name='Report'
+            component={Report}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name='Results'
+            component={ResultsScreen}
             options={{ headerShown: false }}
           />
           <Stack.Screen
             name='AuroraScreen'
             component={AboutScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name='UserInfo'
+            component={UserInfo}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

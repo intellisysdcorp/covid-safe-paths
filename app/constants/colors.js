@@ -11,6 +11,7 @@ const colors = {
   PRIMARY_TEXT: '#000',
   SUCCESS: '#41dca4',
   GREEN: '#7ED321',
+  DARK_GREEN: '#B7DBB2',
   WARNING: '#ffc000',
   ORANGE: '#ffc000',
   VIOLET_ALPHA_06: '#f7f8ff', // cannot use transparency
@@ -72,6 +73,7 @@ const colors = {
   PURPLE: '#525BD9',
   CONFETTI: '#EAEB5E',
   YUKON_GOLD: '#666804',
+  BUTTON_LIGHT_TEXT: '#6B6B6B',
 };
 
 export default Object.assign(colors, colorDr);
