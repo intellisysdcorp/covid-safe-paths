@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   bigCards: {
     borderRadius: 8,
     justifyContent: 'center',
-    marginBottom: hp('2%'),
+    marginBottom: wp('1.5%'),
     padding: wp('5%'),
     width: wp('91%'),
   },
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   text: {
     color: '#000',
     fontSize: textFontSize - 2,
-    fontFamily: 'IBMPlexSans-Thin',
+    fontFamily: 'IBMPlexSans',
   },
   buttons: {
     alignSelf: 'center',
