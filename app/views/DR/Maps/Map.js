@@ -30,15 +30,15 @@ const longitudeDelta = 0.0081;
 const rdCoords = { latitude: 18.7009, longitude: -70.1655 };
 const { height } = Dimensions.get('window');
 
-export default function HospitalMap({ route, navigation }) {
+export default function HospitalMap({ navigation, route }) {
   const [hospitals, setHospitals] = useState([]);
   const [laboratories, setLaboratories] = useState([]);
   const [coordinates, setCoordinates] = useState(rdCoords);
   const [bottomRef, setBottomRef] = useState(null);
   const [sortedMarkers, setSortedMarkers] = useState([]);
-  console.log(route);
 
-  const { type } = route.params;
+  const { type } = route;
+  console.log(route, 'route?');
 
   // This is to change to hospitals or laboratories markers and icons depending on which screen you are
   const selectedMarker = type === 'hospital' ? hospitals : laboratories;
@@ -47,6 +47,7 @@ export default function HospitalMap({ route, navigation }) {
   const handleChanges = async () => {
     navigation.setOptions({ headerTitle: 'Map' });
     if (type === 'hospital') {
+      console.log('hospitales');
       const value = await requestCovid19Hospitals();
       setHospitals(value);
       Geolocation.getCurrentPosition(
@@ -62,6 +63,7 @@ export default function HospitalMap({ route, navigation }) {
         { enableHighAccuracy: true },
       );
     } else {
+      console.log('labs');
       await requestCovid19Laboratories().then(value => {
         setLaboratories(value);
         Geolocation.getCurrentPosition(

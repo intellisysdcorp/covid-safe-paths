@@ -19,10 +19,12 @@ const index = () => {
         swipeEnabled={false}>
         <Tab.Screen
           name={languages.t('navigation.hospitals_maps')}
+          params={'hospital'}
           component={HospitalMap}
         />
         <Tab.Screen
           name={languages.t('navigation.laboratories_maps')}
+          type={'laboratory'}
           component={HospitalMap}
         />
       </Tab.Navigator>
