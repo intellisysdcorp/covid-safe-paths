@@ -10,7 +10,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 import { SvgXml } from 'react-native-svg';
 
 import settingsIcon from '../../../assets/svgs/settingsIcon';
@@ -107,7 +110,7 @@ export default class HomeScreen extends Component {
                       <Text
                         style={[
                           styles.subtitles,
-                          { alignSelf: 'center', marginTop: wp('2%') },
+                          { alignSelf: 'center', marginVertical: hp('1%') },
                         ]}>
                         {languages.t('label.current_situation_label')}
                       </Text>

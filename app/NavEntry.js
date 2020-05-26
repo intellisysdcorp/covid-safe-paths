@@ -22,7 +22,7 @@ function MainNavigation() {
         tabStyle: [styles.bottomTabLabel],
       }}>
       <Tab.Screen
-        name={'home'}
+        name='Home'
         component={HomeScreen}
         options={{
           tabBarLabel: languages.t('navigation.home'),
@@ -39,7 +39,7 @@ function MainNavigation() {
       />
 
       <Tab.Screen
-        name={'ReportScreen'}
+        name='ReportScreen'
         component={ReportScreen}
         options={{
           tabBarLabel: languages.t('navigation.report'),
@@ -55,7 +55,7 @@ function MainNavigation() {
         }}
       />
       <Tab.Screen
-        name={'maps'}
+        name='Maps'
         component={Maps}
         options={{
           tabBarLabel: languages.t('navigation.maps'),
@@ -71,7 +71,7 @@ function MainNavigation() {
         }}
       />
       <Tab.Screen
-        name={'news'}
+        name='News'
         component={NewsMainScreen}
         options={{
           tabBarLabel: languages.t('navigation.news'),
