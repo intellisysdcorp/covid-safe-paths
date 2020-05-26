@@ -179,6 +179,9 @@ class LocationTracking extends Component {
   }
 
   componentDidMount() {
+    this.props.navigation.setOptions({
+      headerRight: () => this.getSettingsBtn(),
+    });
     AppState.addEventListener('change', this.handleAppStateChange);
     BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     // refresh state if settings have changed
@@ -304,7 +307,6 @@ class LocationTracking extends Component {
     }
     return BackgroundImage;
   }
-
   settings() {
     this.props.navigation.navigate('SettingsScreen', {});
   }
@@ -312,7 +314,6 @@ class LocationTracking extends Component {
   getSettingsBtn() {
     return (
       <TouchableOpacity
-        style={styles.settingsContainer}
         onPress={() => {
           this.props.navigation.navigate('SettingsScreen');
         }}>
@@ -481,7 +482,7 @@ class LocationTracking extends Component {
               </View>
             </TouchableOpacity>
           </View>
-          {this.getSettingsBtn()}
+          {/* {this.getSettingsBtn()} */}
         </ImageBackground>
       </Theme>
     );
@@ -528,7 +529,7 @@ const styles = StyleSheet.create({
     top: 0,
     marginTop: '14%',
     marginRight: '7%',
-    alignSelf: 'flex-end',
+    alignSelf: 'center',
   },
   buttonContainer: {
     marginTop: 24,
