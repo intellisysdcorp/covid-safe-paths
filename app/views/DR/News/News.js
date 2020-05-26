@@ -8,14 +8,14 @@ import {
   View,
 } from 'react-native';
 
-import imgNews from '../../assets/images/news.jpg';
-import HeaderImage from '../../components/DR/ActionCards/HeaderImage';
-import DataList from '../../components/DR/ActionCards/List';
-import NavigationBarWrapper from '../../components/NavigationBarWrapper';
-import buttonStyle from '../../constants/DR/buttonStyles';
-import fetch from '../../helpers/Fetch';
-import sourceStructure from '../../helpers/imagesSource';
-import languages from '../../locales/languages';
+import imgNews from '../../../assets/images/news.jpg';
+import HeaderImage from '../../../components/DR/ActionCards/HeaderImage';
+import DataList from '../../../components/DR/ActionCards/List';
+import NavigationBarWrapper from '../../../components/NavigationBarWrapper';
+import buttonStyle from '../../../constants/DR/buttonStyles';
+import fetch from '../../../helpers/Fetch';
+import sourceStructure from '../../../helpers/imagesSource';
+import languages from '../../../locales/languages';
 
 const NEWS_URL = 'https://covid-dr.appspot.com/news';
 
