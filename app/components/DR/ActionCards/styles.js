@@ -4,6 +4,8 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 
+import Colors from '../../../constants/colors';
+
 const textFontSize = wp('4%');
 
 const styles = StyleSheet.create({
@@ -24,7 +26,7 @@ const styles = StyleSheet.create({
   bigCards: {
     borderRadius: 8,
     justifyContent: 'center',
-    marginBottom: hp('2%'),
+    marginBottom: wp('1.5%'),
     padding: wp('5%'),
     width: wp('91%'),
   },
@@ -35,7 +37,7 @@ const styles = StyleSheet.create({
   text: {
     color: '#000',
     fontSize: textFontSize - 2,
-    fontFamily: 'IBMPlexSans-Thin',
+    fontFamily: 'IBMPlexSans',
   },
   buttons: {
     alignSelf: 'center',
@@ -44,6 +46,7 @@ const styles = StyleSheet.create({
     height: 38,
     marginLeft: 6,
     minWidth: wp('27%'),
+    backgroundColor: Colors.BLUE_RIBBON,
   },
   radioButtonLayout: {
     display: 'flex',
