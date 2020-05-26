@@ -1,8 +1,5 @@
-import { Text } from 'native-base';
 import React, { useEffect } from 'react';
-import { TouchableOpacity, View } from 'react-native';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import { View } from 'react-native';
 import { WebView } from 'react-native-webview';
 
 export default function AuroraScreen({ navigation }) {
@@ -21,20 +18,6 @@ export default function AuroraScreen({ navigation }) {
 
   return (
     <View style={{ flex: 1 }}>
-      <View>
-        {/* <TouchableOpacity
-          style={{backgroundColor: '#000', flexDirection: 'row', margin: 10, alignItems: 'center', width: '100%' }}
-          onPress={() => navigation.goBack()}>
-          <Icon color='#3389ff' size={wp('4%') + 4} name='chevron-left' />
-          <Text
-            style={{
-              color: '#3389ff',
-              fontSize: wp('4%') + 3,
-            }}>
-            Atrás
-          </Text>
-        </TouchableOpacity> */}
-      </View>
       <WebView
         ref={ref => (webViewRef = ref)}
         source={{

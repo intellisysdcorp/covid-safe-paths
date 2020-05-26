@@ -73,7 +73,7 @@ export default class HomeScreen extends Component {
     const date = moment(new Date(), 'DD/MM/YYYY').format('MMMM YYYY');
     const {
       props: { navigation },
-      state: { cases, deaths, recovered, todayCases, updatedAt, refreshing },
+      state: { cases, deaths, recovered, todayCases, refreshing },
     } = this;
 
     return (
@@ -112,9 +112,6 @@ export default class HomeScreen extends Component {
                         {languages.t('label.current_situation_label')}
                       </Text>
                     </View>
-                    <Text style={[styles.subtitles, { color: '#747474' }]}>
-                      {updatedAt}
-                    </Text>
                   </View>
                   <View style={styles.actualSituationContainer}>
                     <TouchableOpacity>
@@ -168,7 +165,7 @@ export default class HomeScreen extends Component {
                       <Text
                         style={[
                           styles.text,
-                          { color: '#2f3133', textAlign: 'center' },
+                          { color: Colors.GRAY, textAlign: 'center' },
                         ]}>
                         {languages.t('label.home_screen_bottom_text')}
                       </Text>
