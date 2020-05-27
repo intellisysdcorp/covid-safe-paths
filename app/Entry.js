@@ -142,14 +142,14 @@ class Entry extends Component {
             options={{
               headerTitle: '',
               headerTintColor: Colors.WHITE,
-              headerBackTitle: 'Atrás',
+              headerBackTitle: ' ',
               headerStyle: {
                 backgroundColor: Colors.BLUE_RIBBON,
                 shadowColor: Colors.BLUE_RIBBON,
                 height: hp('7%'),
               },
-              headerRightContainerStyle: {
-                marginRight: 25,
+              headerLeftContainerStyle: {
+                marginLeft: 15,
               },
             }}
           />
@@ -169,7 +169,7 @@ class Entry extends Component {
             options={{
               headerTitle: '',
               headerTintColor: Colors.WHITE,
-              headerBackTitle: 'Atrás',
+              headerBackTitle: ' ',
               headerStyle: {
                 backgroundColor: Colors.BLUE_RIBBON,
                 height: hp('7%'),

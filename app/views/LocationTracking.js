@@ -179,9 +179,6 @@ class LocationTracking extends Component {
   }
 
   componentDidMount() {
-    this.props.navigation.setOptions({
-      headerRight: () => this.getSettingsBtn(),
-    });
     AppState.addEventListener('change', this.handleAppStateChange);
     BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     // refresh state if settings have changed
@@ -314,9 +311,8 @@ class LocationTracking extends Component {
   getSettingsBtn() {
     return (
       <TouchableOpacity
-        onPress={() => {
-          this.props.navigation.navigate('SettingsScreen');
-        }}>
+        style={styles.settingsContainer}
+        onPress={() => this.settings()}>
         {/* Is there is a reason there's this imageless image tag here? Can we delete it? */}
         <Image resizeMode={'contain'} />
         <SvgXml xml={settingsIcon} width={30} height={30} color='white' />
@@ -529,7 +525,7 @@ const styles = StyleSheet.create({
     top: 0,
     marginTop: '14%',
     marginRight: '7%',
-    alignSelf: 'center',
+    alignSelf: 'flex-end',
   },
   buttonContainer: {
     marginTop: 24,

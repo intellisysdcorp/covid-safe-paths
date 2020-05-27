@@ -117,7 +117,6 @@ export default function UserInfo({ navigation }) {
     birth
       ? false
       : true;
-  console.log(disabled);
   return (
     <Container>
       <Content>
@@ -251,7 +250,7 @@ export default function UserInfo({ navigation }) {
                   onPress={async () => {
                     //Send data to API
                     let response = await sendDataToApi();
-                    if (response.valid != undefined) {
+                    if (response.valid !== undefined) {
                       if (response.valid) {
                         getAge(birth);
                         closeDialog(false);
