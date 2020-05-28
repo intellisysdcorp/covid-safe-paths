@@ -18,14 +18,14 @@ const index = () => {
         }}
         swipeEnabled={false}>
         <Tab.Screen
-          name={'Hospitals'}
+          name='Hospitals'
           options={{
             tabBarLabel: languages.t('navigation.hospitals_maps'),
           }}
           component={Map}
         />
         <Tab.Screen
-          name={'Laboratories'}
+          name='Laboratories'
           options={{
             tabBarLabel: languages.t('navigation.laboratories_maps'),
           }}
