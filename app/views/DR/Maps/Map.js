@@ -59,7 +59,6 @@ export default function HospitalMap({ route: { name: type } }) {
       );
     } else {
       await requestCovid19Laboratories().then(value => {
-        console.log(value, 'labies?');
         setLaboratories(value);
         Geolocation.getCurrentPosition(
           ({ coords }) => {
