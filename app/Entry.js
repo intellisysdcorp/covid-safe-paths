@@ -12,6 +12,7 @@ import NavEntry from './NavEntry';
 import AboutScreen from './views/About';
 import ChooseProviderScreen from './views/ChooseProvider';
 import AuroraScreen from './views/DR/Aurora';
+import EpidemiologicScreen from './views/DR/EpidemiologicalResponseScreen';
 import Report from './views/DR/ReportScreen/ReportScreenQuestions';
 import ResultsScreen from './views/DR/ReportScreen/Results';
 import UserInfo from './views/DR/UserInfoScreen/index';
@@ -179,6 +180,11 @@ class Entry extends Component {
           <Stack.Screen
             name='UserInfo'
             component={UserInfo}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name='EpidemiologicResponse'
+            component={EpidemiologicScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

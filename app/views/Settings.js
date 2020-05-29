@@ -122,6 +122,11 @@ export const SettingsScreen = ({ navigation }) => {
             label={t('share.title')}
             description={t('share.subtitle')}
             onPress={() => navigation.navigate('ExportScreen')}
+          />
+          <Item
+            label={t('label.epidemiologic_report_title')}
+            description={t('label.epidemiologic_report_subtitle')}
+            onPress={() => navigation.navigate('EpidemiologicResponse')}
             last
           />
         </Section>
