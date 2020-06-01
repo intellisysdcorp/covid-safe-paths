@@ -47,7 +47,7 @@ export default class HomeScreen extends Component {
     const oldCases = [cases, deaths, recovered, todayCases];
 
     const newCases = oldCases.map(number => {
-      switch (true) {
+      switch (number > 0) {
         case number < 1e3:
           return number;
 
