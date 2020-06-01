@@ -1,15 +1,58 @@
 import { Button, Text } from 'native-base';
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, View } from 'react-native';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
+import { Dialog } from 'react-native-simple-dialogs';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import styles from '../../../components/DR/Header/style';
+import ToggleButtons from '../../../components/DR/ToggleButtons';
 import Colors from '../../../constants/colors';
 
 const EpidemiologicalStatus = () => {
-  const valid = false;
+  const valid = true;
+  const [todaysFeeling, setTodaysFeeling] = useState('');
+  const [showDialog, setShowDialog] = useState(false);
+
+  const closeDialog = () => {
+    setShowDialog(false);
+    setTodaysFeeling('');
+  };
   return (
     <View style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+      <Dialog
+        visible={showDialog}
+        dialogStyle={{ backgroundColor: Colors.WHITE }}>
+        <View>
+          <Button
+            transparent
+            onPress={() => closeDialog()}
+            style={{ marginTop: -10 }}>
+            <Icon name='times' size={25} color={Colors.GREEN} />
+          </Button>
+          <Text style={styles.textSemiBold}>¿Cómo te sientes hoy?</Text>
+          <ToggleButtons
+            btnStyle={{ width: '85%' }}
+            options={['¡Me siento genial!', 'No me siento bien']}
+            onSelection={selected => setTodaysFeeling(selected)}
+            selectedOption={todaysFeeling}
+          />
+          <Button
+            style={[
+              styles.buttons,
+              {
+                backgroundColor: Colors.GREEN,
+                width: '70%',
+                marginTop: hp('3%'),
+              },
+            ]}>
+            <Text>Aceptar</Text>
+          </Button>
+        </View>
+      </Dialog>
       <View style={styles.formContainer}>
         <Text style={styles.subtitles}>Alta Epidemiológica</Text>
         <View style={styles.bottomLine} />
@@ -80,7 +123,9 @@ const EpidemiologicalStatus = () => {
           bottom: 0,
           width: wp('100%'),
         }}>
-        <Button style={[styles.buttons, { width: wp('70%') }]}>
+        <Button
+          style={[styles.buttons, { width: wp('70%') }]}
+          onPress={() => setShowDialog(true)}>
           <Text>¿Cómo te sientes hoy?</Text>
         </Button>
       </View>
