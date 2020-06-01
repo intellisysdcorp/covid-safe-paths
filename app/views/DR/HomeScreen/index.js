@@ -47,14 +47,20 @@ export default class HomeScreen extends Component {
     const oldCases = [cases, deaths, recovered, todayCases];
 
     const newCases = oldCases.map(number => {
-      if (number < 1e3) return number;
-      else if (number >= 1e3 && number < 1e5)
-        return number.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-      else if (number >= 1e5 && number < 1e6)
-        return +(number / 1e3).toFixed(1) + 'K';
-      else return +(number / 1e6).toFixed(1) + 'M';
-    });
+      switch (true) {
+        case number < 1e3:
+          return number;
 
+        case number >= 1e3 && number < 1e5:
+          return number.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+
+        case number >= 1e5 && number < 1e6:
+          return +(number / 1e3).toFixed(1) + 'K';
+
+        default:
+          return +(number / 1e6).toFixed(1) + 'M';
+      }
+    });
     return {
       cases: newCases[0],
       deaths: newCases[1],
