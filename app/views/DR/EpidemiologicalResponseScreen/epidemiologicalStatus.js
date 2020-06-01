@@ -14,52 +14,63 @@ const EpidemiologicalStatus = () => {
         <Text style={styles.subtitles}>Alta Epidemiológica</Text>
         <View style={styles.bottomLine} />
         <Text>Estado:</Text>
-        {valid ? (
-          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <Image
-              resizeMode='contain'
-              style={{
-                height: 200,
-                width: 310,
-                alignSelf: 'center',
-                marginTop: 10,
-              }}
-              source={require('../../../assets/images/waitingResults.jpg')}
-            />
-            <Text
-              style={[
-                styles.textSemiBold,
-                { color: Colors.GOLD, textAlign: 'center', fontSize: wp('5%') },
-              ]}>
-              En espera de los resultados del laboratorio
-            </Text>
-          </View>
-        ) : (
-          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <Image
-              resizeMode='contain'
-              style={{
-                height: 230,
-                width: 310,
-                alignSelf: 'center',
-                marginTop: 10,
-              }}
-              source={require('../../../assets/images/covidFree.jpg')}
-            />
-            <Text
-              style={[
-                styles.textSemiBold,
-                {
-                  color: Colors.MEDIUM_GREEN,
-                  textAlign: 'center',
-                  fontSize: wp('5.5%'),
-                  width: wp('70%'),
-                },
-              ]}>
-              ¡Felicidades, eres libre de COVID-19!
-            </Text>
-          </View>
-        )}
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '80%',
+          }}>
+          {valid ? (
+            <View>
+              <Image
+                resizeMode='contain'
+                style={{
+                  height: 200,
+                  width: 310,
+                  alignSelf: 'center',
+                  marginTop: 10,
+                }}
+                source={require('../../../assets/images/waitingResults.jpg')}
+              />
+              <Text
+                style={[
+                  styles.textSemiBold,
+                  {
+                    color: Colors.GOLD,
+                    textAlign: 'center',
+                    fontSize: wp('5%'),
+                  },
+                ]}>
+                En espera de los resultados del laboratorio
+              </Text>
+            </View>
+          ) : (
+            <View>
+              <Image
+                resizeMode='contain'
+                style={{
+                  height: 230,
+                  width: 310,
+                  alignSelf: 'center',
+                  marginTop: 10,
+                }}
+                source={require('../../../assets/images/covidFree.jpg')}
+              />
+              <Text
+                style={[
+                  styles.textSemiBold,
+                  {
+                    color: Colors.MEDIUM_GREEN,
+                    textAlign: 'center',
+                    fontSize: wp('5.5%'),
+                    width: wp('70%'),
+                  },
+                ]}>
+                ¡Felicidades, eres libre de COVID-19!
+              </Text>
+            </View>
+          )}
+        </View>
       </View>
       <View
         style={{
