@@ -12,7 +12,7 @@ import styles from '../../../components/DR/Header/style';
 import ToggleButtons from '../../../components/DR/ToggleButtons';
 import Colors from '../../../constants/colors';
 
-const EpidemiologicalStatus = () => {
+const EpidemiologicalStatus = ({ navigation }) => {
   const valid = true;
   const [todaysFeeling, setTodaysFeeling] = useState('');
   const [showDialog, setShowDialog] = useState(false);
@@ -41,14 +41,21 @@ const EpidemiologicalStatus = () => {
             selectedOption={todaysFeeling}
           />
           <Button
+            disabled={!todaysFeeling}
             style={[
               styles.buttons,
               {
-                backgroundColor: Colors.GREEN,
+                backgroundColor: !todaysFeeling ? '#b7dbb2' : Colors.GREEN,
                 width: '70%',
                 marginTop: hp('3%'),
               },
-            ]}>
+            ]}
+            onPress={() => {
+              closeDialog();
+              if (todaysFeeling === 'No me siento bien') {
+                navigation.navigate('Report');
+              }
+            }}>
             <Text>Aceptar</Text>
           </Button>
         </View>
