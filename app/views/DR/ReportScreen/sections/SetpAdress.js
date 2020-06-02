@@ -59,7 +59,6 @@ const StepAdress = ({ setCompleted }) => {
           setSelectedOption('latitude', coords.latitude.toString());
           setSelectedOption('longitude', coords.longitude.toString());
         },
-        () => {},
         { enableHighAccuracy: true },
       );
     }
