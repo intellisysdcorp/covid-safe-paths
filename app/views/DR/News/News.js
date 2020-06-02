@@ -7,7 +7,6 @@ import HeaderImage from '../../../components/DR/ActionCards/HeaderImage';
 import DataList from '../../../components/DR/ActionCards/List';
 import buttonStyle from '../../../constants/DR/buttonStyles';
 import fetch from '../../../helpers/Fetch';
-import sourceStructure from '../../../helpers/imagesSource';
 import languages from '../../../locales/languages';
 
 const NEWS_URL = 'https://covid-dr.appspot.com/news';
@@ -26,8 +25,7 @@ function NewsScreen({ navigation }) {
     setIsLoading(true);
     fetch(`${NEWS_URL}?endAt=${order - 10}`)
       .then(({ data }) => {
-        const newsSource = sourceStructure(data);
-        setNews(news.concat(newsSource));
+        setNews(news.concat(data.news));
         setIsLoading(false);
       })
       .catch(() => {
@@ -38,8 +36,7 @@ function NewsScreen({ navigation }) {
   useEffect(() => {
     fetch(NEWS_URL)
       .then(({ data }) => {
-        const news = sourceStructure(data);
-        setNews(news);
+        setNews(data.news);
       })
       .catch(() => {
         setNews([]);
