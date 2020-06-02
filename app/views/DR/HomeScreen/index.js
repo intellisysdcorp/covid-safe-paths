@@ -31,6 +31,7 @@ export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      updated: 0,
       cases: 0,
       deaths: 0,
       recovered: 0,
@@ -39,17 +40,58 @@ export default class HomeScreen extends Component {
     };
   }
 
+  // This fuction is to abreviate or separate numbers, ex: 1000 => 1,000, 100000 => 100K
+  separateOrAbreviate = data => {
+    const { cases, deaths, recovered, todayCases } = data;
+
+    const oldCases = [cases, deaths, recovered, todayCases];
+
+    const newCases = oldCases.map(number => {
+      switch (number > 0) {
+        case number < 1e3:
+          return number;
+
+        case number >= 1e3 && number < 1e5:
+          return number.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+
+        case number >= 1e5 && number < 1e6:
+          return +(number / 1e3).toFixed(1) + 'K';
+
+        default:
+          return +(number / 1e6).toFixed(1) + 'M';
+      }
+    });
+    return {
+      cases: newCases[0],
+      deaths: newCases[1],
+      recovered: newCases[2],
+      todayCases: newCases[3],
+    };
+  };
+
   getCases = () => {
-    getAllCases().then(({ cases, deaths, recovered, todayCases }) => {
+    getAllCases().then(({ updated, cases, deaths, recovered, todayCases }) => {
       this.setState(state => ({
         ...state,
-        cases,
-        deaths,
-        recovered,
-        todayCases,
+        updated,
+        ...this.separateOrAbreviate({ cases, deaths, recovered, todayCases }), // To take all the cards' content and abreviate them
         refreshing: false,
       }));
     });
+  };
+
+  getUpdateDate = () => {
+    const { updated } = this.state;
+
+    const dateOfCase = new Date(updated);
+
+    let month = dateOfCase.getMonth() + 1;
+    month = month <= 9 ? '0' + month : month;
+    let day = dateOfCase.getDate();
+    day = day <= 9 ? '0' + day : day;
+    const year = dateOfCase.getFullYear();
+
+    return `${day}/${month}/${year}`;
   };
 
   refresh = () => {
@@ -75,6 +117,7 @@ export default class HomeScreen extends Component {
   render() {
     const date = moment(new Date(), 'DD/MM/YYYY').format('MMMM YYYY');
     const {
+      getUpdateDate,
       props: { navigation },
       state: { cases, deaths, recovered, todayCases, refreshing },
     } = this;
@@ -113,6 +156,10 @@ export default class HomeScreen extends Component {
                           { alignSelf: 'center', marginVertical: hp('1%') },
                         ]}>
                         {languages.t('label.current_situation_label')}
+                      </Text>
+                      <Text
+                        style={[styles.dateSubtitle, { alignSelf: 'center' }]}>
+                        {getUpdateDate()}
                       </Text>
                     </View>
                   </View>
