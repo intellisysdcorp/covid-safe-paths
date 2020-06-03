@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, View } from 'react-native';
+import { View } from 'react-native';
 import PDFView from 'react-native-pdf';
 
 import Colors from '../../../constants/colors';
@@ -87,10 +87,9 @@ class MentalHealthAdvices extends Component {
       state: { tip },
     } = this;
 
-    const source =
-      Platform.OS === 'ios'
-        ? require(`../../../assets/pdfsTips/SM_${tip}.pdf`)
-        : { uri: `bundle-assets://path/to/SM_${tip}.pdf` }; // Aqui pones los pdfs en android/app/src/main/assets/path/to/xxx.pdf
+    const source = {
+      uri: `https://covid-dr.appspot.com/assets/pdfs/SM_${tip}.pdf`,
+    };
 
     return (
       <View>

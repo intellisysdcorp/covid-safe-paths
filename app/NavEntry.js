@@ -5,7 +5,6 @@ import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import languages from './locales/languages';
-import MentalHealthAdvices from './views/DR/EpidemiologicalResponseScreen/epidemiologicalTips';
 import HomeScreen from './views/DR/HomeScreen';
 import Maps from './views/DR/Maps';
 import NewsMainScreen from './views/DR/News';
@@ -24,7 +23,7 @@ function MainNavigation() {
       }}>
       <Tab.Screen
         name='Home'
-        component={MentalHealthAdvices}
+        component={HomeScreen}
         options={{
           tabBarLabel: languages.t('navigation.home'),
           // eslint-disable-next-line react/display-name
