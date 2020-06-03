@@ -39,6 +39,7 @@ export default function UserInfo({ navigation }) {
         passportName = '',
         nssId = '',
         phoneNumber,
+        usage,
       },
     },
     setGlobalState,
@@ -71,9 +72,9 @@ export default function UserInfo({ navigation }) {
     }
   };
 
-  const storeData = async value => {
+  const storeData = async (key, value) => {
     try {
-      await AsyncStorage.setItem('positive', JSON.stringify(value));
+      await AsyncStorage.setItem(key, JSON.stringify(value));
     } catch (e) {
       console.log(e);
     }
@@ -89,16 +90,16 @@ export default function UserInfo({ navigation }) {
         },
       );
       response = await response.json();
-      console.log(response);
       if (response.valid !== undefined) {
         if (response.valid) {
           getAge(birth);
-
           let { positive } = await validateCovidPositive(data.body);
-          console.log(positive);
           closeDialog(false);
-          if (!positive) {
-            storeData(positive);
+          if (positive) {
+            if (usage === 'mySelf') {
+              storeData('positive', positive);
+              storeData('UserPersonalInfo', data.body);
+            }
             navigation.navigate('EpidemiologicResponse');
           } else {
             navigation.navigate('Report');
@@ -295,10 +296,7 @@ export default function UserInfo({ navigation }) {
                     },
                   ]}
                   onPress={async () => {
-                    //Send data to API
                     await sendDataToApi();
-                    const value = await AsyncStorage.getItem('positive');
-                    console.log(value);
                   }}>
                   <Text style={styles.buttonText}>Continuar</Text>
                 </Button>

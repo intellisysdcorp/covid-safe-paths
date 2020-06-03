@@ -13,7 +13,10 @@ import ToggleButtons from '../../../components/DR/ToggleButtons';
 import Colors from '../../../constants/colors';
 
 const EpidemiologicalStatus = ({ navigation }) => {
+  //Change for a call to the goverment's epidemiology department API, to validate the status of the user
+  //by the moment the response state is always waiting dor results.
   const valid = true;
+
   const [todaysFeeling, setTodaysFeeling] = useState('');
   const [showDialog, setShowDialog] = useState(false);
 
@@ -45,7 +48,9 @@ const EpidemiologicalStatus = ({ navigation }) => {
             style={[
               styles.buttons,
               {
-                backgroundColor: !todaysFeeling ? '#b7dbb2' : Colors.GREEN,
+                backgroundColor: !todaysFeeling
+                  ? Colors.DARK_GREEN
+                  : Colors.GREEN,
                 width: '70%',
                 marginTop: hp('3%'),
               },
