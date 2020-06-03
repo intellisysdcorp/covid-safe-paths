@@ -16,7 +16,7 @@ const EpidemiologicalStatus = () => {
         <Text>Estado:</Text>
         {valid ? (
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <Image
+            {/* <Image
               resizeMode='contain'
               style={{
                 height: 200,
@@ -25,7 +25,7 @@ const EpidemiologicalStatus = () => {
                 marginTop: 10,
               }}
               source={require('../../../assets/images/waitingResults.jpg')}
-            />
+            /> */}
             <Text
               style={[
                 styles.textSemiBold,
@@ -36,7 +36,7 @@ const EpidemiologicalStatus = () => {
           </View>
         ) : (
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <Image
+            {/* <Image
               resizeMode='contain'
               style={{
                 height: 230,
@@ -45,7 +45,7 @@ const EpidemiologicalStatus = () => {
                 marginTop: 10,
               }}
               source={require('../../../assets/images/covidFree.jpg')}
-            />
+            /> */}
             <Text
               style={[
                 styles.textSemiBold,
