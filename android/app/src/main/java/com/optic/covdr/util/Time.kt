@@ -1,4 +1,4 @@
-package org.pathcheck.covidsafepaths.util
+package com.optic.covdr.util
 
 import java.util.Calendar
 

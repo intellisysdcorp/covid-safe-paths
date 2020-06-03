@@ -1,4 +1,4 @@
-package org.pathcheck.covidsafepaths.storage
+package com.optic.covdr.storage
 
 import io.realm.annotations.RealmModule
 

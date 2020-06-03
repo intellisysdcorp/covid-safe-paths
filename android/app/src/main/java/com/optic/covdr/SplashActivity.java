@@ -1,4 +1,4 @@
-package org.pathcheck.covidsafepaths;
+package com.optic.covdr;
 
 import android.content.Intent;
 import android.os.Bundle;

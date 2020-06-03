@@ -1,4 +1,4 @@
-package org.pathcheck.covidsafepaths.storage
+package com.optic.covdr.storage
 
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReadableArray

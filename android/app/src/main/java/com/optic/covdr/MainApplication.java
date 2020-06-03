@@ -1,4 +1,4 @@
-package org.pathcheck.covidsafepaths;
+package com.optic.covdr;
 
 import android.app.Application;
 import android.content.Context;
@@ -12,8 +12,8 @@ import com.facebook.soloader.SoLoader;
 import io.realm.Realm;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import org.pathcheck.covidsafepaths.bridge.RealmPackage;
-import org.pathcheck.covidsafepaths.storage.SecureStorage;
+import com.optic.covdr.bridge.RealmPackage;
+import com.optic.covdr.storage.SecureStorage;
 
 public class MainApplication extends Application implements ReactApplication {
 

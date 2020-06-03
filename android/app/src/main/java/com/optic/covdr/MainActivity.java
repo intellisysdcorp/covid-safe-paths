@@ -1,10 +1,9 @@
-package org.pathcheck.covidsafepaths;
+package com.optic.covdr;
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
-import com.igorbelyayev.rnlocalresource.RNLocalResourcePackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
 import org.devio.rn.splashscreen.SplashScreen;
 

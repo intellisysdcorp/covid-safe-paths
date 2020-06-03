@@ -1,4 +1,4 @@
-package org.pathcheck.covidsafepaths.storage
+package com.optic.covdr.storage
 
 import android.util.Log
 import com.facebook.react.bridge.ReadableMap
