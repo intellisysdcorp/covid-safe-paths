@@ -15,29 +15,19 @@ class MentalHealthAdvices extends Component {
   }
 
   getData = async () => {
-    try {
-      const storageData = await GetStoreData('epidemiologicalTips');
+    const storageData = JSON.parse(await GetStoreData('epidemiologicalTips'));
 
-      return storageData
-        ? JSON.parse(storageData)
-        : { date: undefined, tip: 0 };
-    } catch (err) {
-      console.error(err);
-    }
+    return storageData || { date: undefined, tip: 0 };
   };
 
-  saveData = async (newDate, newTip) => {
-    try {
-      await SetStoreData('epidemiologicalTips', {
-        date: newDate,
-        tip: newTip,
-      });
-    } catch (err) {
-      console.error(err);
-    }
+  saveData = async (date, tip) => {
+    return await SetStoreData('epidemiologicalTips', {
+      date,
+      tip,
+    });
   };
 
-  isNewDate = dateStorage => {
+  isTipGoingToChange = dateStorage => {
     // Aqui va a haber una condicion para saber si es el mismo dia o no
     if (!dateStorage) {
       dateStorage = new Date('2000/01/01');
@@ -71,12 +61,12 @@ class MentalHealthAdvices extends Component {
 
   async componentDidMount() {
     const { date: storageDate, tip: storageTip } = await this.getData();
-    const isNewDate = this.isNewDate(storageDate);
+    const newDate = this.isTipGoingToChange(storageDate);
 
-    if (isNewDate) {
+    if (newDate) {
       const newTip = this.defineTip(storageTip, 14);
-      await this.saveData(isNewDate, newTip);
-      this.setState({ date: isNewDate, tip: newTip });
+      await this.saveData(newDate, newTip);
+      this.setState({ date: newDate, tip: newTip });
     } else {
       this.setState({ date: storageDate, tip: storageTip });
     }
