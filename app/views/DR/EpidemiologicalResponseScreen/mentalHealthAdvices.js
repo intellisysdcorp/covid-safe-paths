@@ -1,22 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
-import PDFView from 'react-native-pdf';
 
-import Colors from '../../../constants/colors';
-
+//This screen will be fill up with 'Epidemiological random tips' PR#60
 const MentalHealthAdvices = () => {
-  return (
-    <View>
-      <PDFView
-        source={require('../../../assets/pdfs/advice10.pdf')}
-        style={{
-          width: '100%',
-          height: '100%',
-          backgroundColor: Colors.WHITE,
-        }}
-      />
-    </View>
-  );
+  return <View />;
 };
 
 export default MentalHealthAdvices;
