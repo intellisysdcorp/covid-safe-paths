@@ -15,7 +15,7 @@ class MentalHealthAdvices extends Component {
   }
 
   getData = async () => {
-    const storageData = JSON.parse(await GetStoreData('epidemiologicalTips'));
+    const storageData = await GetStoreData('epidemiologicalTips', false);
 
     return storageData || { date: undefined, tip: 0 };
   };
