@@ -189,6 +189,9 @@ class Entry extends Component {
           <Stack.Screen
             name='EpidemiologicResponse'
             component={EpidemiologicScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
             name='ExposedResponse'
             component={ExposedResponse}
             options={{ headerShown: false }}
