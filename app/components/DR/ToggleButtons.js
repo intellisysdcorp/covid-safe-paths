@@ -12,7 +12,6 @@ export default function ToggleButtons({
   options,
   selectedOption,
   onSelection,
-  btnStyle,
 }) {
   function renderOption(option, selected, onSelect, index) {
     const buttonStyle = {
@@ -30,7 +29,7 @@ export default function ToggleButtons({
         transparent
         onPress={onSelect}
         key={index}
-        style={[styles.rectButtons, buttonStyle, btnStyle]}>
+        style={[styles.rectButtons, buttonStyle]}>
         {selected ? (
           <Icon
             name='check-circle'

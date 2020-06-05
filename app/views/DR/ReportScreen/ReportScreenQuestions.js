@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-community/async-storage';
 import { Button, Text } from 'native-base';
 import React, { useContext, useRef, useState } from 'react';
 import { View } from 'react-native';
@@ -47,20 +46,12 @@ export default function ReportScreenQuestions({ navigation }) {
 
   const sendDataToApi = async () => {
     try {
-      let merged = {};
-      if (answers.usage === 'mySelf') {
-        let userInfo = await AsyncStorage.getItem('UserPersonalInfo');
-        userInfo = await JSON.parse(userInfo);
-        merged = { ...userInfo, ...answers };
-      } else {
-        merged = answers;
-      }
       const response = await fetch(
         'https://webapps.mepyd.gob.do:443/contact_tracing/api/Form',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(merged),
+          body: JSON.stringify(answers),
         },
       );
       const data = await response.json();

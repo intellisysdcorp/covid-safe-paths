@@ -23,7 +23,7 @@ const Onboarding = props => {
   return (
     <View style={styles.mainContainer}>
       <StatusBar
-        barStyle='light-content'
+        barStyle='dark-content'
         backgroundColor='transparent'
         translucent
       />

@@ -1,6 +1,5 @@
 import 'moment/locale/es';
 
-import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import { Button, Card, Container, Content, Text } from 'native-base';
 import React, { useContext, useState } from 'react';
@@ -39,7 +38,6 @@ export default function UserInfo({ navigation }) {
         passportName = '',
         nssId = '',
         phoneNumber,
-        usage,
       },
     },
     setGlobalState,
@@ -55,30 +53,6 @@ export default function UserInfo({ navigation }) {
     final && setGlobalState({ type: 'CLEAN_ANSWERS' });
   };
 
-  const validateCovidPositive = async info => {
-    try {
-      let response = await fetch(
-        'https://webapps.mepyd.gob.do:443/contact_tracing/api/Form',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(info),
-        },
-      );
-      response = await response.json();
-      return response;
-    } catch (e) {
-      console.log('ha ocurrido un error', e);
-    }
-  };
-
-  const storeData = async (key, value) => {
-    try {
-      await AsyncStorage.setItem(key, JSON.stringify(value));
-    } catch (e) {
-      console.log(e);
-    }
-  };
   const validate = async data => {
     try {
       let response = await fetch(
@@ -89,29 +63,7 @@ export default function UserInfo({ navigation }) {
           body: JSON.stringify(data.body),
         },
       );
-      response = await response.json();
-      if (response.valid !== undefined) {
-        if (response.valid) {
-          getAge(birth);
-          let { positive } = await validateCovidPositive(data.body);
-          closeDialog(false);
-          if (positive) {
-            if (usage === 'mySelf') {
-              storeData('positive', positive);
-              storeData('UserPersonalInfo', data.body);
-            }
-            navigation.navigate('EpidemiologicResponse');
-          } else {
-            navigation.navigate('Report');
-          }
-        } else {
-          setError(true);
-        }
-      } else {
-        setShowDialog(false);
-        setShowValidationDialog(true);
-      }
-      return response;
+      return await response.json();
     } catch (e) {
       console.log('ha ocurrido un error', e);
     }
@@ -296,7 +248,20 @@ export default function UserInfo({ navigation }) {
                     },
                   ]}
                   onPress={async () => {
-                    await sendDataToApi();
+                    //Send data to API
+                    let response = await sendDataToApi();
+                    if (response.valid !== undefined) {
+                      if (response.valid) {
+                        getAge(birth);
+                        closeDialog(false);
+                        navigation.navigate('Report');
+                      } else {
+                        setError(true);
+                      }
+                    } else {
+                      setShowDialog(false);
+                      setShowValidationDialog(true);
+                    }
                   }}>
                   <Text style={styles.buttonText}>Continuar</Text>
                 </Button>
