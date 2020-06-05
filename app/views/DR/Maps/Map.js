@@ -14,6 +14,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+import SplashScreen from 'react-native-splash-screen';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import sortByDistance from 'sort-by-distance';
 
@@ -24,6 +25,7 @@ import {
   requestCovid19Hospitals,
   requestCovid19Laboratories,
 } from '../../../helpers/Request';
+import languages from '../../../locales/languages';
 
 const latitudeDelta = 0.0052;
 const longitudeDelta = 0.0081;
@@ -45,33 +47,25 @@ export default function HospitalMap({ route: { name: type } }) {
     if (type === 'Hospitals') {
       const value = await requestCovid19Hospitals();
       setHospitals(value);
-      Geolocation.getCurrentPosition(
-        ({ coords }) => {
+      Geolocation.getCurrentPosition(({ coords }) => {
+        const { latitude, longitude } = coords;
+        const sorted = sortByDistance({ latitude, longitude }, value, {
+          yName: 'latitude',
+          xName: 'longitude',
+        });
+        setSortedMarkers(sorted);
+      });
+    } else {
+      await requestCovid19Laboratories().then(value => {
+        setLaboratories(value);
+        Geolocation.getCurrentPosition(({ coords }) => {
           const { latitude, longitude } = coords;
           const sorted = sortByDistance({ latitude, longitude }, value, {
             yName: 'latitude',
             xName: 'longitude',
           });
           setSortedMarkers(sorted);
-        },
-        () => {},
-        { enableHighAccuracy: true },
-      );
-    } else {
-      await requestCovid19Laboratories().then(value => {
-        setLaboratories(value);
-        Geolocation.getCurrentPosition(
-          ({ coords }) => {
-            const { latitude, longitude } = coords;
-            const sorted = sortByDistance({ latitude, longitude }, value, {
-              yName: 'latitude',
-              xName: 'longitude',
-            });
-            setSortedMarkers(sorted);
-          },
-          () => {},
-          { enableHighAccuracy: true },
-        );
+        });
       });
     }
   };
@@ -154,7 +148,9 @@ export default function HospitalMap({ route: { name: type } }) {
         <Icon name='thermometer-quarter' size={22} color='#4372e8' />
       )}
       <Text style={styles.cardTitle}>
-        {type === 'Hospitals' ? 'Hospitales' : 'Laboratorios'}
+        {type === 'Hospitals'
+          ? languages.t('navigation.hospitals_maps')
+          : languages.t('navigation.laboratories_maps')}
       </Text>
       <Text style={styles.cardText}>
         {`(${selectedMarker.length} acreditados)`}
@@ -198,6 +194,7 @@ export default function HospitalMap({ route: { name: type } }) {
 
       <BottonUpPanel
         ref={component => setBottomRef(component)}
+        sortedMarkers={sortedMarkers}
         content={renderBottomUpPanelContent}
         icon={renderBottomUpPanelIcon}
         topEnd={height - height * 0.7}
