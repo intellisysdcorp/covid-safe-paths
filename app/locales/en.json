@@ -184,8 +184,8 @@
     "mental_health_advice_tab": "Mental health tips"
   },
   "maps": {
-    "error-header": "We are sorry",
-    "error-message": "At the moment, the desired data could not be obtained. Please try again later."
+    "error_header": "We are sorry",
+    "error_message": "At the moment, the desired data could not be obtained. Please try again later."
   },
   "navigation": {
     "home": "Home",

@@ -185,8 +185,8 @@ export default class BottomUpPanel extends Component {
   toggle = () => {
     if (this.props.sortedMarkers.length === 0) {
       Alert.alert(
-        languages.t('maps.error-header'),
-        languages.t('maps.error-message'),
+        languages.t('maps.error_header'),
+        languages.t('maps.error_message'),
       );
     } else if (!this.state.open) {
       this.open();
