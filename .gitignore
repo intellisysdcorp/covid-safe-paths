@@ -153,3 +153,4 @@ freeline_project_description.json
 
 # Release enviroment variables this has to be set on each enviroment
 .env.release
+.env
