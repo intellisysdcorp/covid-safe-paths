@@ -71,7 +71,7 @@ const StepMedicalConditions = ({ setCompleted }) => {
           <ScrollView>
             <View style={styles.formContainer}>
               <Text style={[styles.subtitles, { marginVertical: hp('3%') }]}>
-                ¿Presenta alguna de estas condiciones médicas? *
+                {t('report.med_conditions.med_cond_title')}
               </Text>
               <Checkbox
                 text={t('report.med_conditions.hypertension')}

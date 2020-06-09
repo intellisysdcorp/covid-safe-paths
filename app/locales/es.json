@@ -192,6 +192,13 @@
   "report": {
     "yes": "Sí",
     "no": "No",
+    "back": "Atrás",
+    "continue": "Continuar",
+    "close": "Cerrar",
+    "callEmergency": {
+      "call_title": "Deberías llamar al *462.",
+      "call_subtitle": "Basado en los síntomas que reportaste, deberías buscar atención inmediatamente."
+    },
     "haveSymptoms": {
       "emergency_title": "¿Es esto una emergencia?",
       "emergency_subtitle_myself": "Deténgase y llame al *462 si tiene alguno de estos síntomas: ",
@@ -210,6 +217,7 @@
       "dont_have_this_symptoms_others": "No tiene ninguno de estos síntomas"
     },
     "sex": {
+      "sex_title": "Sexo *",
       "female": "Femenino",
       "male": "Masculino"
     },
@@ -306,7 +314,8 @@
     },
     "thankYou": {
       "thanks": "¡Gracias!",
-      "press_end": "Presiona Finalizar para culminar el proceso"
+      "press_end": "Presiona Finalizar para culminar el proceso",
+      "finish": "Finalizar"
     }
   }
 }

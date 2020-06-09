@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { Button, Text } from 'native-base';
 import React, { useContext, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 import {
   heightPercentageToDP as hp,
@@ -29,6 +30,8 @@ export default function ReportScreenQuestions({ navigation }) {
   navigation.setOptions({
     headerShown: false,
   });
+  const { t } = useTranslation();
+
   const wizard = useRef(null);
   const [isFirstStep, setIsFirstStep] = useState(true);
   const [isLastStep, setIsLastStep] = useState(false);
@@ -116,10 +119,11 @@ export default function ReportScreenQuestions({ navigation }) {
             style={{ marginBottom: -6 }}
             color='#F54243'
           />
-          <Text style={styles.subtitles}>Deberías llamar al *462.</Text>
+          <Text style={styles.subtitles}>
+            {t('report.callEmergency.call_title')}
+          </Text>
           <Text style={styles.text}>
-            Basado en los síntomas que reportaste, deberías buscar atención
-            inmediatamente.
+            {t('report.callEmergency.call_subtitle')}
           </Text>
           <Button
             style={[
@@ -131,7 +135,7 @@ export default function ReportScreenQuestions({ navigation }) {
               navigation.goBack();
               setGlobalState({ type: 'CLEAN_ANSWERS' });
             }}>
-            <Text>Cerrar</Text>
+            <Text>{t('report.close')}</Text>
           </Button>
         </View>
       </Dialog>
@@ -200,7 +204,7 @@ export default function ReportScreenQuestions({ navigation }) {
                 color: BLACK,
               },
             ]}>
-            Atrás
+            {t('report.back')}
           </Text>
         )}
 
@@ -213,7 +217,10 @@ export default function ReportScreenQuestions({ navigation }) {
               SetStoreData(COVID_ID, covidId);
               navigation.navigate('Results');
             }
-            if (data === 'Tengo al menos uno de estos síntomas') {
+            if (
+              data === t('report.haveSymptoms.have_this_symptoms_others') ||
+              data === t('report.haveSymptoms.have_this_symptoms_myself')
+            ) {
               setDialogVisible(true);
             } else {
               wizard.current.next();
@@ -234,7 +241,7 @@ export default function ReportScreenQuestions({ navigation }) {
             },
           ]}>
           <Text style={styles.buttonText}>
-            {isLastStep ? 'Finalizar' : 'Continuar'}
+            {isLastStep ? t('report.thankYou.finish') : t('report.continue')}
           </Text>
         </Button>
       </View>

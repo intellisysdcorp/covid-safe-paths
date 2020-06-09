@@ -33,7 +33,7 @@ const StepAge = ({ setCompleted }) => {
         <ScrollView>
           <View style={styles.formContainer}>
             <Text style={[styles.subtitles, { marginVertical: hp('3%') }]}>
-              Sexo *
+              {t('report.sex.sex_title')}
             </Text>
             <ToggleButtons
               options={[t('report.sex.female'), t('report.sex.male')]}
