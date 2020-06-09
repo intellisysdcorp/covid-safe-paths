@@ -150,3 +150,6 @@ freeline_project_description.json
 .nfs*
 
 # End of https://www.gitignore.io/api/reactnative
+
+# Release enviroment variables this has to be set on each enviroment
+.env.release

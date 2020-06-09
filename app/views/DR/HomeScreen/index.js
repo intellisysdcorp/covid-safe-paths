@@ -148,31 +148,16 @@ export default class HomeScreen extends Component {
               <View style={{ marginHorizontal: wp('2%') }}>
                 <View style={styles.marginAndAlign}>
                   <Feels navigation={navigation} />
-                  <View style={styles.marginAndAlign}>
-                    <View style={styles.actualSituationContent}>
-                      <Text
-                        style={[
-                          styles.subtitles,
-                          { alignSelf: 'center', marginVertical: hp('1%') },
-                        ]}>
-                        {languages.t('label.current_situation_label')}
-                      </Text>
-                      <Text
-                        style={[styles.dateSubtitle, { alignSelf: 'center' }]}>
-                        {getUpdateDate()}
-                      </Text>
-                    </View>
-                  </View>
                   <View style={styles.actualSituationContainer}>
-                    <TouchableOpacity>
+                    <View>
                       <Card style={styles.infoCards}>
                         <Text style={[styles.dataText]}>{cases}</Text>
                         <Text style={styles.text}>
                           {languages.t('label.positive_label')}
                         </Text>
                       </Card>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
+                    </View>
+                    <View>
                       <Card style={styles.infoCards}>
                         <Text
                           style={[
@@ -185,8 +170,8 @@ export default class HomeScreen extends Component {
                           {languages.t('label.deceased_label')}
                         </Text>
                       </Card>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
+                    </View>
+                    <View>
                       <Card style={styles.infoCards}>
                         <Text
                           style={[styles.dataText, { color: Colors.GREEN }]}>
@@ -196,8 +181,8 @@ export default class HomeScreen extends Component {
                           {languages.t('label.recovered_label')}
                         </Text>
                       </Card>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
+                    </View>
+                    <View>
                       <Card style={styles.infoCards}>
                         <Text style={[styles.dataText, { color: Colors.SUN }]}>
                           {todayCases}
@@ -206,7 +191,7 @@ export default class HomeScreen extends Component {
                           {languages.t('label.case_day_label')}
                         </Text>
                       </Card>
-                    </TouchableOpacity>
+                    </View>
                   </View>
                   <LocationMatch navigation={this.props.navigation} />
                   <Aurora navigation={this.props.navigation} />
