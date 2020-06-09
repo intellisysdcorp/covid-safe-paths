@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 import {
   Alert,
   Animated,
@@ -14,7 +15,7 @@ import languages from '../../locales/languages';
 
 const { width, height } = Dimensions.get('window');
 
-export default class BottomUpPanel extends Component {
+export class BottomUpPanel extends Component {
   static defaultProps = {
     isOpen: false,
   };
@@ -183,11 +184,9 @@ export default class BottomUpPanel extends Component {
   };
 
   toggle = () => {
-    if (this.props.sortedMarkers.length === 0) {
-      Alert.alert(
-        languages.t('maps.error_header'),
-        languages.t('maps.error_message'),
-      );
+    const { sortedMarkers, t } = this.props;
+    if (sortedMarkers.length === 0) {
+      Alert.alert(t('maps.error_header'), t('maps.error_message'));
     } else if (!this.state.open) {
       this.open();
     } else {
@@ -195,6 +194,8 @@ export default class BottomUpPanel extends Component {
     }
   };
 }
+
+export default withTranslation()(BottomUpPanel);
 
 const styles = StyleSheet.create({
   container: {
