@@ -190,11 +190,35 @@
     "advices": "Consejos"
   },
   "report": {
+    "title": "Reporte",
+    "subtitle": "Por favor responde las siguientes preguntas",
     "yes": "Sí",
     "no": "No",
     "back": "Atrás",
     "continue": "Continuar",
     "close": "Cerrar",
+    "usage": {
+      "header_subtitle": "Las siguientes preguntas están relacionadas con el COVID-19",
+      "subtitle": "Responderás algunas preguntas sobre tus síntomas, viajes y el  contacto que has tenido con otros.",
+      "use_myself": "Usar para mi",
+      "use_others": "Usar para alguien más"
+    },
+    "userInfo": {
+      "api_down_error_msg": "En estos momentos no podemos validar tus datos. Por favor intenta más tarde.",
+      "incorrect_data_error_msg": "Datos incorrectos, por favor revise.",
+      "insert_data_title": "Ingrese sus datos",
+      "insert_data_subtitle": "Utilizaremos estos datos para darle el apropiado seguimiento a sus resultados:",
+      "start_with_id": "Iniciar con cédula",
+      "start_with_passport": "Iniciar con pasaporte",
+      "start_with_nss": "Iniciar con Número de Seguridad Social (NSS) de República Dominicana",
+      "name_and_lastname": "Nombre y apellido:",
+      "birthdate": "Fecha de nacimiento:",
+      "tel_number": "Número de teléfono:",
+      "enter_your": "Ingrese su No. de",
+      "social_security_number": "Seguro Social",
+      "passport_number": "pasaporte",
+      "id_number": "cédula"
+    },
     "callEmergency": {
       "call_title": "Deberías llamar al *462.",
       "call_subtitle": "Basado en los síntomas que reportaste, deberías buscar atención inmediatamente."

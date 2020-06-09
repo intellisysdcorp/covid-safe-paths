@@ -141,8 +141,8 @@ export default function ReportScreenQuestions({ navigation }) {
       </Dialog>
 
       <Header
-        title='Reporte'
-        text='Por favor responde las siguientes preguntas'
+        title={t('report.title')}
+        text={t('report.subtitle')}
         navigation={navigation}
         close
         style={{ height: hp('19%') }}

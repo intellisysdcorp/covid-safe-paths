@@ -195,11 +195,35 @@
     "advices": "Advices"
   },
   "report": {
+    "title": "Report",
+    "subtitle": "Please answer the following questions",
     "yes": "Yes",
     "no": "No",
     "back": "Back",
     "continue": "Continue",
     "close": "Close",
+    "usage": {
+      "header_subtitle": "The following questions are related to COVID-19",
+      "subtitle": "You will answer some questions about your symptoms, travel and the contact you have had with others.",
+      "use_myself": "Use for Myself",
+      "use_others": "Use for someone else"
+    },
+    "userInfo": {
+      "api_down_error_msg": "At this time we cannot validate your data. Please try again later.",
+      "incorrect_data_error_msg": "Incorrect data, please check.",
+      "insert_data_title": "Enter your data",
+      "insert_data_subtitle": "We will use these data to properly monitor your results:",
+      "start_with_id": "Start with Dominican ID",
+      "start_with_passport": "Start with passport",
+      "start_with_nss": "Start with Dominican Republic Social Security Number (NSS)",
+      "name_and_lastname": "Name and Surname:",
+      "birthdate": "Birthdate:",
+      "tel_number": "Phone number:",
+      "enter_your": "Enter your",
+      "social_security_number": "Social Security Number",
+      "passport_number": "Passport Number",
+      "id_number": "Dominican ID"
+    },
     "callEmergency": {
       "call_title": "You should call * 462.",
       "call_subtitle": "Based on the symptoms you reported, you should seek care immediately."
