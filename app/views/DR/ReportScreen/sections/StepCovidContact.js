@@ -184,7 +184,7 @@ const StepCovidContact = ({ setCompleted }) => {
                   </Picker>
                   <Text
                     style={[styles.subtitles, { marginVertical: hp('3%') }]}>
-                    Viajó en: *
+                    {t('report.cov_contact.transportation')}
                   </Text>
                   <ToggleButtons
                     options={[
