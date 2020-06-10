@@ -48,6 +48,8 @@ export default function HospitalMap({ route: { name: type } }) {
       setHospitals(value);
       Geolocation.getCurrentPosition(({ coords }) => {
         const { latitude, longitude } = coords;
+        rdCoords.latitude = latitude;
+        rdCoords.longitude = longitude;
         const sorted = sortByDistance({ latitude, longitude }, value, {
           yName: 'latitude',
           xName: 'longitude',
@@ -66,27 +68,7 @@ export default function HospitalMap({ route: { name: type } }) {
             xName: 'longitude',
           });
           setSortedMarkers(sorted);
-        },
-        () => {},
-        { enableHighAccuracy: true },
-      );
-    } else {
-      await requestCovid19Laboratories().then(value => {
-        setLaboratories(value);
-        Geolocation.getCurrentPosition(
-          ({ coords }) => {
-            const { latitude, longitude } = coords;
-            rdCoords.latitude = latitude;
-            rdCoords.longitude = longitude;
-            const sorted = sortByDistance({ latitude, longitude }, value, {
-              yName: 'latitude',
-              xName: 'longitude',
-            });
-            setSortedMarkers(sorted);
-          },
-          () => {},
-          { enableHighAccuracy: true },
-        );
+        });
       });
     }
   };
