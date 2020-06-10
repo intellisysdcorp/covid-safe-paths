@@ -156,6 +156,11 @@ class Entry extends Component {
             options={{ headerShown: false }}
           />
           <Stack.Screen
+            name='Report'
+            component={Report}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
             name='AuroraScreen'
             component={AuroraScreen}
             options={{
