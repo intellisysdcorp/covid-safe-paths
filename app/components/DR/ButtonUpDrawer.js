@@ -11,8 +11,6 @@ import {
   View,
 } from 'react-native';
 
-import languages from '../../locales/languages';
-
 const { width, height } = Dimensions.get('window');
 
 export class BottomUpPanel extends Component {
