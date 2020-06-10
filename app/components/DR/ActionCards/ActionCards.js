@@ -25,7 +25,6 @@ export class Feels extends Component {
 
   isPositiveCovid = async () => {
     const positive = await GetStoreData('positive', false);
-    console.log(positive);
     return positive;
   };
 
@@ -50,7 +49,7 @@ export class Feels extends Component {
           <View style={{ flexDirection: 'column' }}>
             <Text style={[styles.text, { width: '90%' }]}>
               {positive
-                ? 'Como COVID positivo tienes opcion a resultados del laboratorio y consejos diarios'
+                ? languages.t('label.positive_symptoms_description')
                 : languages.t('label.report_symptoms_description')}
             </Text>
             <View style={{ justifyContent: 'center' }}>
@@ -70,7 +69,7 @@ export class Feels extends Component {
                 ]}>
                 <Text style={styles.buttonText}>
                   {positive
-                    ? 'Apoyo al positivo'
+                    ? languages.t('label.positive_symptoms_label')
                     : languages.t('label.report_symptoms_label')}
                 </Text>
               </Button>
