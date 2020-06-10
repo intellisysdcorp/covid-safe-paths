@@ -74,7 +74,12 @@ export default class HomeScreen extends Component {
       this.setState(state => ({
         ...state,
         updated,
-        ...this.separateOrAbreviate({ cases, deaths, recovered, todayCases }), // To take all the cards' content and abreviate them
+        ...this.separateOrAbreviate({
+          cases: 100000,
+          deaths: 355000,
+          recovered: 1000000,
+          todayCases: 1000,
+        }), // To take all the cards' content and abreviate them
         refreshing: false,
       }));
     });
