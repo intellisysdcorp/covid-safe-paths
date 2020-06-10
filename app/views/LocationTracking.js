@@ -35,6 +35,7 @@ import { Button } from '../components/Button';
 import NextSteps from '../components/DR/LocationTracking/NextSteps';
 import { Typography } from '../components/Typography';
 import Colors from '../constants/colors';
+import { MEPYD_C5I_SERVICE } from '../constants/DR/baseUrls';
 import fontFamily from '../constants/fonts';
 import {
   COVID_ID,
@@ -52,6 +53,7 @@ import {
 import { checkIntersect } from '../helpers/Intersect';
 import languages from '../locales/languages';
 import BackgroundTaskServices from '../services/BackgroundTaskService';
+import { HCAService } from '../services/HCAService';
 import LocationServices from '../services/LocationService';
 
 const MAYO_COVID_URL = 'https://www.mayoclinic.org/coronavirus-covid-19';
@@ -119,13 +121,14 @@ class LocationTracking extends Component {
 
     // If user has location enabled & permissions, start logging
     GetStoreData(PARTICIPATE, false).then(isParticipating => {
-      if (isParticipating) {
+      if (isParticipating && HCAService.isAutosubscriptionEnabled()) {
         check(locationPermission)
           .then(result => {
             switch (result) {
               case RESULTS.GRANTED:
                 LocationServices.start();
                 this.checkIfUserAtRisk();
+                HCAService.findNewAuthorities();
                 return;
               case RESULTS.UNAVAILABLE:
               case RESULTS.BLOCKED:
@@ -222,7 +225,7 @@ class LocationTracking extends Component {
             covidId: covidId,
           });
 
-          fetch('https://webapps.mepyd.gob.do/contact_tracing/api/UserTrace', {
+          fetch(`${MEPYD_C5I_SERVICE}/contact_tracing/api/UserTrace`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body,
@@ -477,6 +480,8 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     flex: 1,
     justifyContent: 'flex-end',
+    paddingBottom: 20,
+    backgroundColor: Colors.BLUE_RIBBON,
   },
   mainContainer: {
     position: 'absolute',
