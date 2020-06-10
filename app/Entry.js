@@ -37,18 +37,15 @@ class Entry extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      initialRouteName: '',
+      initialRouteName: 'true',
     };
   }
 
-  componentDidMount() {
-    GetStoreData('ONBOARDING_DONE')
-      .then(onboardingDone => {
-        this.setState({
-          initialRouteName: onboardingDone,
-        });
-      })
-      .catch(error => console.log(error));
+  async componentDidMount() {
+    let onboardingDoneName = await GetStoreData('ONBOARDING_DONE');
+    this.setState({
+      initialRouteName: onboardingDoneName,
+    });
   }
 
   render() {
@@ -83,11 +80,6 @@ class Entry extends Component {
           <Stack.Screen
             name='Onboarding2'
             component={Onboarding2}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name='Onboarding3'
-            component={Onboarding3}
             options={{ headerShown: false }}
           />
           <Stack.Screen
