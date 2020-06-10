@@ -29,7 +29,7 @@ export function Feels({ navigation }) {
           </Text>
           <View style={{ justifyContent: 'center' }}>
             <Button
-              onPress={() => navigation.navigate('Report')}
+              onPress={() => navigation.navigate('ReportScreen')}
               style={[
                 styles.buttons,
                 {
