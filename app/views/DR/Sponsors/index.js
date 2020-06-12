@@ -1,9 +1,11 @@
 import { Card } from 'native-base';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
+import NavigationBarWrapper from '../../../components/NavigationBarWrapper';
 import { sponsorsList } from './List';
 
 function CreateCard(img, url, navigate) {
@@ -12,7 +14,8 @@ function CreateCard(img, url, navigate) {
   //   source: { uri: url },
   // })}
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => navigate('Details', { source: { uri: url } })}>
       <Card style={styles.imageContainer}>
         <Image source={img} style={styles.images} />
       </Card>
@@ -20,7 +23,9 @@ function CreateCard(img, url, navigate) {
   );
 }
 
-export default function index({ navigation: { navigate } }) {
+export default function index({ navigation: { navigate, goBack } }) {
+  const { t } = useTranslation();
+
   const createAllCard = () => {
     const allCards = [];
     for (let sponsor in sponsorsList) {
@@ -32,16 +37,22 @@ export default function index({ navigation: { navigate } }) {
   };
 
   return (
-    <View style={styles.container}>
-      <ScrollView>
-        <View style={styles.cardsContainer}>{createAllCard()}</View>
-      </ScrollView>
-    </View>
+    <NavigationBarWrapper
+      title={t('label.sponsors')}
+      onBackPress={() => goBack()}>
+      <View style={styles.container}>
+        <ScrollView>
+          <View style={styles.cardsContainer}>{createAllCard()}</View>
+        </ScrollView>
+      </View>
+    </NavigationBarWrapper>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: 'white',
     width: '100%',
     alignItems: 'center',
   },
