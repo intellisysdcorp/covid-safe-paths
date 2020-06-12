@@ -38,6 +38,13 @@ export default class HomeScreen extends Component {
       todayCases: 0,
       refreshing: false,
     };
+    this.handler = this.handler.bind(this);
+  }
+
+  handler() {
+    this.setState({
+      isPositiveConfirmed: true,
+    });
   }
 
   // This fuction is to abreviate or separate numbers, ex: 1000 => 1,000, 100000 => 100K
@@ -147,7 +154,7 @@ export default class HomeScreen extends Component {
               </View>
               <View style={{ marginHorizontal: wp('2%') }}>
                 <View style={styles.marginAndAlign}>
-                  <Feels navigation={navigation} />
+                  <Feels navigation={navigation} handler={this.handler} />
                   <View style={styles.marginAndAlign}>
                     <View style={styles.actualSituationContent}>
                       <Text

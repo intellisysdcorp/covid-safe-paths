@@ -25,6 +25,7 @@ export class Feels extends Component {
 
   isPositiveCovid = async () => {
     const positive = await GetStoreData('positive', false);
+    if (positive) this.props.handler();
     return positive;
   };
 
