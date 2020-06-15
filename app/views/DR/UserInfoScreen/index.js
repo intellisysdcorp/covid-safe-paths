@@ -4,7 +4,13 @@ import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import { Button, Card, Container, Content, Text } from 'native-base';
 import React, { useContext, useState } from 'react';
-import { ScrollView, TouchableHighlight, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import {
+  ActivityIndicator,
+  ScrollView,
+  TouchableHighlight,
+  View,
+} from 'react-native';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -25,7 +31,10 @@ export default function UserInfo({ navigation }) {
   navigation.setOptions({
     headerShown: false,
   });
+  const { t } = useTranslation();
+
   const [showDialog, setShowDialog] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [showValidationDialog, setShowValidationDialog] = useState(false);
   const [usePassport, setUsePassport] = useState(false);
   const [useIdCard, setUseIdCard] = useState(false);
@@ -91,6 +100,7 @@ export default function UserInfo({ navigation }) {
         },
       );
       response = await response.json();
+      setLoading(false);
       if (response.valid !== undefined) {
         if (response.valid) {
           getAge(birth);
@@ -120,6 +130,7 @@ export default function UserInfo({ navigation }) {
 
   const sendDataToApi = async () => {
     let data = { body: {} };
+    setLoading(true);
     if (useIdCard) {
       data.body = {
         cid: cid,
@@ -181,10 +192,7 @@ export default function UserInfo({ navigation }) {
                 size={30}
                 style={{ marginBottom: 12, alignSelf: 'center' }}
               />
-              <Text>
-                En estos momentos no podemos validar tus datos. Por favor
-                intenta más tarde.
-              </Text>
+              <Text>{t('report.userInfo.api_down_error_msg')}</Text>
               <Button
                 style={[
                   styles.buttons,
@@ -197,10 +205,9 @@ export default function UserInfo({ navigation }) {
                 onPress={() => {
                   closeDialog(true);
                 }}>
-                <Text>Cerrar</Text>
+                <Text>{t('report.close')}</Text>
               </Button>
             </Dialog>
-
             <Dialog
               onTouchOutside={() => closeDialog(true)}
               visible={showDialog}
@@ -212,18 +219,26 @@ export default function UserInfo({ navigation }) {
                   style={{ marginTop: -10 }}>
                   <Icon name='times' size={25} color={Colors.GREEN} />
                 </Button>
+                {loading && (
+                  <ActivityIndicator
+                    size={30}
+                    animating={loading}
+                    color={Colors.BLUE_RIBBON}
+                  />
+                )}
+
                 {error && (
                   <Text style={[styles.text, { color: Colors.RED_TEXT }]}>
-                    Datos incorrectos, por favor revise.
+                    {t('report.userInfo.incorrect_data_error_msg')}
                   </Text>
                 )}
                 <Text style={styles.textSemiBold}>
-                  Ingrese su No. de{' '}
+                  {t('report.userInfo.enter_your')}{' '}
                   {useNss
-                    ? 'Seguro Social'
+                    ? t('report.userInfo.social_security_number')
                     : useIdCard
-                    ? 'cédula'
-                    : 'pasaporte'}
+                    ? t('report.userInfo.id_number')
+                    : t('report.userInfo.passport_number')}
                   :
                 </Text>
                 {useIdCard || useNss ? (
@@ -251,7 +266,9 @@ export default function UserInfo({ navigation }) {
 
                 {usePassport ? (
                   <View>
-                    <Text style={styles.textSemiBold}>Nombre y apellido:</Text>
+                    <Text style={styles.textSemiBold}>
+                      {t('report.userInfo.name_and_lastname')}
+                    </Text>
                     <Input
                       value={passportName}
                       onChange={text => setSelectedOption('passportName', text)}
@@ -262,7 +279,9 @@ export default function UserInfo({ navigation }) {
                   </View>
                 ) : (
                   <View>
-                    <Text style={styles.textSemiBold}>Número de teléfono:</Text>
+                    <Text style={styles.textSemiBold}>
+                      {t('report.userInfo.tel_number')}
+                    </Text>
                     <PhoneInput
                       value={phoneNumber}
                       handleOnChange={text =>
@@ -273,7 +292,7 @@ export default function UserInfo({ navigation }) {
                   </View>
                 )}
                 <Text style={[styles.textSemiBold, { marginBottom: 10 }]}>
-                  Fecha de Nacimiento:
+                  {t('report.userInfo.birthdate')}
                 </Text>
                 <CalendarButton
                   onChange={date => {
@@ -286,29 +305,29 @@ export default function UserInfo({ navigation }) {
                   minDate='01-01-1900'
                 />
                 <Button
-                  disabled={disabled}
+                  disabled={disabled || loading}
                   style={[
                     styles.buttons,
                     {
-                      backgroundColor: disabled
-                        ? Colors.DARK_GREEN
-                        : Colors.GREEN,
+                      backgroundColor:
+                        disabled || loading ? Colors.DARK_GREEN : Colors.GREEN,
                       marginTop: 18,
                     },
                   ]}
                   onPress={async () => {
                     await sendDataToApi();
                   }}>
-                  <Text style={styles.buttonText}>Continuar</Text>
+                  <Text style={styles.buttonText}>{t('report.continue')}</Text>
                 </Button>
               </View>
             </Dialog>
 
             <Header
-              title='Ingrese sus datos'
-              text='Utilizaremos estos datos para darle el apropiado seguimiento a sus resultados:'
+              title={t('report.userInfo.insert_data_title')}
+              text={t('report.userInfo.insert_data_subtitle')}
               navigation={navigation}
               close
+              iconName='chevron-left'
               style={{ height: wp('38%') }}
             />
             <View
@@ -329,7 +348,7 @@ export default function UserInfo({ navigation }) {
                       styles.textSemiBold,
                       { marginVertical: 10, marginHorizontal: 12 },
                     ]}>
-                    Iniciar con cédula
+                    {t('report.userInfo.start_with_id')}
                   </Text>
                   <Icon
                     name='id-card'
@@ -350,7 +369,7 @@ export default function UserInfo({ navigation }) {
                       styles.textSemiBold,
                       { marginVertical: 10, marginHorizontal: 12 },
                     ]}>
-                    Iniciar con pasaporte
+                    {t('report.userInfo.start_with_passport')}
                   </Text>
                   <Icon
                     name='passport'
@@ -376,8 +395,7 @@ export default function UserInfo({ navigation }) {
                       styles.textSemiBold,
                       { marginVertical: 10, marginHorizontal: 12 },
                     ]}>
-                    Iniciar con Número de Seguridad Social (NSS) de República
-                    Dominicana
+                    {t('report.userInfo.start_with_nss')}
                   </Text>
                   <Icon
                     name='id-card-alt'
