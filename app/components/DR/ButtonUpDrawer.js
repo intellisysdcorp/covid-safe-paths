@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withTranslation } from 'react-i18next';
 import {
   Alert,
   Animated,
@@ -13,7 +12,7 @@ import {
 
 const { width, height } = Dimensions.get('window');
 
-export class BottomUpPanel extends Component {
+export default class BottomUpPanel extends Component {
   static defaultProps = {
     isOpen: false,
   };
@@ -192,8 +191,6 @@ export class BottomUpPanel extends Component {
     }
   };
 }
-
-export default withTranslation()(BottomUpPanel);
 
 const styles = StyleSheet.create({
   container: {

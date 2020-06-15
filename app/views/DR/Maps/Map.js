@@ -94,7 +94,7 @@ export default function HospitalMap({ route: { name: type } }) {
   };
 
   const goLocation = ({ latitude, longitude }) => {
-    // bottomRef.close();
+    bottomRef.close();
     setCoordinates({ latitude, longitude });
   };
 
