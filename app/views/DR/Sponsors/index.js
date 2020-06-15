@@ -6,6 +6,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 import NavigationBarWrapper from '../../../components/NavigationBarWrapper';
+import Colors from '../../../constants/colors';
 import { sponsorsList } from './List';
 
 function CreateCard(img, url, navigate) {
@@ -23,7 +24,7 @@ function CreateCard(img, url, navigate) {
   );
 }
 
-export default function index({ navigation: { navigate, goBack } }) {
+export default function Index({ navigation: { navigate, goBack } }) {
   const { t } = useTranslation();
 
   const createAllCard = () => {
@@ -52,7 +53,7 @@ export default function index({ navigation: { navigate, goBack } }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: Colors.WHITE,
     width: '100%',
     alignItems: 'center',
   },
