@@ -80,6 +80,7 @@ ios/COVIDSafePaths.xcodeproj/project.pbxproj
 ios/COVIDSafePaths-staging.ipa
 ios/COVIDSafePaths-staging.app
 ios/COVIDSafePaths-staging.app.dSYM.zip
+assets/
 
 # Local Realm Artifact
 safepaths.Realm
