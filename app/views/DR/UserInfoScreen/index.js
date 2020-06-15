@@ -5,7 +5,12 @@ import moment from 'moment';
 import { Button, Card, Container, Content, Text } from 'native-base';
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, TouchableHighlight, View } from 'react-native';
+import {
+  ActivityIndicator,
+  ScrollView,
+  TouchableHighlight,
+  View,
+} from 'react-native';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -20,7 +25,11 @@ import Input from '../../../components/DR/Input/index';
 import PhoneInput from '../../../components/DR/PhoneInput/index';
 import context from '../../../components/DR/Reduces/context.js';
 import Colors from '../../../constants/colors';
-import { MEPYD_C5I_SERVICE } from '../../../constants/DR/baseUrls';
+import {
+  GOV_DO_TOKEN,
+  MEPYD_C5I_API_URL,
+  MEPYD_C5I_SERVICE,
+} from '../../../constants/DR/baseUrls';
 
 export default function UserInfo({ navigation }) {
   navigation.setOptions({
@@ -29,6 +38,7 @@ export default function UserInfo({ navigation }) {
   const { t } = useTranslation();
 
   const [showDialog, setShowDialog] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [showValidationDialog, setShowValidationDialog] = useState(false);
   const [usePassport, setUsePassport] = useState(false);
   const [useIdCard, setUseIdCard] = useState(false);
@@ -62,10 +72,13 @@ export default function UserInfo({ navigation }) {
   const validateCovidPositive = async info => {
     try {
       let response = await fetch(
-        `${MEPYD_C5I_SERVICE}:443/contact_tracing/api/Form`,
+        `${MEPYD_C5I_SERVICE}:443/${MEPYD_C5I_API_URL}/Form`,
         {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            gov_do_token: GOV_DO_TOKEN,
+          },
           body: JSON.stringify(info),
         },
       );
@@ -86,14 +99,19 @@ export default function UserInfo({ navigation }) {
   const validate = async data => {
     try {
       let response = await fetch(
-        `${MEPYD_C5I_SERVICE}/contact_tracing/api/Person`,
+        `${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/Person`,
         {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            gov_do_token: GOV_DO_TOKEN,
+          },
           body: JSON.stringify(data.body),
         },
       );
+
       response = await response.json();
+      setLoading(false);
       if (response.valid !== undefined) {
         if (response.valid) {
           getAge(birth);
@@ -123,6 +141,7 @@ export default function UserInfo({ navigation }) {
 
   const sendDataToApi = async () => {
     let data = { body: {} };
+    setLoading(true);
     if (useIdCard) {
       data.body = {
         cid: cid,
@@ -200,7 +219,6 @@ export default function UserInfo({ navigation }) {
                 <Text>{t('report.close')}</Text>
               </Button>
             </Dialog>
-
             <Dialog
               onTouchOutside={() => closeDialog(true)}
               visible={showDialog}
@@ -212,6 +230,14 @@ export default function UserInfo({ navigation }) {
                   style={{ marginTop: -10 }}>
                   <Icon name='times' size={25} color={Colors.GREEN} />
                 </Button>
+                {loading && (
+                  <ActivityIndicator
+                    size={30}
+                    animating={loading}
+                    color={Colors.BLUE_RIBBON}
+                  />
+                )}
+
                 {error && (
                   <Text style={[styles.text, { color: Colors.RED_TEXT }]}>
                     {t('report.userInfo.incorrect_data_error_msg')}
@@ -290,13 +316,12 @@ export default function UserInfo({ navigation }) {
                   minDate='01-01-1900'
                 />
                 <Button
-                  disabled={disabled}
+                  disabled={disabled || loading}
                   style={[
                     styles.buttons,
                     {
-                      backgroundColor: disabled
-                        ? Colors.DARK_GREEN
-                        : Colors.GREEN,
+                      backgroundColor:
+                        disabled || loading ? Colors.DARK_GREEN : Colors.GREEN,
                       marginTop: 18,
                     },
                   ]}
@@ -313,6 +338,7 @@ export default function UserInfo({ navigation }) {
               text={t('report.userInfo.insert_data_subtitle')}
               navigation={navigation}
               close
+              iconName='chevron-left'
               style={{ height: wp('38%') }}
             />
             <View
