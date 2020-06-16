@@ -364,7 +364,7 @@ export default function Results({ navigation }) {
                       'answers_translate.home_insolation.title.has_health_problems',
                     )}
                     subtitle={t(
-                      'answers_translate.home_insolation.content.has_health_problems',
+                      'answers_translate.home_insolation.subtitle.has_health_problems',
                     )}
                     image={require('../../../assets/images/contactDoctor.jpg')}
                     nextSteps={[
@@ -411,7 +411,7 @@ export default function Results({ navigation }) {
                       'answers_translate.home_insolation.title.has_health_problems',
                     )}
                     subtitle={t(
-                      'answers_translate.home_insolation.content.has_health_problems',
+                      'answers_translate.home_insolation.subtitle.has_health_problems',
                     )}
                     image={require('../../../assets/images/callSupervisor.jpg')}
                     nextSteps={[
