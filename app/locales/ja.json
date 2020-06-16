@@ -138,6 +138,7 @@
     "location_match_description": "感染者と接触したかどうかを確認する",
     "logging_active": "アクティブな場所",
     "logging_inactive": "場所が非アクティブ",
+    "more_info": "より詳しい情報",
     "news_subtitle": "保健当局および一般的な最新のCOVID更新についてお読みください。",
     "news_title": "ニュース",
     "no_data": "データなし",

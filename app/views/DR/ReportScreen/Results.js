@@ -394,7 +394,7 @@ export default function Results({ navigation }) {
                     'http://digepisalud.gob.do/documentos/?drawer=Vigilancia%20Epidemiologica*Alertas%20epidemiologicas*Coronavirus*Nacional*Materiales%20IEC%20COVID-19',
                   )
                 }>
-                Más Información
+                {t('label.more_info')}
               </Text>
               <Image
                 resizeMode='contain'
