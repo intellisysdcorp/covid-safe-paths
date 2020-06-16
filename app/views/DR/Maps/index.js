@@ -1,13 +1,14 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React from 'react';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { SafeAreaView, StyleSheet } from 'react-native';
 
 import Map from './Map';
 
 const Tab = createMaterialTopTabNavigator();
 
-const index = ({ t }) => {
+const Index = () => {
+  const { t } = useTranslation();
   return (
     <SafeAreaView style={styles.safeArea}>
       <Tab.Navigator
@@ -45,4 +46,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withTranslation()(index);
+export default Index;

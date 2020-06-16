@@ -1,7 +1,7 @@
 import 'moment/locale/es';
 
 import moment from 'moment';
-import { Card, Left, Text } from 'native-base';
+import { Button, Card, Left, Text } from 'native-base';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import {
@@ -222,6 +222,25 @@ class HomeScreen extends Component {
                       </Text>
                     </View>
                   </View>
+                  <Button
+                    small
+                    bordered
+                    rounded
+                    info
+                    onPress={() => navigation.navigate('Sponsors')}
+                    style={{ marginBottom: 10, padding: 15 }}>
+                    <Text
+                      style={[
+                        styles.text,
+                        {
+                          fontSize: 12,
+                          color: Colors.BLUE_LINK,
+                          textAlign: 'center',
+                        },
+                      ]}>
+                      {t('label.sponsor_title')}
+                    </Text>
+                  </Button>
                 </View>
               </View>
               {this.getSettings()}

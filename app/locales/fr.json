@@ -27,6 +27,8 @@
     "authorities_removal_alert_proceed": "Continuer",
     "authorities_removal_alert_title": "Supprimer une autorité",
     "authorities_title": "Sources de confiance",
+    "answers_form_next_step": "Prochaines étapes:",
+    "answers_form_recomendations": "Recommandation de test:",
     "choose_provider_subtitle": "Pour vous tenir informé·e des risques d’exposition, vous devez souscrire à une autorité sanitaire.",
     "choose_provider_title": "Choisissez votre autorité sanitaire",
     "commitment": "Engagement",
@@ -74,6 +76,7 @@
     "location_disabled_title": "Le suivi de la position a été désactivé",
     "location_enabled_message": "COVID Safe Paths enregistre de façon sécurisée vos coordonnées GPS toutes les cinq minutes sur cet appareil.",
     "location_enabled_title": "COVID Safe Paths activé",
+    "more_info": "Plus d'informations",
     "news_subtitle": "Obtenez les dernières nouvelles sur le COVID-19 par vos autorités sanitaires et en général.",
     "news_title": "Dernières nouvelles",
     "no_data": "Pas de données",
@@ -101,5 +104,239 @@
     "news": "Nouvelles",
     "bulletins": "Bulletins",
     "advices": "Des conseils"
+  },
+  "answers_translate": {
+    "header": {
+      "title": "Résultats",
+      "text": "Sur la base des réponses, ce sont les résultats:"
+    },
+    "social_distance": {
+      "title": "Vous devez pratiquer la distance sociale",
+      "subtitle": {
+        "no_traveled": "À l'heure actuelle, vous ne présentez aucun symptôme de COVID-19, nous vous recommandons donc de continuer avec les mesures préventives de “se laver les mains à l'eau et au savon fréquemment et appliquer une distance sociale”",
+        "traveled": "Aide à arrêter la propagation. Lorsque vous n'êtes pas à la maison, restez à au moins six pieds des autres, évitez les groupes et n'utilisez les transports en commun que si nécessaire."
+      },
+      "next_steps": {
+        "step_one": {
+          "title": "Maintenir la distance sociale",
+          "content": "Restez à au moins un (1) mètre de toute personne, évitez d'être en groupe et n'utilisez les transports en commun que si nécessaire."
+        },
+        "step_two": {
+          "title": "N'oubliez pas de “se laver les mains avec de l'eau et du savon fréquemment et pratiquer la distanciation sociale”",
+          "content": ""
+        },
+        "step_three": {
+          "title": "Surveiller les symptômes",
+          "content": "Surveillez les symptômes de COVID-19 tels que toux, fièvre et essoufflement. Vérifiez et mesurez également votre température deux fois par jour pendant deux semaines.\nSi vous présentez des symptômes de danger (vomissements ou diarrhée persistante ou sanglante, difficultés respiratoires marquées, somnolence ou convulsions), rendez-vous immédiatement au centre de santé le plus proche ou appelez *462."
+        },
+        "step_four": {
+          "title": "Mise en quarantaine à domicile",
+          "content": "Vous avez peut-être été exposé. Vous devez rester à la maison pendant les 14 prochains jours et voir si des symptômes apparaissent. Vous devriez également essayer de limiter vos contacts avec d'autres personnes en dehors de la maison."
+        },
+        "step_five": {
+          "title": "Renseignez-vous sur vos médicaments",
+          "content": "Si vous prenez actuellement des médicaments sur ordonnance, vous devez contacter votre médecin pour un approvisionnement de 30 jours."
+        }
+      },
+      "recomendations": {
+        "tip": {
+          "title": "Aucune preuve requise pour le moment",
+          "content": {
+            "no_sympthoms": "Désormais, vos réponses n'auront plus besoin d'être testées. Si vous présentez des symptômes tels que fièvre, toux, écoulement nasal, légère difficulté à respirer, maux de gorge, douleur à la tête ou au corps, veuillez à nouveau remplir ce questionnaire ou contacter la plateforme Aurora aux numéros de téléphone 809-449-6262, 809 409 6262 et 809-352-6262.",
+            "has_sympthoms":"Désormais, vos réponses n'auront plus besoin d'être testées. Si vous présentez des symptômes tels que fièvre, toux, écoulement nasal, légère difficulté à respirer, maux de gorge, douleur à la tête ou au corps, veuillez à nouveau remplir ce questionnaire ou contacter la plateforme Aurora aux numéros de téléphone 809-449-6262, 809 409 6262 et 809-352-6262.\nSi vous présentez des symptômes de danger (vomissements ou diarrhée persistante ou sanglante, difficultés respiratoires marquées, somnolence ou convulsions), rendez-vous immédiatement au centre de santé le plus proche ou appelez *462."
+          }
+        }
+      }
+    },
+    "home_insolation": {
+      "title": {
+        "none": "Doit isoler la maison",
+        "has_health_problems": "Contactez votre médecin"
+      },
+      "subtitle": {
+        "none": "According to his answers, he should stay at home and away from others. If you can, have a room and a bathroom that are just for you. This can be difficult when you are not feeling well, but it will protect those around you.",
+        "has_health_problems": "Selon ses réponses, il devrait rester à la maison et loin des autres. Si vous le pouvez, ayez une chambre et une salle de bain rien que pour vous. Cela peut être difficile lorsque vous ne vous sentez pas bien, mais cela protégera ceux qui vous entourent."
+      },
+      "next_steps":{
+        "step_one": {
+          "title": "Isoler",
+          "content": "Vous devez rester à l'écart des autres pendant 14 jours après le début de vos symptômes. Votre isolement peut cesser si vos symptômes s'améliorent de manière significative et si vous n'avez pas eu de fièvre depuis au moins 72 heures sans utiliser de médicaments. En isolant, vous pouvez réduire la propagation du COVID-19 et protéger les autres."
+        },
+        "step_two": {
+          "title": "Reposez-vous et prenez soin de vous",
+          "content": "Mangez bien, buvez des liquides et prenez beaucoup de repos."
+        },
+        "step_three": {
+          "title": "Surveiller les symptômes",
+          "content": "Surveillez les symptômes de COVID-19 tels que toux, fièvre et essoufflement. Vérifiez et mesurez également votre température deux fois par jour pendant deux semaines. Si vous présentez des symptômes de danger (vomissements ou diarrhée persistante ou sanglante, difficultés respiratoires marquées, somnolence ou convulsions), rendez-vous immédiatement au centre de santé le plus proche ou appelez *462"
+        },
+        "step_four": {
+          "title": "Prenez vos précautions",
+          "content": "En tant que travailleur essentiel, vous devriez parler à votre travail de la prise de mesures spécifiques pour aider à protéger et à protéger ceux qui vous entourent. Vous devez porter un équipement de protection individuelle approprié, y compris des masques faciaux ou des couvertures en tissu en cas de pénurie. De plus, vous devez maintenir une distance physique de six pieds autant que possible au travail et toujours en dehors du travail. Vous devez également vous laver les mains fréquemment et éviter de toucher votre visage."
+        }
+      },
+      "recomendations": {
+        "tip": {
+          "title": "Contactez quelqu'un pour passer le test",
+          "content": "Vos réponses peuvent être possibles pour discuter du test COVID - 19. Vous devez contacter votre médecin, ou contacter la plate-forme Aurora au 809-449-6262, 809 409 6262 et 809-352-6262 ou appeler le * 462 pour plus d'informations. L'accès à l'essai peut varier selon l'emplacement et le fournisseur. Vérifiez les laboratoires autorisés par le ministère de la Santé publique disponibles dans votre province de résidence."
+        }
+      }
+    },
+    "thanksfull":{
+      "title": "“Avec votre aide, en restant à la maison et en suivant les recommandations de santé, nous pouvons faire face à COVID-19”"
+    }
+  },
+  "report": {
+    "title": "Rapport",
+    "subtitle": "Merci de répondre aux questions suivantes",
+    "yes": "Oui",
+    "no": "Non",
+    "back": "Retour",
+    "continue": "Continuer",
+    "close": "proche",
+    "usage": {
+      "header_subtitle": "Les questions suivantes sont liées à COVID-19",
+      "subtitle": "Vous répondrez à quelques questions sur vos symptômes, vos déplacements et les contacts que vous avez eus avec les autres.",
+      "use_myself": "Utiliser pour moi",
+      "use_others": "Utilisation pour un membre de la famille"
+    },
+    "userInfo": {
+      "api_down_error_msg": "Pour le moment, nous ne pouvons pas valider vos données. Veuillez réessayer plus tard.",
+      "incorrect_data_error_msg": "Données incorrectes, veuillez vérifier.",
+      "insert_data_title": "Entrez vos données",
+      "insert_data_subtitle": "Nous utiliserons ces données pour surveiller correctement vos résultats:",
+      "start_with_id": "Commencez avec Dominican ID",
+      "start_with_passport": "Commencez avec un passeport",
+      "start_with_nss": "Commencez avec le numéro de sécurité sociale de la République dominicaine (NSS)",
+      "name_and_lastname": "Nom et surnom:",
+      "birthdate": "Date de naissance:",
+      "tel_number": "Numéro de téléphone:",
+      "enter_your": "Entrez votre",
+      "social_security_number": "Numéro de sécurité sociale",
+      "passport_number": "Numéro de passeport",
+      "id_number": "Carte d'identité dominicaine"
+    },
+    "callEmergency": {
+      "call_title": "Vous devez appeler * 462.",
+      "call_subtitle": "Sur la base des symptômes que vous avez signalés, vous devriez consulter immédiatement."
+    },
+    "haveSymptoms": {
+      "emergency_title": "Est-ce une urgence?",
+      "emergency_subtitle_myself": "Arrêtez-vous et appelez * 462 si vous présentez l'un de ces symptômes:",
+      "emergency_subtitle_others": "Arrêtez-vous et appelez * 462 si la personne que vous allez évaluer présente l'un des symptômes suivants:",
+      "chest_pain": "Douleur ou pression thoracique.",
+      "difficulty_breathing": "Difficulté marquée à respirer.",
+      "dizziness": "Étourdissements ou vertiges constants et sévères.",
+      "difficulty_speaking": "Difficulté à parler.",
+      "difficulty_wakeup": "Difficulté à se réveiller",
+      "convulsion": "Saisies",
+      "vomit": "Vomissements ou diarrhée persistants ou sanglants.",
+      "secretions": "Écoulement sanglant de la bouche et du nez.",
+      "have_this_symptoms_myself": "J'ai au moins un de ces symptômes",
+      "dont_have_this_symptoms_myself": "Je n'ai aucun de ces symptômes",
+      "have_this_symptoms_others": "Ils connaissent au moins l&#39;un de ces",
+      "dont_have_this_symptoms_others": "Ils n&#39;ont aucun de ces"
+    },
+    "sex": {
+      "sex_title": "Sexe *",
+      "female": "Femme",
+      "male": "Masculin"
+    },
+    "symptoms": {
+      "symptoms_title": "Avez-vous l'un de ces symptômes? *",
+      "fever": "Fièvre, frissons ou sueur",
+      "difficultyBreathing": "Essoufflement, pas grave",
+      "cough": "Toux nouvelle ou aggravée",
+      "soreThroat": "Gorge irritée",
+      "bodyPain": "Douleur corporelle",
+      "threwUp": "Vomissements ou diarrhée",
+      "runnyNose": "Nez qui coule",
+      "headache": "Mal de crâne",
+      "chestPain": "Douleur thoracique",
+      "convulsions": "Convulsions",
+      "disorientation": "Désorientation",
+      "sleepiness": "Somnolence",
+      "runnyNoseWithBlood": "Nez ou bouche qui coule avec du sang",
+      "noSympthoms": "Aucune de ces réponses"
+    },
+    "med_conditions": {
+      "med_cond_title": "Avez-vous une de ces conditions médicales? *",
+      "hypertension": "Hypertension ou hypertension artérielle.",
+      "asthma": "Asthme ou maladie pulmonaire chronique.",
+      "cancer": "Traitement contre le cancer ou certains médicaments immunosuppresseurs.",
+      "immuneDeficiency": "Déficiences héréditaires du système immunitaire.",
+      "HIV": "VIH.",
+      "heartCondition": "Affections cardiaques graves.",
+      "diabetes": "Diabète.",
+      "renalInsufficiency": "Insuffisance rénale.",
+      "hepaticCirrhosis": "Cirrhose hépatique.",
+      "hardCough": "Maladies ou affections qui rendent la toux plus difficile.",
+      "obesity": "Obésité.",
+      "malnutrition": "Malnutrition.",
+      "sickleCellAnemia": "l'anémie falciforme.",
+      "tuberculosis": "Tuberculose.",
+      "pregnancy": "Grossesse.",
+      "none": "Aucune de ces réponses"
+    },
+    "cov_contact": {
+      "traveled_title": "Au cours des 14 derniers jours, avez-vous voyagé à l'extérieur du pays? *",
+      "when_arrived": "Quand es-tu arrivé au pays? *",
+      "country_visited": "Dans quel pays / pays étiez-vous? *",
+      "select_country": "Sélectionnez le pays",
+      "transportation": "A voyagé en: *",
+      "airplane": "Avion",
+      "ship": "Navire",
+      "overland": "Par la route",
+      "infected_area_title": "Au cours des 14 derniers jours, avez-vous été dans une zone ou un territoire où COVID-19 est connu pour se propager ou avec une transmission communautaire? *",
+      "infected_subtitle": "Sélectionnez tout ce qui s'y rapporte.",
+      "infected_contact_title": "Au cours des 14 derniers jours, quelle a été votre exposition chez les personnes diagnostiquées avec COVID-19? *",
+      "used_protection_title": "Avez-vous utilisé un équipement de protection individuelle lorsque vous avez été exposé à des personnes diagnostiquées avec COVID-19? *",
+      "live_in_area_myself": "J'habite dans une région où COVID-19 s'est propagé / diffusé dans la communauté.",
+      "live_in_area_others": "Ils vivent dans une zone où COVID-19 s&#39;est propagé \/ diffusé dans la communauté.",
+      "visited_area_myself": "J'ai visité une zone où COVID-19 s'est propagé / diffusé dans la communauté.",
+      "visited_area_others": "Ils ont visité une zone où COVID-19 s&#39;est propagé \/ diffusé dans la communauté.",
+      "dont_know_myself": "Je ne sais pas.",
+      "dont_know_others": "Ils ne savent pas.",
+      "none_above": "Aucune de ces réponses.",
+      "live_with_myself": "Je vis avec quelqu'un qui a reçu un diagnostic de COVID-19.",
+      "live_with_others": "Ils vivent avec une personne diagnostiquée avec COVID-19.",
+      "had_close_contact_myself": "J'ai eu des contacts étroits avec une personne diagnostiquée avec COVID-19.",
+      "had_close_contact_others": "Ils ont eu des contacts étroits avec une personne diagnostiquée avec COVID-19.",
+      "had_close_contact_subtitle_myself": "Je me trouvais à moins de 1,5 mètre d'une personne atteinte de la maladie, ou j'ai été touché ou éternué.",
+      "had_close_contact_subtitle_others": "Ils étaient à moins de 6 pieds (1,5 mètre) d'une personne atteinte de la maladie, ou ont été exposés à une toux ou à un éternuement.",
+      "had_far_contact_myself": "J'ai rencontré quelqu'un qui a reçu un diagnostic de COVID-19..",
+      "had_far_contact_others": "Ils ont été autour d'une personne diagnostiquée avec COVID-19.",
+      "had_far_contact_subtitle_myself": "J'étais à plus de 6 pieds de distance et je n'ai pas été exposé à la toux ou aux éternuements.",
+      "had_far_contact_subtitle_others": "Ils étaient à plus de 6 pieds de distance et je n'ai été ni touché ni éternué.",
+      "not_exposed_myself": "Je n'ai pas été exposé.",
+      "not_exposed_others": "Ils n'ont pas été exposés.",
+      "not_exposed_subtitle_myself": "Je n'ai pas été en contact avec quelqu'un qui a COVID-19.",
+      "not_exposed_subtitle_others": "Ils n'ont pas été en contact avec une personne atteinte de COVID-19."
+    },
+    "workInHealth": {
+      "work_in_title": "Vous vivez ou travaillez dans un établissement de santé? *",
+      "work_in_subtitle": "Cela comprend les hôpitaux, les salles d'urgence, tout établissement médical ou les établissements de soins de longue durée.",
+      "work_health_myself": "Je travaille dans un établissement de soins de longue durée. Comprend les maisons de soins infirmiers ou les centres de soins.",
+      "work_health_others": "Ils travaillent dans un établissement de soins de longue durée. Comprend les maisons de soins infirmiers ou les centres de soins.",
+      "worked_health_myself": "J'ai travaillé dans un hôpital ou un centre d'assistance au cours des 14 derniers jours.",
+      "worked_health_others": "Ils ont travaillé dans un hôpital ou un centre d'assistance au cours des 14 derniers jours.",
+      "plan_work_myself": "J'ai l'intention de travailler dans un hôpital ou tout autre établissement de santé.",
+      "plan_work_others": "Ils prévoient travailler dans un hôpital ou tout autre établissement de santé.",
+      "doesnt_work_myself": "Je ne vis ni ne travaille dans un établissement de santé.",
+      "doesnt_work_others": "Ils ne vivent ni ne travaillent dans un établissement de santé."
+    },
+    "address": {
+      "province": "Province *",
+      "province_selection": "Sélectionnez votre province",
+      "municipality": "Municipalité *",
+      "municipality_selection": "Sélectionnez votre commune",
+      "house_address": "Adresse du domicile:",
+      "number_person_lives_with": "Combien de personnes vivent avec vous? *"
+    },
+    "thankYou": {
+      "thanks": "Je vous remercie!",
+      "press_end": "Appuyez sur Terminer pour terminer le processus",
+      "finish": "terminer"
+    }
   }
 }
