@@ -6,7 +6,8 @@
     "version": "Versión:"
   },
   "common": {
-    "done": "Hecho"
+    "done": "Hecho",
+    "ok": "Ok"
   },
   "history": {
     "no_exposure": "No ha tenido contacto",
@@ -38,6 +39,7 @@
   },
   "label": {
     "about_title": "Acerca de",
+    "accept": "Aceptar",
     "advice_title": "Consejos",
     "authorities_add_button_label": "Añadir fuente de datos fiable",
     "authorities_add_url": "Añadir organismo via web",
@@ -62,6 +64,7 @@
     "bulletin_title": "Boletines",
     "bulletin_description": "Lea sobre las últimas actualizaciones de los boletines COVID de su autoridad de salud.",
     "auto_subscribe_checkbox": "Habilitar la suscripción automática",
+    "cancel": "Cancelar",
     "case_day_label": "Casos del día",
     "chat_label": "Chatear",
     "choose_provider_subtitle": "Para informarte de posibles contactos, debes suscribirte a una autoridad sanitaria.",
@@ -152,7 +155,9 @@
     "skip_this_step": "Omitir este paso",
     "team": "Equipo",
     "team_para": "El equipo se compone de un consorcio de epidemiólogos, ingenieros, analistas de datos, defensores de la privacidad digital, profesores y investigadores de instituciones reconocidas como MIT, Harvard, la Mayo Clinic, TripleBlind, EyeNetra, Ernst & Young y Link Ventures.",
-    "terms_of_use": "Condiciones de uso"
+    "terms_of_use": "Condiciones de uso",
+    "sponsor_title": "Auspiciadores",
+    "sponsors": "Auspiciado por"
   },
   "onboarding": {
     "eula_checkbox": "Acepto el acuerdo de licencia",

@@ -43,6 +43,7 @@
   },
   "label": {
     "about_title": "About",
+    "accept": "Accept",
     "advice_title": "Advices",
     "authorities_add_button_label": "Add Trusted Source",
     "authorities_add_url": "Add authority via URL",
@@ -67,6 +68,7 @@
     "auroraMsp_description": "Have direct contact with more than 200 doctors.",
     "bulletin_title": "Bulletins",
     "bulletin_description": "Read about the latest COVID bulletins updates from your health authority.",
+    "cancel": "Cancel",
     "case_day_label": "Cases per Day",
     "chat_label": "Chat",
     "choose_provider_subtitle": "To be informed of exposures you will need to subscribe to a Health Authority.",
@@ -157,7 +159,9 @@
     "skip_this_step": "Skip this step",
     "team": "Team",
     "team_para": "Our team is composed of a consortium of epidemiologists, engineers, data scientists, digital privacy evangelists, professors and researchers from reputable institutions, including: MIT, Harvard, The Mayo Clinic, TripleBlind, EyeNetra, Ernst & Young and Link Ventures.",
-    "terms_of_use": "Terms of use"
+    "terms_of_use": "Terms of use",
+    "sponsor_title": "Sponsors",
+    "sponsors": "Sponsored by"
   },
   "onboarding": {
     "eula_checkbox": "I accept the licensing agreement",
