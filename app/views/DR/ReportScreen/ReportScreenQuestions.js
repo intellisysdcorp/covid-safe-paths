@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { Button, Text } from 'native-base';
 import React, { useContext, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 import {
   heightPercentageToDP as hp,
@@ -10,7 +11,11 @@ import { Dialog } from 'react-native-simple-dialogs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Wizard from 'react-native-wizard';
 
-import { MEPYD_C5I_SERVICE } from './../../../constants/DR/baseUrls';
+import {
+  GOV_DO_TOKEN,
+  MEPYD_C5I_API_URL,
+  MEPYD_C5I_SERVICE,
+} from './../../../constants/DR/baseUrls';
 import Header from '../../../components/DR/Header/index';
 import styles from '../../../components/DR/Header/style';
 import context from '../../../components/DR/Reduces/context';
@@ -30,6 +35,8 @@ export default function ReportScreenQuestions({ navigation }) {
   navigation.setOptions({
     headerShown: false,
   });
+  const { t } = useTranslation();
+
   const wizard = useRef(null);
   const [isFirstStep, setIsFirstStep] = useState(true);
   const [isLastStep, setIsLastStep] = useState(false);
@@ -57,10 +64,13 @@ export default function ReportScreenQuestions({ navigation }) {
         merged = answers;
       }
       const response = await fetch(
-        `${MEPYD_C5I_SERVICE}:443/contact_tracing/api/Form`,
+        `${MEPYD_C5I_SERVICE}:443/${MEPYD_C5I_API_URL}/Form`,
         {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            gov_do_token: GOV_DO_TOKEN,
+          },
           body: JSON.stringify(merged),
         },
       );
@@ -117,10 +127,11 @@ export default function ReportScreenQuestions({ navigation }) {
             style={{ marginBottom: -6 }}
             color='#F54243'
           />
-          <Text style={styles.subtitles}>Deberías llamar al *462.</Text>
+          <Text style={styles.subtitles}>
+            {t('report.callEmergency.call_title')}
+          </Text>
           <Text style={styles.text}>
-            Basado en los síntomas que reportaste, deberías buscar atención
-            inmediatamente.
+            {t('report.callEmergency.call_subtitle')}
           </Text>
           <Button
             style={[
@@ -132,14 +143,14 @@ export default function ReportScreenQuestions({ navigation }) {
               navigation.goBack();
               setGlobalState({ type: 'CLEAN_ANSWERS' });
             }}>
-            <Text>Cerrar</Text>
+            <Text>{t('report.close')}</Text>
           </Button>
         </View>
       </Dialog>
 
       <Header
-        title='Reporte'
-        text='Por favor responde las siguientes preguntas'
+        title={t('report.title')}
+        text={t('report.subtitle')}
         navigation={navigation}
         close
         style={{ height: hp('19%') }}
@@ -201,7 +212,7 @@ export default function ReportScreenQuestions({ navigation }) {
                 color: BLACK,
               },
             ]}>
-            Atrás
+            {t('report.back')}
           </Text>
         )}
 
@@ -218,7 +229,10 @@ export default function ReportScreenQuestions({ navigation }) {
                 console.log('[error] ', e);
               }
             }
-            if (data === 'Tengo al menos uno de estos síntomas') {
+            if (
+              data === t('report.haveSymptoms.have_this_symptoms_others') ||
+              data === t('report.haveSymptoms.have_this_symptoms_myself')
+            ) {
               setDialogVisible(true);
             } else {
               wizard.current.next();
@@ -239,7 +253,7 @@ export default function ReportScreenQuestions({ navigation }) {
             },
           ]}>
           <Text style={styles.buttonText}>
-            {isLastStep ? 'Finalizar' : 'Continuar'}
+            {isLastStep ? t('report.thankYou.finish') : t('report.continue')}
           </Text>
         </Button>
       </View>
