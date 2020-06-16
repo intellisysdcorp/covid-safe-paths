@@ -201,7 +201,7 @@
       "header_subtitle": "Le seguenti domande sono correlate a COVID-19",
       "subtitle": "Risponderai ad alcune domande sui sintomi, i viaggi e il contatto che hai avuto con altri.",
       "use_myself": "Utilizzare per me stesso",
-      "use_others": "Utilizzare per qualcun altro"
+      "use_others": "Utilizzare per un membro della famiglia"
     },
     "userInfo": {
       "api_down_error_msg": "Al momento non possiamo convalidare i tuoi dati. Per favore riprova più tardi.",

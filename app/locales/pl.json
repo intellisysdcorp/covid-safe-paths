@@ -201,7 +201,7 @@
       "header_subtitle": "Poniższe pytania dotyczą COVID-19",
       "subtitle": "Odpowiesz na niektóre pytania dotyczące twoich objawów, podróży i kontaktu z innymi.",
       "use_myself": "Użyj dla siebie",
-      "use_others": "Użyj dla kogoś innego"
+      "use_others": "Użyj dla członka rodziny"
     },
     "userInfo": {
       "api_down_error_msg": "W tej chwili nie możemy zweryfikować twoich danych. Spróbuj ponownie później.",

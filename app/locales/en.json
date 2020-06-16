@@ -214,7 +214,7 @@
       "header_subtitle": "The following questions are related to COVID-19",
       "subtitle": "You will answer some questions about your symptoms, travel and the contact you have had with others.",
       "use_myself": "Use for Myself",
-      "use_others": "Use for someone else"
+      "use_others": "Use for a family member"
     },
     "userInfo": {
       "api_down_error_msg": "At this time we cannot validate your data. Please try again later.",

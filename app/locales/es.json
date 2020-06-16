@@ -210,7 +210,7 @@
       "header_subtitle": "Las siguientes preguntas están relacionadas con el COVID-19",
       "subtitle": "Responderás algunas preguntas sobre tus síntomas, viajes y el  contacto que has tenido con otros.",
       "use_myself": "Usar para mi",
-      "use_others": "Usar para alguien más"
+      "use_others": "Usar para un familiar"
     },
     "userInfo": {
       "api_down_error_msg": "En estos momentos no podemos validar tus datos. Por favor intenta más tarde.",

@@ -206,7 +206,7 @@
       "header_subtitle": "以下の質問はCOVID-19に関連しています",
       "subtitle": "症状、旅行、他の人との接触についてのいくつかの質問に答えます。",
       "use_myself": "自分用",
-      "use_others": "他の誰かのために使用する"
+      "use_others": "家族での利用"
     },
     "userInfo": {
       "api_down_error_msg": "現在、データを検証できません。後でもう一度やり直してください。",

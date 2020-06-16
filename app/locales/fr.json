@@ -114,7 +114,7 @@
       "header_subtitle": "Les questions suivantes sont liées à COVID-19",
       "subtitle": "Vous répondrez à quelques questions sur vos symptômes, vos déplacements et les contacts que vous avez eus avec les autres.",
       "use_myself": "Utiliser pour moi",
-      "use_others": "Utiliser pour quelqu'un d'autre"
+      "use_others": "Utilisation pour un membre de la famille"
     },
     "userInfo": {
       "api_down_error_msg": "Pour le moment, nous ne pouvons pas valider vos données. Veuillez réessayer plus tard.",

@@ -196,7 +196,7 @@
       "header_subtitle": "以下问题与COVID-19有关",
       "subtitle": "您将回答有关您的症状，旅行以及与他人的联系的一些问题。",
       "use_myself": "为自己使用",
-      "use_others": "用于其他人"
+      "use_others": "用于家庭成员"
     },
     "userInfo": {
       "api_down_error_msg": "目前，我们无法验证您的数据。请稍后再试。",

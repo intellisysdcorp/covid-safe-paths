@@ -1,6 +1,7 @@
 import { Button, Container, Content, Text } from 'native-base';
 import React, { useContext } from 'react';
-import { Image, ScrollView, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { Image, Linking, ScrollView, View } from 'react-native';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -13,6 +14,8 @@ import ResultsContent from '../../../components/DR/ResultsContent';
 import Colors from '../../../constants/colors';
 
 export default function Results({ navigation }) {
+  const { t } = useTranslation();
+
   navigation.setOptions({
     headerShown: false,
   });
@@ -21,7 +24,6 @@ export default function Results({ navigation }) {
       answers: {
         HIV,
         asthma,
-        age,
         bodyPain,
         cancer,
         chestPain,
@@ -69,7 +71,7 @@ export default function Results({ navigation }) {
       setGlobalState({ type: 'CLEAN_ANSWERS' });
     });
     return unsubscribe;
-  }, [navigation]);
+  }, [navigation, setGlobalState]);
   const hasSympthomps =
     fever ||
     difficultyBreathing ||
@@ -377,6 +379,23 @@ export default function Results({ navigation }) {
                     ]}
                   />
                 )}
+              <Text
+                style={[
+                  styles.text,
+                  {
+                    color: Colors.BLUE_RIBBON,
+                    textDecorationLine: 'underline',
+                    height: 38,
+                    paddingTop: 10,
+                  },
+                ]}
+                onPress={() =>
+                  Linking.openURL(
+                    'http://digepisalud.gob.do/documentos/?drawer=Vigilancia%20Epidemiologica*Alertas%20epidemiologicas*Coronavirus*Nacional*Materiales%20IEC%20COVID-19',
+                  )
+                }>
+                Más Información
+              </Text>
               <Image
                 resizeMode='contain'
                 style={{
@@ -401,7 +420,7 @@ export default function Results({ navigation }) {
                   navigation.navigate('HomeScreen');
                 }}>
                 <Text style={[styles.buttonText, { color: Colors.WHITE }]}>
-                  Cerrar
+                  {t('report.close')}
                 </Text>
               </Button>
             </View>
