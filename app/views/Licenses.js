@@ -27,6 +27,8 @@ const PRIVACY_POLICY_URL_ES =
 
 export const LicensesScreen = ({ navigation }) => {
   const { t, i18n } = useTranslation();
+  const urlPrivacyPolicy =
+    i18n.language === 'es' ? PRIVACY_POLICY_URL_ES : PRIVACY_POLICY_URL;
 
   const backToMain = () => {
     navigation.goBack();
@@ -38,9 +40,7 @@ export const LicensesScreen = ({ navigation }) => {
   };
 
   const handleTermsOfUsePressed = () => {
-    Linking.openURL(
-      i18n.language === 'es' ? PRIVACY_POLICY_URL_ES : PRIVACY_POLICY_URL,
-    );
+    Linking.openURL(urlPrivacyPolicy);
   };
 
   useEffect(() => {
@@ -94,13 +94,7 @@ export const LicensesScreen = ({ navigation }) => {
           style={styles.termsInfoRow}>
           <Typography
             use='headline2'
-            onPress={() =>
-              Linking.openURL(
-                i18n.language === 'es'
-                  ? PRIVACY_POLICY_URL_ES
-                  : PRIVACY_POLICY_URL,
-              )
-            }>
+            onPress={() => Linking.openURL(urlPrivacyPolicy)}>
             {t('label.privacy_policy')}
           </Typography>
           <View style={styles.arrowContainer}>
