@@ -1,5 +1,6 @@
 import { Badge, Button, Card, CardItem, Left, Right, Text } from 'native-base';
 import React, { Component } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Image, View } from 'react-native';
 import {
   heightPercentageToDP as hp,
@@ -14,6 +15,7 @@ import styles from './styles';
 
 const { ORANGE, GREEN, BLUE_RIBBON } = Colors;
 
+
 export class Feels extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +24,8 @@ export class Feels extends Component {
       positive: false,
     };
   }
+  
+  const { t } = useTranslation();
 
   isPositiveCovid = async () => {
     const positive = await GetStoreData('positive', false);
@@ -43,7 +47,7 @@ export class Feels extends Component {
           <View style={styles.auroraContainer}>
             <Icon name='heartbeat' color={ORANGE} size={wp('7%')} />
             <Text style={[styles.textHeader, { marginLeft: 8 }]}>
-              {languages.t('label.report_symptoms_title')}
+              {t('label.report_symptoms_title')}
             </Text>
           </View>
           <View style={{ flexDirection: 'column' }}>
@@ -82,6 +86,7 @@ export class Feels extends Component {
 }
 
 export function Aurora({ navigation }) {
+  const { t } = useTranslation();
   return (
     <View>
       <Card style={styles.bigCards}>
@@ -91,14 +96,12 @@ export function Aurora({ navigation }) {
             source={require('../../../assets/images/aurora_logo.png')}
           />
           <Text style={[styles.textHeader, { marginLeft: 8 }]}>
-            {languages.t('label.auroraMsp_title')}
+            {t('label.auroraMsp_title')}
           </Text>
         </View>
         <View style={styles.tester}>
           <Left>
-            <Text style={styles.text}>
-              {languages.t('label.auroraMsp_description')}
-            </Text>
+            <Text style={styles.text}>{t('label.auroraMsp_description')}</Text>
           </Left>
           <Button
             onPress={() => navigation.navigate('AuroraScreen')}
@@ -106,9 +109,7 @@ export function Aurora({ navigation }) {
               styles.buttons,
               { backgroundColor: BLUE_RIBBON, marginLeft: 10 },
             ]}>
-            <Text style={styles.buttonText}>
-              {languages.t('label.conversar_label')}
-            </Text>
+            <Text style={styles.buttonText}>{t('label.conversar_label')}</Text>
           </Button>
         </View>
       </Card>
@@ -117,19 +118,20 @@ export function Aurora({ navigation }) {
 }
 
 export function LocationMatch({ navigation }) {
+  const { t } = useTranslation();
   return (
     <View>
       <Card style={styles.bigCards}>
         <View style={styles.auroraContainer}>
           <Icon name='search-location' color={BLUE_RIBBON} size={wp('6%')} />
           <Text style={[styles.textHeader, { marginLeft: 8 }]}>
-            {languages.t('label.location_match_title')}
+            {t('label.location_match_title')}
           </Text>
         </View>
         <View style={styles.tester}>
           <Left>
             <Text style={styles.text}>
-              {languages.t('label.location_match_description')}
+              {t('label.location_match_description')}
             </Text>
           </Left>
           <Button
@@ -139,7 +141,7 @@ export function LocationMatch({ navigation }) {
               { backgroundColor: BLUE_RIBBON, marginLeft: 10 },
             ]}>
             <Text style={styles.buttonText}>
-              {languages.t('label.location_match_button')}
+              {t('label.location_match_button')}
             </Text>
           </Button>
         </View>
@@ -149,6 +151,7 @@ export function LocationMatch({ navigation }) {
 }
 
 export function Contact({ isProfile }) {
+  const { t } = useTranslation();
   const buttonStyle = isProfile
     ? {
         alignSelf: 'center',
@@ -190,13 +193,13 @@ export function Contact({ isProfile }) {
             />
             <Left style={{ marginLeft: 15 }}>
               <Text style={[styles.text, { color: '#fff' }]}>
-                {languages.t('label.phone_line_label')}
+                {t('label.phone_line_label')}
               </Text>
               <Text style={[styles.textHeader, { color: '#fff' }]}>*464</Text>
             </Left>
             <Button style={[buttonStyle, { backgroundColor: '#fff' }]}>
               <Text style={[buttonValueStyle, { color: '#0161F2' }]}>
-                {languages.t('label.chat_label')}
+                {t('label.chat_label')}
               </Text>
             </Button>
           </Left>
