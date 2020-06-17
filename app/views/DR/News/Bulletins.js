@@ -21,6 +21,7 @@ const BULLETINS_URL = `${FIREBASE_SERVICE}/bulletins`;
 export default function BulletinsScreen({ navigation }) {
   const [bulletins, setBulletins] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isDisable, setIsDisable] = useState(false);
   const [isNotLastPage, setIsNotLastPage] = useState(true);
   const { t } = useTranslation();
 
@@ -38,12 +39,12 @@ export default function BulletinsScreen({ navigation }) {
 
   const onPress = () => {
     const { order } = bulletins[bulletins.length - 1] || {};
-    if (!order) {
+    if (!order || order <= 10) {
       setIsNotLastPage(false);
-      return;
+      setIsDisable(true);
     }
     setIsLoading(true);
-    fetch(`${BULLETINS_URL}?endAt=${order - 10}`)
+    fetch(`${BULLETINS_URL}?endAt=${order - 1}`)
       .then(({ data }) => {
         const bulletinsData = addImgToBulletin(data.bulletins);
         setBulletins(bulletins.concat(bulletinsData));
@@ -84,7 +85,12 @@ export default function BulletinsScreen({ navigation }) {
             <ActivityIndicator size='large' />
           ) : (
             <Button
-              style={{ ...buttonStyle.buttonStyle, marginLeft: 0 }}
+              disabled={isDisable}
+              style={
+                isDisable
+                  ? { display: 'none' }
+                  : { ...buttonStyle.buttonStyle, marginLeft: 0 }
+              }
               onPress={onPress}>
               <Text style={buttonStyle.buttonText}>
                 {t('label.launch_next')}
