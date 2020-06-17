@@ -22,6 +22,9 @@ import { Theme } from '../constants/themes';
 const PRIVACY_POLICY_URL =
   'https://docs.google.com/document/d/17u0f8ni9S0D4w8RCUlMMqxAlXKJAd2oiYGP8NUwkINo/edit';
 
+const PRIVACY_POLICY_URL_ES =
+  'https://docs.google.com/document/d/1znFbxn02pqVFFR9EDQh7jc28qBjWWI-MH7G50EFxEgs/edit';
+
 export const LicensesScreen = ({ navigation }) => {
   const { t, i18n } = useTranslation();
 
@@ -35,7 +38,9 @@ export const LicensesScreen = ({ navigation }) => {
   };
 
   const handleTermsOfUsePressed = () => {
-    Linking.openURL(PRIVACY_POLICY_URL);
+    Linking.openURL(
+      i18n.language === 'es' ? PRIVACY_POLICY_URL_ES : PRIVACY_POLICY_URL,
+    );
   };
 
   useEffect(() => {
@@ -89,7 +94,13 @@ export const LicensesScreen = ({ navigation }) => {
           style={styles.termsInfoRow}>
           <Typography
             use='headline2'
-            onPress={() => Linking.openURL(PRIVACY_POLICY_URL)}>
+            onPress={() =>
+              Linking.openURL(
+                i18n.language === 'es'
+                  ? PRIVACY_POLICY_URL_ES
+                  : PRIVACY_POLICY_URL,
+              )
+            }>
             {t('label.privacy_policy')}
           </Typography>
           <View style={styles.arrowContainer}>
