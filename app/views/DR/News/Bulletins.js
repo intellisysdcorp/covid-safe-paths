@@ -38,7 +38,10 @@ export default function BulletinsScreen({ navigation }) {
   };
 
   const onPress = () => {
-    const { order } = bulletins[bulletins.length - 1] || {};
+    let { order } = bulletins[bulletins.length - 1] || {};
+    if (order === 67 && bulletins[bulletins.length - 2].order !== 66) {
+      order = bulletins[bulletins.length - 2].order;
+    }
     if (!order || order <= 10) {
       setIsNotLastPage(false);
       setIsDisable(true);
