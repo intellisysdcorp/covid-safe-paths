@@ -62,6 +62,7 @@ import { HCAService } from '../services/HCAService';
 import LocationServices from '../services/LocationService';
 
 const MAYO_COVID_URL = 'https://www.mayoclinic.org/coronavirus-covid-19';
+const CODID_BASE_ID = '5590D7B3781E7592F6638F0D0D778282';
 
 const StateEnum = {
   UNKNOWN: 0,
@@ -223,34 +224,30 @@ class LocationTracking extends Component {
     GetStoreData(COVID_POSITIVE, false).then(isPositive => {
       if (isPositive) {
         BackgroundGeolocation.on('location', async location => {
-          GetStoreData(COVID_ID)
-            .then(() => {
-              const body = JSON.stringify({
-                latitude: location.latitude,
-                longitude: location.longitude,
-                time: location.time,
-                covidId: '5590D7B3781E7592F6638F0D0D778282',
-              });
+          const body = JSON.stringify({
+            latitude: location.latitude,
+            longitude: location.longitude,
+            time: location.time,
+            covidId: CODID_BASE_ID,
+          });
 
-              fetch(`${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/UserTrace`, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  gov_do_token: GOV_DO_TOKEN,
-                },
-                body,
-              })
-                .then(function(response) {
-                  return response.json();
-                })
-                .then(data => {
-                  return data;
-                })
-                .catch(error => {
-                  console.error('[ERROR] ' + error);
-                });
+          fetch(`${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/UserTrace`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              gov_do_token: GOV_DO_TOKEN,
+            },
+            body,
+          })
+            .then(function(response) {
+              return response.json();
             })
-            .catch(error => console.log('[ERROR] ' + error));
+            .then(data => {
+              return data;
+            })
+            .catch(error => {
+              console.error('[ERROR] ' + error);
+            });
         });
       }
     });
