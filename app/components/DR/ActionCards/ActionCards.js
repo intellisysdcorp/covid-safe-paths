@@ -15,7 +15,6 @@ import styles from './styles';
 
 const { ORANGE, GREEN, BLUE_RIBBON } = Colors;
 
-
 export class Feels extends Component {
   constructor(props) {
     super(props);
@@ -24,8 +23,6 @@ export class Feels extends Component {
       positive: false,
     };
   }
-  
-  const { t } = useTranslation();
 
   isPositiveCovid = async () => {
     const positive = await GetStoreData('positive', false);
@@ -48,7 +45,7 @@ export class Feels extends Component {
           <View style={styles.auroraContainer}>
             <Icon name='heartbeat' color={ORANGE} size={wp('7%')} />
             <Text style={[styles.textHeader, { marginLeft: 8 }]}>
-              {t('label.report_symptoms_title')}
+              {languages.t('label.report_symptoms_title')}
             </Text>
           </View>
           <View style={{ flexDirection: 'column' }}>
