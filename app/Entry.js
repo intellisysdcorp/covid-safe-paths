@@ -33,11 +33,17 @@ import Onboarding5 from './views/onboarding/Onboarding5';
 import { SettingsScreen } from './views/Settings';
 
 const Stack = createStackNavigator();
-
+const StateEnum = {
+  UNKNOWN: 0,
+  AT_RISK: 1,
+  NO_CONTACT: 2,
+  SETTING_OFF: 3,
+};
 class Entry extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentState: StateEnum.NO_CONTACT,
       initialRouteName: 'true',
     };
   }
@@ -50,6 +56,7 @@ class Entry extends Component {
   }
 
   render() {
+    const { currentState } = this.state;
     return (
       <NavigationContainer>
         <Stack.Navigator
@@ -93,11 +100,11 @@ class Entry extends Component {
             component={Onboarding5}
             options={{ headerShown: false }}
           />
-          <Stack.Screen
-            name='HomeScreen'
-            component={NavEntry}
-            options={{ headerShown: false }}
-          />
+          <Stack.Screen name='HomeScreen' options={{ headerShown: false }}>
+            {navigation => (
+              <NavEntry {...navigation} currentState={currentState} />
+            )}
+          </Stack.Screen>
           <Stack.Screen
             name='ExportScreen'
             component={ExportScreen}
@@ -135,7 +142,6 @@ class Entry extends Component {
           />
           <Stack.Screen
             name='Location'
-            component={LocationTracking}
             options={{
               headerTitle: '',
               headerTintColor: Colors.WHITE,
@@ -149,8 +155,11 @@ class Entry extends Component {
               headerLeftContainerStyle: {
                 marginLeft: 15,
               },
-            }}
-          />
+            }}>
+            {navigation => (
+              <LocationTracking {...navigation} currentState={currentState} />
+            )}
+          </Stack.Screen>
           <Stack.Screen
             name='Results'
             component={ResultsScreen}

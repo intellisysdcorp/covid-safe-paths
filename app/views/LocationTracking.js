@@ -24,7 +24,6 @@ import { SvgXml } from 'react-native-svg';
 
 import BackgroundImageAtRisk from './../assets/images/backgroundAtRisk.png';
 import exportImage from './../assets/images/export.png';
-import foreArrow from './../assets/images/foreArrow.png';
 import BackgroundImage from './../assets/images/launchScreenBackground.png';
 import settingsIcon from './../assets/svgs/settingsIcon';
 import StateAtRisk from './../assets/svgs/stateAtRisk';
@@ -42,7 +41,6 @@ import {
 } from '../constants/DR/baseUrls';
 import fontFamily from '../constants/fonts';
 import {
-  COVID_ID,
   COVID_POSITIVE,
   CROSSED_PATHS,
   DEBUG_MODE,
@@ -102,7 +100,7 @@ class LocationTracking extends Component {
       appState: AppState.currentState,
       timer_intersect: null,
       isLogging: '',
-      currentState: StateEnum.NO_CONTACT,
+      currentState: props.currentState,
     };
     try {
       this.checkCurrentState();
