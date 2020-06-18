@@ -43,6 +43,7 @@ import {
 import fontFamily from '../constants/fonts';
 import {
   COVID_ID,
+  COVID_POSITIVE,
   CROSSED_PATHS,
   DEBUG_MODE,
   LOCATION_DATA,
@@ -219,35 +220,39 @@ class LocationTracking extends Component {
       }
     });
 
-    BackgroundGeolocation.on('location', async location => {
-      GetStoreData(COVID_ID)
-        .then(covidId => {
-          const body = JSON.stringify({
-            latitude: location.latitude,
-            longitude: location.longitude,
-            time: location.time,
-            covidId: covidId,
-          });
+    GetStoreData(COVID_POSITIVE, false).then(isPositive => {
+      if (isPositive) {
+        BackgroundGeolocation.on('location', async location => {
+          GetStoreData(COVID_ID)
+            .then(() => {
+              const body = JSON.stringify({
+                latitude: location.latitude,
+                longitude: location.longitude,
+                time: location.time,
+                covidId: '5590D7B3781E7592F6638F0D0D778282',
+              });
 
-          fetch(`${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/UserTrace`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              gov_do_token: GOV_DO_TOKEN,
-            },
-            body,
-          })
-            .then(function(response) {
-              return response.json();
+              fetch(`${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/UserTrace`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  gov_do_token: GOV_DO_TOKEN,
+                },
+                body,
+              })
+                .then(function(response) {
+                  return response.json();
+                })
+                .then(data => {
+                  return data;
+                })
+                .catch(error => {
+                  console.error('[ERROR] ' + error);
+                });
             })
-            .then(data => {
-              return data;
-            })
-            .catch(error => {
-              console.error('[ERROR] ' + error);
-            });
-        })
-        .catch(error => console.log('[ERROR] ' + error));
+            .catch(error => console.log('[ERROR] ' + error));
+        });
+      }
     });
   }
 

@@ -119,7 +119,7 @@ export default function UserInfo({ navigation }) {
           closeDialog(false);
           if (positive) {
             if (usage === 'mySelf') {
-              storeData('positive', positive);
+              storeData('COVID_POSITIVE', positive);
               storeData('UserPersonalInfo', data.body);
             }
             navigation.navigate('EpidemiologicResponse');
