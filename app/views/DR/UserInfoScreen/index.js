@@ -120,7 +120,7 @@ export default function UserInfo({ navigation }) {
           let { positive } = await validateCovidPositive(data.body);
           closeDialog(false);
           if (positive) {
-            if (usage === 'mySelf') {
+            if (use === 'mySelf') {
               storeData(COVID_POSITIVE, positive);
               storeData('UserPersonalInfo', data.body);
             }
