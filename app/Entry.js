@@ -49,7 +49,6 @@ class Entry extends Component {
   }
 
   render() {
-    const { currentState } = this.state;
     return (
       <NavigationContainer>
         <Stack.Navigator

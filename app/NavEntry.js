@@ -6,10 +6,8 @@ import { PERMISSIONS, RESULTS, check } from 'react-native-permissions';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { CROSSED_PATHS, DEBUG_MODE, PARTICIPATE } from './constants/storage';
+import { PARTICIPATE } from './constants/storage';
 import { GetStoreData } from './helpers/General';
-import { checkIntersect } from './helpers/Intersect';
-import BackgroundTaskServices from './services/BackgroundTaskService';
 import { HCAService } from './services/HCAService';
 import LocationServices from './services/LocationService';
 import { isPlatformiOS } from './Util';
@@ -19,12 +17,6 @@ import NewsMainScreen from './views/DR/News';
 import ReportScreen from './views/DR/ReportScreen';
 
 const Tab = createBottomTabNavigator();
-const StateEnum = {
-  UNKNOWN: 0,
-  AT_RISK: 1,
-  NO_CONTACT: 2,
-  SETTING_OFF: 3,
-};
 
 class MainNavigation extends React.Component {
   constructor(props) {
