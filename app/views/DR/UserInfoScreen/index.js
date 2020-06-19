@@ -30,6 +30,7 @@ import {
   MEPYD_C5I_API_URL,
   MEPYD_C5I_SERVICE,
 } from '../../../constants/DR/baseUrls';
+import { COVID_POSITIVE } from '../../../constants/storage';
 
 export default function UserInfo({ navigation }) {
   navigation.setOptions({
@@ -59,6 +60,7 @@ export default function UserInfo({ navigation }) {
     setGlobalState,
   ] = useContext(context);
 
+  const use = usage === '' ? 'mySelf' : usage;
   const closeDialog = final => {
     setError(false);
     setShowDialog(false);
@@ -118,8 +120,8 @@ export default function UserInfo({ navigation }) {
           let { positive } = await validateCovidPositive(data.body);
           closeDialog(false);
           if (positive) {
-            if (usage === 'mySelf') {
-              storeData('positive', positive);
+            if (use === 'mySelf') {
+              storeData(COVID_POSITIVE, positive);
               storeData('UserPersonalInfo', data.body);
             }
             navigation.navigate('EpidemiologicResponse');
@@ -136,6 +138,7 @@ export default function UserInfo({ navigation }) {
       return response;
     } catch (e) {
       setLoading(false);
+      setShowValidationDialog(true);
       console.log('ha ocurrido un error', e);
     }
   };
