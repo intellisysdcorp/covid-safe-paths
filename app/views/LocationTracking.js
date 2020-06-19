@@ -100,7 +100,7 @@ class LocationTracking extends Component {
       appState: AppState.currentState,
       timer_intersect: null,
       isLogging: '',
-      currentState: props.currentState,
+      currentState: StateEnum.NO_CONTACT,
     };
     try {
       this.checkCurrentState();
@@ -130,14 +130,12 @@ class LocationTracking extends Component {
           .then(result => {
             switch (result) {
               case RESULTS.GRANTED:
-                LocationServices.start();
                 this.checkIfUserAtRisk();
                 HCAService.findNewAuthorities();
                 return;
               case RESULTS.UNAVAILABLE:
               case RESULTS.BLOCKED:
                 console.log('NO LOCATION');
-                LocationServices.stop();
                 this.setState({ currentState: StateEnum.UNKNOWN });
             }
           })
@@ -146,7 +144,6 @@ class LocationTracking extends Component {
           });
       } else {
         this.setState({ currentState: StateEnum.SETTING_OFF });
-        LocationServices.stop();
       }
     });
   }
