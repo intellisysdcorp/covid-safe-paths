@@ -194,9 +194,10 @@
     "covid_free": "¡Felicidades, eres libre de COVID-19!",
     "how_feel_today": "¿Cómo te sientes hoy?",
     "feel_bad": "No me siento bien",
-    "feel_great": "¡Me siento genial!"
-
-   },
+    "feel_great": "¡Me siento genial!",
+    "share_location_data_title": "¿Compartir datos de ubicación?",
+    "share_location_data_subtitle": "Al aceptar, los datos de sus ubicaciones recientes serán compartidos con la autoridad de salud de República Dominicana.",
+  },
   "maps": {
     "error_header": "Lo sentimos",
     "error_message": "Por el momento, no se ha podido obtener los datos deseados. Por favor, inténtelo de nuevo más tarde."
