@@ -60,6 +60,7 @@ export default function UserInfo({ navigation }) {
     setGlobalState,
   ] = useContext(context);
 
+  const use = usage === '' ? 'mySelf' : usage;
   const closeDialog = final => {
     setError(false);
     setShowDialog(false);
@@ -137,6 +138,7 @@ export default function UserInfo({ navigation }) {
       return response;
     } catch (e) {
       setLoading(false);
+      setShowValidationDialog(true);
       console.log('ha ocurrido un error', e);
     }
   };
