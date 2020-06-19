@@ -18,7 +18,7 @@ import languages from '../locales/languages';
 
 let isBackgroundGeolocationConfigured = false;
 const LOCATION_DISABLED_NOTIFICATION = '55';
-const CODID_BASE_ID = '5590D7B3781E7592F6638F0D0D778282';
+const COVID_BASE_ID = '5590D7B3781E7592F6638F0D0D778282';
 
 export const Reason = {
   LOCATION_OFF: 'LOCATION_OFF',
@@ -207,7 +207,7 @@ export default class LocationServices {
             latitude: location.latitude,
             longitude: location.longitude,
             time: location.time,
-            covidId: CODID_BASE_ID,
+            covidId: COVID_BASE_ID,
           });
           fetch(`${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/UserTrace`, {
             method: 'POST',
