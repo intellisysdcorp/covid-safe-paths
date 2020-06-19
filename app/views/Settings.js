@@ -119,7 +119,7 @@ export const SettingsScreen = ({ navigation }) => {
             label={t('label.epidemiologic_report_title')}
             description={t('label.epidemiologic_report_subtitle')}
             onPress={async () => {
-              const value = await AsyncStorage.getItem('positive');
+              const value = await AsyncStorage.getItem('COVID_POSITIVE');
               if (value !== null) {
                 navigation.navigate('EpidemiologicResponse');
               } else {
