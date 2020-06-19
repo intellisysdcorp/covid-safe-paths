@@ -215,37 +215,6 @@ class LocationTracking extends Component {
         });
       }
     });
-
-    GetStoreData(COVID_POSITIVE, false).then(isPositive => {
-      if (isPositive) {
-        BackgroundGeolocation.on('location', async location => {
-          const body = JSON.stringify({
-            latitude: location.latitude,
-            longitude: location.longitude,
-            time: location.time,
-            covidId: CODID_BASE_ID,
-          });
-
-          fetch(`${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/UserTrace`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              gov_do_token: GOV_DO_TOKEN,
-            },
-            body,
-          })
-            .then(function(response) {
-              return response.json();
-            })
-            .then(data => {
-              return data;
-            })
-            .catch(error => {
-              console.error('[ERROR] ' + error);
-            });
-        });
-      }
-    });
   }
 
   componentWillUnmount() {
