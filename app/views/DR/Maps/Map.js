@@ -60,6 +60,12 @@ export default function HospitalMap({ route: { name: type } }) {
           setSortedMarkers(sorted);
         },
         error => {
+          const { latitude, longitude } = rdCoords;
+          const sorted = sortByDistance({ latitude, longitude }, value, {
+            yName: 'latitude',
+            xName: 'longitude',
+          });
+          setSortedMarkers(sorted);
           console.log(error);
           setShowDialog(true);
         },
@@ -79,6 +85,12 @@ export default function HospitalMap({ route: { name: type } }) {
             setSortedMarkers(sorted);
           },
           error => {
+            const { latitude, longitude } = rdCoords;
+            const sorted = sortByDistance({ latitude, longitude }, value, {
+              yName: 'latitude',
+              xName: 'longitude',
+            });
+            setSortedMarkers(sorted);
             console.log(error);
             setShowDialog(true);
           },
