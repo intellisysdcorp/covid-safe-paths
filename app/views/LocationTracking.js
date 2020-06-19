@@ -34,14 +34,8 @@ import { Button } from '../components/Button';
 import NextSteps from '../components/DR/LocationTracking/NextSteps';
 import { Typography } from '../components/Typography';
 import Colors from '../constants/colors';
-import {
-  GOV_DO_TOKEN,
-  MEPYD_C5I_API_URL,
-  MEPYD_C5I_SERVICE,
-} from '../constants/DR/baseUrls';
 import fontFamily from '../constants/fonts';
 import {
-  COVID_POSITIVE,
   CROSSED_PATHS,
   DEBUG_MODE,
   LOCATION_DATA,
@@ -60,7 +54,6 @@ import { HCAService } from '../services/HCAService';
 import LocationServices from '../services/LocationService';
 
 const MAYO_COVID_URL = 'https://www.mayoclinic.org/coronavirus-covid-19';
-const CODID_BASE_ID = '5590D7B3781E7592F6638F0D0D778282';
 
 const StateEnum = {
   UNKNOWN: 0,
