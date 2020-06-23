@@ -223,7 +223,8 @@ export default function UserInfo({ navigation }) {
                       },
                     ]}
                     onPress={() => {
-                      setTimeout(() => {
+                      setTimeout(async () => {
+                        await AsyncStorage.removeItem('shareLocation');
                         setShowShareLocDialog(false);
                       }, 1000);
                     }}>
