@@ -13,6 +13,7 @@ import { GetStoreData } from './helpers/General';
 import NavEntry from './NavEntry';
 import AboutScreen from './views/About';
 import ChooseProviderScreen from './views/ChooseProvider';
+import Arcgis from './views/DR/ArcgisTest';
 import AuroraScreen from './views/DR/Aurora';
 import EpidemiologicScreen from './views/DR/EpidemiologicalResponseScreen';
 import FAQ from './views/DR/FAQ';
@@ -201,6 +202,11 @@ class Entry extends Component {
           <Stack.Screen
             name='FAQ'
             component={FAQ}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name='Arcgis'
+            component={Arcgis}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

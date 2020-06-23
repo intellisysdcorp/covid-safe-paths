@@ -172,7 +172,8 @@ class HomeScreen extends Component {
                     </View>
                   </View>
                   <View style={styles.actualSituationContainer}>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate('Arcgis')}>
                       <Card style={styles.infoCards}>
                         <Text style={[styles.dataText]}>{cases}</Text>
                         <Text style={styles.text}>
