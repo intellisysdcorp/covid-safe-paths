@@ -220,7 +220,7 @@ export default class LocationServices {
               return data;
             })
             .catch(error => {
-              console.error('[ERRORrrr] ' + error);
+              console.error('[ERROR] ' + error);
             });
         }
       });
