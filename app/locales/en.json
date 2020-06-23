@@ -145,6 +145,8 @@
     "location_match_description": "Check if you have had contact with someone infected",
     "logging_active": "Location Active",
     "logging_inactive": "Location Inactive",
+    "share_loc_active": "You are sharing your location with the Ministry of Health.",
+    "share_loc_inactive": "You are not sharing your location with the Ministry of Health.",
     "more_info": "More Info",
     "news_subtitle": "Read about the latest COVID updates from your health authority and in general.",
     "news_title": "News",
@@ -193,12 +195,14 @@
     "epidemiologic_report_tab": "Epidemiological report",
     "mental_health_advice_tab": "Mental health tips",
     "status": "Status:",
-    "epidemiological_discharge":"Epidemiological Discharge",
+    "epidemiological_discharge": "Epidemiological Discharge",
     "waiting_lab": "Waiting for the lab results",
     "covid_free": "Congratulations, you are COVID-19 free!",
     "how_feel_today": "How do you feel today?",
     "feel_bad": "I don't feel well",
-    "feel_great": "I feel great!"
+    "feel_great": "I feel great!",
+    "share_location_data_title": "Share location data?",
+    "share_location_data_subtitle": "By accepting, the data of your recent locations will be shared with the Dominican Republic health authority."
   },
   "maps": {
     "error_location": "At the moment we have not been able to locate you. Make sure you have GPS activated.",

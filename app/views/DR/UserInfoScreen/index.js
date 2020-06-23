@@ -224,7 +224,6 @@ export default function UserInfo({ navigation }) {
                     ]}
                     onPress={() => {
                       setTimeout(() => {
-                        storeData('shareLocation', 'no');
                         setShowShareLocDialog(false);
                       }, 1000);
                     }}>
@@ -247,7 +246,7 @@ export default function UserInfo({ navigation }) {
                       setTimeout(() => {
                         storeData('shareLocation', 'yes');
                         setShowShareLocDialog(false);
-                      }, 1300);
+                      }, 900);
                     }}>
                     <Text
                       style={[styles.textSemiBold, { color: Colors.GREEN }]}>

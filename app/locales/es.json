@@ -137,6 +137,8 @@
     "location_match_description": "Comprueba si has tenido contacto con alguien infectado",
     "logging_active": "Localización activada",
     "logging_inactive": "Localización desactivada",
+    "share_loc_active": "Estás compartiendo tu ubicación con el Ministerio de Salud",
+    "share_loc_inactive": "No estás compartiendo tu ubicación con el Ministerio de Salud",
     "more_info": "Más Información",
     "news_subtitle": "Novedades sobre el COVID-19 de tus autoridades sanitarias y noticias en general.",
     "news_title": "Noticias",
@@ -196,7 +198,7 @@
     "feel_bad": "No me siento bien",
     "feel_great": "¡Me siento genial!",
     "share_location_data_title": "¿Compartir datos de ubicación?",
-    "share_location_data_subtitle": "Al aceptar, los datos de sus ubicaciones recientes serán compartidos con la autoridad de salud de República Dominicana.",
+    "share_location_data_subtitle": "Al aceptar, los datos de sus ubicaciones recientes serán compartidos con la autoridad de salud de República Dominicana."
   },
   "maps": {
     "error_location": "En estos momentos no hemos podido localizarte. Asegurese de tener el GPS activado.",
