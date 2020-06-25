@@ -130,6 +130,7 @@ export default function UserInfo({
               storeData(COVID_POSITIVE, positive);
               storeData('UserPersonalInfo', data.body);
             }
+            navigation.navigate('EpidemiologicResponse');
           } else if (type && !positive) {
             setShowValidationDialog(true);
             setPositiveError(true);
