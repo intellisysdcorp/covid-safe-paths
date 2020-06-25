@@ -66,7 +66,7 @@ export default function main({ navigation }) {
                   styles.text,
                   { color: Colors.BLUE_RIBBON, textTransform: 'capitalize' },
                 ]}>
-                {t('report.usage.symptons_select')}
+                {t('report.usage.symptoms_select')}
               </Text>
             </Button>
           </View>

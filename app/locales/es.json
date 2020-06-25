@@ -309,7 +309,7 @@
       "selector": "Puede reportar si es COVID positivo o reportar sus sintomas actuales para saber algunos consejos",
       "subtitle": "Responderás algunas preguntas sobre tus síntomas, viajes y el contacto que has tenido con otros",
       "positive_select": "Soy positivo",
-      "symptons_select": "Reportar sintomas",
+      "symptoms_select": "Reportar sintomas",
       "use_myself": "Usar para mi",
       "use_others": "Usar para un familiar"
     },
