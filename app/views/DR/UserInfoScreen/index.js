@@ -43,11 +43,11 @@ export default function UserInfo({
   });
   const { t } = useTranslation();
 
-  const [showDialog, setShowDialog] = useState(type ? true : false);
+  const [showDialog, setShowDialog] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showValidationDialog, setShowValidationDialog] = useState(false);
   const [usePassport, setUsePassport] = useState(false);
-  const [useIdCard, setUseIdCard] = useState(type ? true : false);
+  const [useIdCard, setUseIdCard] = useState(false);
   const [useNss, setUseNss] = useState(false);
   const [error, setError] = useState(false);
   const [positiveError, setPositiveError] = useState(false);
