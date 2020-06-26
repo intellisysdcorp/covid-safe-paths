@@ -230,6 +230,7 @@ const styles = StyleSheet.create({
     width: wp('30%'),
   },
   userDataCard: {
+    alignItems: 'center',
     marginBottom: 7,
     paddingHorizontal: 30,
     flexDirection: 'row-reverse',

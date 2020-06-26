@@ -39,7 +39,6 @@ export default function UserInfo({ navigation }) {
   const { t } = useTranslation();
 
   const [showDialog, setShowDialog] = useState(false);
-  const [showShareLocDialog, setShowShareLocDialog] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showValidationDialog, setShowValidationDialog] = useState(false);
   const [usePassport, setUsePassport] = useState(false);
@@ -122,11 +121,10 @@ export default function UserInfo({ navigation }) {
           closeDialog(false);
           if (positive) {
             if (use === 'mySelf') {
-              setShowShareLocDialog(true);
               storeData(COVID_POSITIVE, positive);
               storeData('UserPersonalInfo', data.body);
             }
-            navigation.navigate('EpidemiologicResponse');
+            navigation.navigate('PositiveOnboarding');
           } else {
             navigation.navigate('Report');
           }
@@ -199,65 +197,6 @@ export default function UserInfo({ navigation }) {
       <Content>
         <ScrollView>
           <View style={{ flex: 1 }}>
-            <Dialog
-              visible={showShareLocDialog}
-              dialogStyle={{ backgroundColor: Colors.WHITE }}>
-              <View>
-                <Text style={styles.textSemiBold}>
-                  {t('positives.share_location_data_title')}
-                </Text>
-                <Text style={styles.text}>
-                  {t('positives.share_location_data_subtitle')}
-                </Text>
-                <View
-                  style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                  <Button
-                    style={[
-                      styles.buttons,
-                      {
-                        borderWidth: 1.5,
-                        borderColor: Colors.RED_BUTTON,
-                        backgroundColor: Colors.WHITE,
-                        width: '40%',
-                        marginTop: hp('3%'),
-                      },
-                    ]}
-                    onPress={() => {
-                      setTimeout(async () => {
-                        await AsyncStorage.removeItem('shareLocation');
-                        setShowShareLocDialog(false);
-                      }, 1000);
-                    }}>
-                    <Text style={[styles.text, { color: Colors.RED_BUTTON }]}>
-                      {t('report.no')}
-                    </Text>
-                  </Button>
-                  <Button
-                    style={[
-                      styles.buttons,
-                      {
-                        borderWidth: 1.5,
-                        borderColor: Colors.GREEN,
-                        backgroundColor: Colors.WHITE,
-                        width: '40%',
-                        marginTop: hp('3%'),
-                      },
-                    ]}
-                    onPress={() => {
-                      setTimeout(() => {
-                        storeData('shareLocation', 'yes');
-                        setShowShareLocDialog(false);
-                      }, 900);
-                    }}>
-                    <Text
-                      style={[styles.textSemiBold, { color: Colors.GREEN }]}>
-                      {t('report.yes')}
-                    </Text>
-                  </Button>
-                </View>
-              </View>
-            </Dialog>
-
             <Dialog
               visible={showValidationDialog}
               onTouchOutside={() => closeDialog(true)}
@@ -435,8 +374,9 @@ export default function UserInfo({ navigation }) {
               </TouchableHighlight>
               <TouchableHighlight
                 onPress={() => {
-                  setShowDialog(true);
-                  setUsePassport(true);
+                  navigation.navigate('PositiveOnboarding');
+                  // setShowDialog(true);
+                  // setUsePassport(true);
                 }}
                 underlayColor='#FFF'>
                 <Card style={[styles.bigCards, styles.userDataCard]}>

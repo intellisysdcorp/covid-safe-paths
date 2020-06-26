@@ -150,9 +150,9 @@ export const SettingsScreen = ({ navigation }) => {
             description={t('label.epidemiologic_report_subtitle')}
             onPress={() => {
               if (isCovidPositive !== null) {
-                navigation.navigate('EpidemiologicResponse');
+                navigation.navigate('UseFor');
               } else {
-                navigation.navigate('UserInfo');
+                navigation.navigate('ReportScreen');
               }
             }}
             last

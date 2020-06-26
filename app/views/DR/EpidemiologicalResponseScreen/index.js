@@ -10,9 +10,9 @@ import MentalHealthAdvices from './mentalHealthAdvices';
 
 const TopBar = createMaterialTopTabNavigator();
 
-const EpidemiologicScreen = ({ navigation }) => {
+const EpidemiologicScreen = ({ route, navigation }) => {
   const { t } = useTranslation();
-
+  const { nickname } = route.params;
   return (
     <NavigationBarWrapper
       title={t('label.epidemiologic_report_title')}
@@ -29,6 +29,7 @@ const EpidemiologicScreen = ({ navigation }) => {
           <TopBar.Screen
             name={t('positives.epidemiologic_report_tab')}
             component={EpidemiologicalStatus}
+            initialParams={{ nickname }}
           />
           <TopBar.Screen
             name={t('positives.mental_health_advice_tab')}
