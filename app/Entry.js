@@ -21,6 +21,7 @@ import Report from './views/DR/ReportScreen/ReportScreenQuestions';
 import ReportType from './views/DR/ReportScreen/ReportType';
 import ResultsScreen from './views/DR/ReportScreen/Results';
 import Sponsors from './views/DR/Sponsors';
+import TermsCondition from './views/DR/Terms&Condition';
 import UserInfo from './views/DR/UserInfoScreen/index';
 import { ExportScreen } from './views/Export';
 import { ExposureHistoryScreen } from './views/ExposureHistory/ExposureHistory';
@@ -111,6 +112,11 @@ class Entry extends Component {
           <Stack.Screen
             name='SettingsScreen'
             component={SettingsScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name='TermsCondition'
+            component={TermsCondition}
             options={{ headerShown: false }}
           />
           <Stack.Screen

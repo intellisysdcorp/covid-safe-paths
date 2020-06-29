@@ -44,6 +44,7 @@ export default function UserInfo({
   const { t } = useTranslation();
 
   const [showDialog, setShowDialog] = useState(false);
+  const [showShareLocDialog, setShowShareLocDialog] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showValidationDialog, setShowValidationDialog] = useState(false);
   const [usePassport, setUsePassport] = useState(false);
@@ -127,6 +128,7 @@ export default function UserInfo({
           closeDialog(false);
           if (positive) {
             if (use === 'mySelf') {
+              setShowShareLocDialog(true);
               storeData(COVID_POSITIVE, positive);
               storeData('UserPersonalInfo', data.body);
             }
@@ -178,6 +180,25 @@ export default function UserInfo({
     return await validate(data);
   };
 
+  const isPassport = usePassport => {
+    if (usePassport) {
+      return (
+        <View>
+          <Text style={styles.textSemiBold}>
+            {t('report.userInfo.name_and_lastname')}
+          </Text>
+          <Input
+            value={passportName}
+            onChange={text => setSelectedOption('passportName', text)}
+            style={{ marginBottom: 12 }}
+            keyboardType={'default'}
+            maxLength={35}
+          />
+        </View>
+      );
+    }
+  };
+
   const setSelectedOption = (option, selected) => {
     setGlobalState({
       type: 'ADD_ANSWERS',
@@ -206,6 +227,65 @@ export default function UserInfo({
       <Content>
         <ScrollView>
           <View style={{ flex: 1 }}>
+            <Dialog
+              visible={showShareLocDialog}
+              dialogStyle={{ backgroundColor: Colors.WHITE }}>
+              <View>
+                <Text style={styles.textSemiBold}>
+                  {t('positives.share_location_data_title')}
+                </Text>
+                <Text style={styles.text}>
+                  {t('positives.share_location_data_subtitle')}
+                </Text>
+                <View
+                  style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                  <Button
+                    style={[
+                      styles.buttons,
+                      {
+                        borderWidth: 1.5,
+                        borderColor: Colors.RED_BUTTON,
+                        backgroundColor: Colors.WHITE,
+                        width: '40%',
+                        marginTop: hp('3%'),
+                      },
+                    ]}
+                    onPress={() => {
+                      setTimeout(async () => {
+                        await AsyncStorage.removeItem('shareLocation');
+                        setShowShareLocDialog(false);
+                      }, 1000);
+                    }}>
+                    <Text style={[styles.text, { color: Colors.RED_BUTTON }]}>
+                      {t('report.no')}
+                    </Text>
+                  </Button>
+                  <Button
+                    style={[
+                      styles.buttons,
+                      {
+                        borderWidth: 1.5,
+                        borderColor: Colors.GREEN,
+                        backgroundColor: Colors.WHITE,
+                        width: '40%',
+                        marginTop: hp('3%'),
+                      },
+                    ]}
+                    onPress={() => {
+                      setTimeout(() => {
+                        storeData('shareLocation', 'yes');
+                        setShowShareLocDialog(false);
+                      }, 900);
+                    }}>
+                    <Text
+                      style={[styles.textSemiBold, { color: Colors.GREEN }]}>
+                      {t('report.yes')}
+                    </Text>
+                  </Button>
+                </View>
+              </View>
+            </Dialog>
+
             <Dialog
               visible={showValidationDialog}
               onTouchOutside={() => closeDialog(true)}
@@ -292,33 +372,19 @@ export default function UserInfo({
                   />
                 )}
 
-                {usePassport ? (
-                  <View>
-                    <Text style={styles.textSemiBold}>
-                      {t('report.userInfo.name_and_lastname')}
-                    </Text>
-                    <Input
-                      value={passportName}
-                      onChange={text => setSelectedOption('passportName', text)}
-                      style={{ marginBottom: 12 }}
-                      keyboardType={'default'}
-                      maxLength={35}
-                    />
-                  </View>
-                ) : (
-                  <View>
-                    <Text style={styles.textSemiBold}>
-                      {t('report.userInfo.tel_number')}
-                    </Text>
-                    <PhoneInput
-                      value={phoneNumber}
-                      handleOnChange={text =>
-                        setSelectedOption('phoneNumber', text)
-                      }
-                      style={{ marginBottom: 12 }}
-                    />
-                  </View>
-                )}
+                {isPassport(usePassport)}
+
+                <Text style={styles.textSemiBold}>
+                  {t('report.userInfo.tel_number')}
+                </Text>
+                <PhoneInput
+                  value={phoneNumber}
+                  handleOnChange={text =>
+                    setSelectedOption('phoneNumber', text)
+                  }
+                  style={{ marginBottom: 12 }}
+                />
+
                 <Text style={[styles.textSemiBold, { marginBottom: 10 }]}>
                   {t('report.userInfo.birthdate')}
                 </Text>
