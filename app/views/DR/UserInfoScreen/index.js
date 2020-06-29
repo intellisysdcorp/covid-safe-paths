@@ -390,7 +390,6 @@ export default function UserInfo({ navigation }) {
               </TouchableHighlight>
               <TouchableHighlight
                 onPress={() => {
-                  // navigation.navigate('PositiveOnboarding');
                   setShowDialog(true);
                   setUsePassport(true);
                 }}

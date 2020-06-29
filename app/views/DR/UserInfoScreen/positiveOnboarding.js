@@ -155,7 +155,7 @@ const PositiveOnboarding = ({ route, navigation }) => {
                   styles.subtitles,
                   { textAlign: 'center', marginLeft: 10 },
                 ]}>
-                Vemos que has sido diagnosticado positivo a COVID-19
+                {t('positives.you_are_positive')}
               </Text>
               <View
                 style={[
@@ -164,13 +164,11 @@ const PositiveOnboarding = ({ route, navigation }) => {
                 ]}
               />
               <Text style={[styles.text, { textAlign: 'center' }]}>
-                Para poder darte un seguimiento apropiado y personalizado,
-                ingresa un nombre con el que desees que la aplicación te
-                identifique
+                {t('positives.insert_nickname')}
               </Text>
               {error && (
                 <Text style={[styles.text, { color: Colors.RED_TEXT }]}>
-                  Este identificador ya existe
+                  {t('positives.nickname_exist')}
                 </Text>
               )}
               <Input
@@ -193,7 +191,6 @@ const PositiveOnboarding = ({ route, navigation }) => {
                 ]}
                 onPress={async () => {
                   if (!getNicknamesCoincidences(nicknameArray, nickname)) {
-                    console.log('HERWE', typeof nicknameArray, nicknameArray);
                     nicknameArray.unshift(
                       createEntry(nickname, body, positive),
                     );

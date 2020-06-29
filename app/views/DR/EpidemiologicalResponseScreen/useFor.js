@@ -39,7 +39,7 @@ export default function UserFor({ navigation }) {
               styles.textSemiBold,
               { marginTop: 25, marginBottom: 8, fontSize: 17 },
             ]}>
-            ¿Quien está usando?
+            {t('positives.who_is_using')}
           </Text>
           <View style={styles.bottomLine} />
           <View style={{ marginTop: 15, height: hp('72%') }}>
@@ -84,7 +84,7 @@ export default function UserFor({ navigation }) {
                 color: Colors.GRAY,
               },
             ]}>
-            Puedes agregar más usuarios desde la opción Reportar
+            {t('positives.you_can_add_more')}
           </Text>
         </View>
       </ScrollView>
