@@ -1,19 +1,20 @@
-import { Card } from 'native-base';
-import React from 'react';
+import { Button, Card, Text } from 'native-base';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
+import { Dialog } from 'react-native-simple-dialogs';
 
+import DialogStyle from '../../../components/DR/Header/style';
 import NavigationBarWrapper from '../../../components/NavigationBarWrapper';
 import Colors from '../../../constants/colors';
 import { sponsorsList } from './List';
 
 function CreateCard(img, url, navigate) {
-  // Necesita estilos
-  // onPress={navigate('Details', {
-  //   source: { uri: url },
-  // })}
   return (
     <TouchableOpacity
       onPress={() => navigate('Details', { source: { uri: url } })}>
@@ -26,6 +27,11 @@ function CreateCard(img, url, navigate) {
 
 export default function Index({ navigation: { navigate, goBack } }) {
   const { t } = useTranslation();
+
+  const [showDialog, setShowDialog] = useState(true);
+  const closeDialog = () => {
+    setShowDialog(false);
+  };
 
   const createAllCard = () => {
     const allCards = [];
@@ -43,6 +49,31 @@ export default function Index({ navigation: { navigate, goBack } }) {
       onBackPress={() => goBack()}>
       <View style={styles.container}>
         <ScrollView>
+          <Dialog
+            visible={showDialog}
+            dialogStyle={{ backgroundColor: Colors.WHITE }}>
+            <View>
+              <Text style={DialogStyle.textSemiBold}>
+                {t('label.dialog_advice')}
+              </Text>
+              <Button
+                style={[
+                  DialogStyle.buttons,
+                  {
+                    backgroundColor: Colors.GREEN,
+                    width: '70%',
+                    marginTop: hp('3%'),
+                  },
+                ]}
+                onPress={() => {
+                  closeDialog();
+                }}>
+                <Text style={[DialogStyle.text, { color: Colors.WHITE }]}>
+                  {t('label.accept')}
+                </Text>
+              </Button>
+            </View>
+          </Dialog>
           <View style={styles.cardsContainer}>{createAllCard()}</View>
         </ScrollView>
       </View>
