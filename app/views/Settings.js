@@ -38,7 +38,7 @@ export const SettingsScreen = ({ navigation }) => {
   };
 
   const getCovidpositive = async () => {
-    const isPositive = await AsyncStorage.getItem(COVID_POSITIVE);
+    const isPositive = await AsyncStorage.getItem('users');
     const sharing = await AsyncStorage.getItem('shareLocation');
     setIsCovpositive(isPositive);
     setIsSharing(sharing !== null ? true : false);

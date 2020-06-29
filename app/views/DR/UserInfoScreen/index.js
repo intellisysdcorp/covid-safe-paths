@@ -1,6 +1,5 @@
 import 'moment/locale/es';
 
-import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import { Button, Card, Container, Content, Text } from 'native-base';
 import React, { useContext, useState } from 'react';
@@ -30,7 +29,7 @@ import {
   MEPYD_C5I_API_URL,
   MEPYD_C5I_SERVICE,
 } from '../../../constants/DR/baseUrls';
-import { COVID_POSITIVE } from '../../../constants/storage';
+import { GetStoreData } from '../../../helpers/General';
 
 export default function UserInfo({ navigation }) {
   navigation.setOptions({
@@ -54,13 +53,11 @@ export default function UserInfo({ navigation }) {
         passportName = '',
         nssId = '',
         phoneNumber,
-        usage,
       },
     },
     setGlobalState,
   ] = useContext(context);
 
-  const use = usage === '' ? 'mySelf' : usage;
   const closeDialog = final => {
     setError(false);
     setShowDialog(false);
@@ -85,20 +82,15 @@ export default function UserInfo({ navigation }) {
         },
       );
       response = await response.json();
+      console.log(response);
       return response;
     } catch (e) {
       console.log('ha ocurrido un error', e);
     }
   };
 
-  const storeData = async (key, value) => {
-    try {
-      await AsyncStorage.setItem(key, JSON.stringify(value));
-    } catch (e) {
-      console.log(e);
-    }
-  };
   const validate = async data => {
+    const { body } = data;
     try {
       let response = await fetch(
         `${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/Person`,
@@ -108,23 +100,49 @@ export default function UserInfo({ navigation }) {
             'Content-Type': 'application/json',
             gov_do_token: GOV_DO_TOKEN,
           },
-          body: JSON.stringify(data.body),
+          body: JSON.stringify(body),
         },
       );
 
       response = await response.json();
       setLoading(false);
+      console.log(response);
+      // switch(true) {
+      //   case response.valid:
+      //     getAge(birth);
+      //     validateCovidPositive(body).then((response)=>{});
+      //     closeDialog(false);
+      //     break;
+      // }
+
       if (response.valid !== undefined) {
         if (response.valid) {
           getAge(birth);
-          let { positive } = await validateCovidPositive(data.body);
+          let { positive } = await validateCovidPositive(body);
           closeDialog(false);
           if (positive) {
-            if (use === 'mySelf') {
-              storeData(COVID_POSITIVE, positive);
-              storeData('UserPersonalInfo', data.body);
-            }
-            navigation.navigate('PositiveOnboarding');
+            GetStoreData('users', false).then(data => {
+              if (data !== null) {
+                let same = false;
+                let name = '';
+                data.map(user => {
+                  if (JSON.stringify(user.data) === JSON.stringify(body)) {
+                    same = true;
+                    name = user.data.name;
+                  }
+                });
+                same
+                  ? navigation.navigate('EpidemiologicResponse', {
+                      screen: 'EpidemiologicReport',
+                      params: { nickname: name },
+                    })
+                  : navigation.navigate('PositiveOnboarding', {
+                      positive,
+                      body,
+                    });
+              }
+            });
+            navigation.navigate('PositiveOnboarding', { positive, body });
           } else {
             navigation.navigate('Report');
           }
@@ -374,9 +392,9 @@ export default function UserInfo({ navigation }) {
               </TouchableHighlight>
               <TouchableHighlight
                 onPress={() => {
-                  navigation.navigate('PositiveOnboarding');
-                  // setShowDialog(true);
-                  // setUsePassport(true);
+                  // navigation.navigate('PositiveOnboarding');
+                  setShowDialog(true);
+                  setUsePassport(true);
                 }}
                 underlayColor='#FFF'>
                 <Card style={[styles.bigCards, styles.userDataCard]}>

@@ -27,13 +27,15 @@ const EpidemiologicScreen = ({ route, navigation }) => {
             },
           }}>
           <TopBar.Screen
-            name={t('positives.epidemiologic_report_tab')}
+            name={'EpidemiologicReport'}
             component={EpidemiologicalStatus}
+            options={{ tabBarLabel: t('positives.epidemiologic_report_tab') }}
             initialParams={{ nickname }}
           />
           <TopBar.Screen
-            name={t('positives.mental_health_advice_tab')}
+            name={'mentalHealthAdvices'}
             component={MentalHealthAdvices}
+            options={{ tabBarLabel: t('positives.mental_health_advice_tab') }}
           />
         </TopBar.Navigator>
       </View>

@@ -1,5 +1,5 @@
 import { Button, Text } from 'native-base';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, KeyboardAvoidingView, ScrollView, View } from 'react-native';
 import {
@@ -10,6 +10,7 @@ import { Dialog } from 'react-native-simple-dialogs';
 
 import styles from '../../../components/DR/Header/style';
 import Input from '../../../components/DR/Input/index';
+import context from '../../../components/DR/Reduces/context.js';
 import NavigationBarWrapper from '../../../components/NavigationBarWrapper';
 import Colors from '../../../constants/colors';
 import {
@@ -18,21 +19,47 @@ import {
   SetStoreData,
 } from '../../../helpers/General';
 
-const PositiveOnboarding = ({ navigation }) => {
+const PositiveOnboarding = ({ route, navigation }) => {
+  const { positive, body } = route.params;
   const { t } = useTranslation();
   const [showShareLocDialog, setShowShareLocDialog] = useState(false);
+  const [error, showError] = useState(false);
   const [nickname, setNickname] = useState('');
   const [nicknameArray, setNicknameArray] = useState([]);
+  const [
+    {
+      answers: { usage },
+    },
+  ] = useContext(context);
 
   useEffect(() => {
-    GetStoreData('nickname', true).then(data => {
+    GetStoreData('users', true).then(data => {
       if (data !== null) {
         setNicknameArray(JSON.parse(data));
       }
     });
   }, []);
-  const enabled = nickname.length > 2 ? true : false;
 
+  const createEntry = (nickname, data, positive) => {
+    return {
+      name: nickname,
+      data,
+      positive,
+      usage,
+    };
+  };
+
+  const getNicknamesCoincidences = (users, nickname) => {
+    let coincidence = false;
+    users.map(user => {
+      if (user.name === nickname) {
+        coincidence = true;
+      }
+    });
+    return coincidence;
+  };
+  const enabled = nickname.length > 2 ? true : false;
+  console.log(nicknameArray);
   return (
     <NavigationBarWrapper
       title={t('label.epidemiologic_report_title')}
@@ -44,7 +71,7 @@ const PositiveOnboarding = ({ navigation }) => {
           style={{ flex: 1, backgroundColor: Colors.WHITE }}>
           <View>
             <Dialog
-              visible={showShareLocDialog}
+              visible={showShareLocDialog && usage === 'mySelf'}
               dialogStyle={{ backgroundColor: Colors.WHITE }}>
               <View>
                 <Text style={styles.textSemiBold}>
@@ -143,6 +170,11 @@ const PositiveOnboarding = ({ navigation }) => {
                 ingresa un nombre con el que desees que la aplicación te
                 identifique
               </Text>
+              {error && (
+                <Text style={[styles.text, { color: Colors.RED_TEXT }]}>
+                  Este identificador ya existe
+                </Text>
+              )}
               <Input
                 value={nickname}
                 onChange={text => setNickname(text)}
@@ -162,12 +194,20 @@ const PositiveOnboarding = ({ navigation }) => {
                   !enabled && { backgroundColor: Colors.BLUE_DISABLED },
                 ]}
                 onPress={async () => {
-                  nicknameArray.push(nickname);
-                  await SetStoreData('nickname', nicknameArray);
-                  setShowShareLocDialog(true);
-                  navigation.navigate('EpidemiologicResponse', {
-                    nickname: nickname,
-                  });
+                  console.log(
+                    getNicknamesCoincidences(nicknameArray, nickname),
+                  );
+                  if (!getNicknamesCoincidences(nicknameArray, nickname)) {
+                    nicknameArray.push(createEntry(nickname, body, positive));
+                    await SetStoreData('users', nicknameArray);
+                    setShowShareLocDialog(true);
+                    navigation.navigate('EpidemiologicResponse', {
+                      screen: 'EpidemiologicReport',
+                      params: { nickname: nickname },
+                    });
+                  } else {
+                    showError(true);
+                  }
                 }}>
                 <Text style={[styles.text, { color: Colors.WHITE }]}>
                   {t('common.done')}
