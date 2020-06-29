@@ -28,37 +28,11 @@ const Details = ({
   navigation.setOptions({ headerShown: false });
 
   const { t } = useTranslation();
-  const [interval, setNewInterval] = useState(null);
+  const [timer, setNewTimer] = useState(null);
   const [showDialog, setShowDialog] = useState(false);
   const [dialogText, setDialogText] = useState('');
   const closeDialog = () => {
     setShowDialog(false);
-  };
-
-  const dialogAdvice = () => {
-    <Dialog
-      visible={showDialog}
-      dialogStyle={{ backgroundColor: Colors.WHITE }}>
-      <View>
-        <Text style={DialogStyle.textSemiBold}>{dialogText}</Text>
-        <Button
-          style={[
-            DialogStyle.buttons,
-            {
-              backgroundColor: Colors.GREEN,
-              width: '70%',
-              marginTop: hp('3%'),
-            },
-          ]}
-          onPress={() => {
-            closeDialog();
-          }}>
-          <Text style={[DialogStyle.text, { color: Colors.WHITE }]}>
-            {t('label.accept')}
-          </Text>
-        </Button>
-      </View>
-    </Dialog>;
   };
 
   const backToMain = () => {
@@ -80,7 +54,29 @@ const Details = ({
 
   return (
     <NavigationBarWrapper title='Atrás' onBackPress={backToMain.bind(this)}>
-      {dialogAdvice()}
+      <Dialog
+        visible={showDialog}
+        dialogStyle={{ backgroundColor: Colors.WHITE }}>
+        <View>
+          <Text style={DialogStyle.textSemiBold}>{dialogText}</Text>
+          <Button
+            style={[
+              DialogStyle.buttons,
+              {
+                backgroundColor: Colors.GREEN,
+                width: '70%',
+                marginTop: hp('3%'),
+              },
+            ]}
+            onPress={() => {
+              closeDialog();
+            }}>
+            <Text style={[DialogStyle.text, { color: Colors.WHITE }]}>
+              {t('label.accept')}
+            </Text>
+          </Button>
+        </View>
+      </Dialog>
       {switchScreenTo === 'PDFView' && (
         <PDFView
           source={source}
@@ -97,15 +93,15 @@ const Details = ({
           startInLoadingState
           injectedJavaScript={fixerImage}
           onLoadStart={() => {
-            setNewInterval(
-              setInterval(() => {
+            setNewTimer(
+              setTimeout(() => {
                 setDialogText(t('label.dialog_interval_advice'));
                 setShowDialog(true);
-              }, 5000),
+              }, 15000),
             );
           }}
           onLoadEnd={() => {
-            clearInterval(interval);
+            clearTimeout(timer);
           }}
           onError={() => {
             setDialogText(t('label.dialog_error_advice'));
