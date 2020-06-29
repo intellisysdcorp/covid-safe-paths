@@ -14,9 +14,9 @@ import context from '../../../components/DR/Reduces/context.js';
 import NavigationBarWrapper from '../../../components/NavigationBarWrapper';
 import Colors from '../../../constants/colors';
 import {
-  GetStoreData,
   RemoveStoreData,
   SetStoreData,
+  getUsers,
 } from '../../../helpers/General';
 
 const PositiveOnboarding = ({ route, navigation }) => {
@@ -33,11 +33,7 @@ const PositiveOnboarding = ({ route, navigation }) => {
   ] = useContext(context);
 
   useEffect(() => {
-    GetStoreData('users', true).then(data => {
-      if (data !== null) {
-        setNicknameArray(JSON.parse(data));
-      }
-    });
+    getUsers().then(data => setNicknameArray(data !== null && data));
   }, []);
 
   const createEntry = (nickname, data, positive) => {
@@ -59,7 +55,7 @@ const PositiveOnboarding = ({ route, navigation }) => {
     return coincidence;
   };
   const enabled = nickname.length > 2 ? true : false;
-  console.log(nicknameArray);
+
   return (
     <NavigationBarWrapper
       title={t('label.epidemiologic_report_title')}
@@ -194,9 +190,6 @@ const PositiveOnboarding = ({ route, navigation }) => {
                   !enabled && { backgroundColor: Colors.BLUE_DISABLED },
                 ]}
                 onPress={async () => {
-                  console.log(
-                    getNicknamesCoincidences(nicknameArray, nickname),
-                  );
                   if (!getNicknamesCoincidences(nicknameArray, nickname)) {
                     nicknameArray.push(createEntry(nickname, body, positive));
                     await SetStoreData('users', nicknameArray);

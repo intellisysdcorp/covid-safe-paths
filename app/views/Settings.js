@@ -12,8 +12,13 @@ import { FeatureFlag } from '../components/FeatureFlag';
 import NativePicker from '../components/NativePicker';
 import NavigationBarWrapper from '../components/NavigationBarWrapper';
 import Colors from '../constants/colors';
-import { COVID_POSITIVE, PARTICIPATE } from '../constants/storage';
-import { GetStoreData, SetStoreData } from '../helpers/General';
+import { PARTICIPATE } from '../constants/storage';
+import {
+  GetStoreData,
+  SetStoreData,
+  getMyself,
+  getUsers,
+} from '../helpers/General';
 import {
   LOCALE_LIST,
   getUserLocaleOverride,
@@ -28,7 +33,7 @@ export const SettingsScreen = ({ navigation }) => {
   const { t } = useTranslation();
   const [isLogging, setIsLogging] = useState(undefined);
   const [isSharing, setIsSharing] = useState(false);
-  const [isCovidPositive, setIsCovpositive] = useState();
+  const [isCovidPositive, setIsCovpositive] = useState([]);
   const [userLocale, setUserLocale] = useState(
     supportedDeviceLanguageOrEnglish(),
   );
@@ -37,12 +42,13 @@ export const SettingsScreen = ({ navigation }) => {
     navigation.goBack();
   };
 
-  const getCovidpositive = async () => {
-    const isPositive = await AsyncStorage.getItem('users');
-    const sharing = await AsyncStorage.getItem('shareLocation');
-    setIsCovpositive(isPositive);
-    setIsSharing(sharing !== null ? true : false);
+  const getCovidpositive = () => {
+    getUsers().then(users => setIsCovpositive(users !== null && users));
+    GetStoreData('shareLocation').then(sharing =>
+      setIsSharing(sharing !== null ? true : false),
+    );
   };
+
   useEffect(() => {
     const handleBackPress = () => {
       navigation.goBack();
@@ -109,7 +115,7 @@ export const SettingsScreen = ({ navigation }) => {
             icon={isLogging ? checkmarkIcon : xmarkIcon}
             onPress={locationToggleButtonPressed}
           />
-          {isCovidPositive !== null && (
+          {getMyself(isCovidPositive) && (
             <Item
               label={
                 isSharing

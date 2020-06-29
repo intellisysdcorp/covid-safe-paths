@@ -4,7 +4,10 @@ import { Card, Text } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, TouchableHighlight, View } from 'react-native';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import styles from '../../../components/DR/Header/style';
@@ -29,7 +32,7 @@ export default function UserFor({ navigation }) {
     <NavigationBarWrapper
       title={t('label.epidemiologic_report_title')}
       onBackPress={() => navigation.goBack()}>
-      <ScrollView>
+      <ScrollView style={{ flex: 1 }}>
         <View style={styles.formContainer}>
           <Text
             style={[
@@ -39,7 +42,7 @@ export default function UserFor({ navigation }) {
             ¿Quien está usando?
           </Text>
           <View style={styles.bottomLine} />
-          <View style={{ marginTop: 15 }}>
+          <View style={{ marginTop: 15, height: hp('72%') }}>
             {nicknameArray.map(user => (
               <TouchableHighlight
                 onPress={() =>
@@ -51,8 +54,6 @@ export default function UserFor({ navigation }) {
                 underlayColor={Colors.WHITE}
                 key={user.name}>
                 <Card style={[styles.bigCards, styles.userDataCard]}>
-                  {console.log(user)}
-
                   <Text style={[styles.textSemiBold, { marginHorizontal: 12 }]}>
                     {user.name}
                   </Text>
@@ -65,6 +66,26 @@ export default function UserFor({ navigation }) {
               </TouchableHighlight>
             ))}
           </View>
+        </View>
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'absolute',
+            bottom: 0,
+            width: wp('100%'),
+          }}>
+          <Text
+            style={[
+              styles.text,
+              {
+                textAlign: 'center',
+                width: wp('70%'),
+                color: Colors.GRAY,
+              },
+            ]}>
+            Puedes agregar más usuarios desde la opción Reportar
+          </Text>
         </View>
       </ScrollView>
     </NavigationBarWrapper>

@@ -106,14 +106,6 @@ export default function UserInfo({ navigation }) {
 
       response = await response.json();
       setLoading(false);
-      console.log(response);
-      // switch(true) {
-      //   case response.valid:
-      //     getAge(birth);
-      //     validateCovidPositive(body).then((response)=>{});
-      //     closeDialog(false);
-      //     break;
-      // }
 
       if (response.valid !== undefined) {
         if (response.valid) {
@@ -156,6 +148,7 @@ export default function UserInfo({ navigation }) {
       return response;
     } catch (e) {
       setLoading(false);
+      closeDialog();
       setShowValidationDialog(true);
       console.log('ha ocurrido un error', e);
     }

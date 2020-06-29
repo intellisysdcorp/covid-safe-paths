@@ -72,3 +72,18 @@ export async function pickFile() {
     }
   }
 }
+
+export const getMyself = data => {
+  let response = false;
+  data.map(users => {
+    if (users.usage === 'mySelf') {
+      return (response = true);
+    }
+  });
+  return response;
+};
+
+export const getUsers = async () => {
+  const data = await GetStoreData('users');
+  return JSON.parse(data);
+};
