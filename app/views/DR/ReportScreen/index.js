@@ -13,9 +13,9 @@ import Colors from '../../../constants/colors';
 import { getMyself, getUsers } from '../../../helpers/General';
 import styles from './style';
 
-export default function ReportScreen({ navigation }) {
+export default function ReportScreen({ route, navigation }) {
   const { t } = useTranslation();
-
+  const back = route.params?.back ?? false;
   const [, setGlobalState] = useContext(context);
   const [users, setUsers] = useState([]);
 
@@ -34,6 +34,8 @@ export default function ReportScreen({ navigation }) {
       <Content>
         <View style={{ flex: 1 }}>
           <Header
+            iconName='chevron-left'
+            close={back}
             title={t('report.title')}
             text={t('report.usage.header_subtitle')}
             navigation={navigation}
