@@ -16,12 +16,14 @@ import NavigationBarWrapper from '../../../components/NavigationBarWrapper';
 import { Typography } from '../../../components/Typography';
 import Colors from '../../../constants/colors';
 import { Theme } from '../../../constants/themes';
-import englishFAQ from '../../../locales/faqs/en.json';
-import spanishFAQ from '../../../locales/faqs/es.json';
 
 const FAQ = ({ navigation }) => {
   const { t, i18n } = useTranslation();
 
+  const englishFAQ =
+    'https://docs.google.com/document/d/15IARgC5qGILNB13coHQcMZusWXh4VlU83UhnUZjiCXc/edit';
+  const spanishFAQ =
+    'https://docs.google.com/document/d/1koy_baiJouSir-rEQJrqS8l0e7eMw9vKCiVz9RW6a3E/edit?usp=sharing';
   const HEALTH_MINISTRY_URL =
     'http://digepisalud.gob.do/documentos/?drawer=Vigilancia%20Epidemiologica*Alertas%20epidemiologicas*Coronavirus*Nacional*Materiales%20IEC%20COVID-19';
 
@@ -45,24 +47,6 @@ const FAQ = ({ navigation }) => {
     };
   });
 
-  function getFAQS(faqs) {
-    let result = '<html>';
-    result +=
-      '<style>  html, body { font-size: 40px; margin: 0; padding: 0; } </style>';
-    result += '<body>';
-
-    for (let i = 0; i < faqs.faqs.length; i++) {
-      const element = faqs.faqs[i];
-
-      result += '<H2>' + element.name + '</H2><P>';
-      result += element.text.replace(/\n/g, '<br/>');
-      result += '<hr/>';
-    }
-    result += '</body></html>';
-
-    return result;
-  }
-
   return (
     <NavigationBarWrapper
       title={t('label.faq_page_title')}
@@ -72,10 +56,9 @@ const FAQ = ({ navigation }) => {
           <WebView
             originWhitelist={['*']}
             source={{
-              html: getFAQS(i18n.language === 'es' ? spanishFAQ : englishFAQ),
+              uri: i18n.language === 'es' ? spanishFAQ : englishFAQ,
             }}
             style={{
-              marginTop: 15,
               backgroundColor: Colors.INTRO_WHITE_BG,
             }}
           />
@@ -106,7 +89,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     width: '100%',
     backgroundColor: Colors.INTRO_WHITE_BG,
-    paddingHorizontal: 26,
+    paddingRight: 40,
     flex: 1,
   },
   termsInfoRow: {
