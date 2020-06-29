@@ -33,7 +33,7 @@ const PositiveOnboarding = ({ route, navigation }) => {
   ] = useContext(context);
 
   useEffect(() => {
-    getUsers().then(data => setNicknameArray(data !== null && data));
+    getUsers().then(data => setNicknameArray(data !== null ? data : []));
   }, []);
 
   const createEntry = (nickname, data, positive) => {
@@ -47,11 +47,13 @@ const PositiveOnboarding = ({ route, navigation }) => {
 
   const getNicknamesCoincidences = (users, nickname) => {
     let coincidence = false;
-    users.map(user => {
-      if (user.name === nickname) {
-        coincidence = true;
-      }
-    });
+    if (users.length > 0) {
+      users.map(user => {
+        if (user.name === nickname) {
+          coincidence = true;
+        }
+      });
+    }
     return coincidence;
   };
   const enabled = nickname.length > 2 ? true : false;
@@ -191,7 +193,10 @@ const PositiveOnboarding = ({ route, navigation }) => {
                 ]}
                 onPress={async () => {
                   if (!getNicknamesCoincidences(nicknameArray, nickname)) {
-                    nicknameArray.push(createEntry(nickname, body, positive));
+                    console.log('HERWE', typeof nicknameArray, nicknameArray);
+                    nicknameArray.unshift(
+                      createEntry(nickname, body, positive),
+                    );
                     await SetStoreData('users', nicknameArray);
                     setShowShareLocDialog(true);
                     navigation.navigate('EpidemiologicResponse', {

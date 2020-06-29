@@ -43,7 +43,7 @@ export const SettingsScreen = ({ navigation }) => {
   };
 
   const getCovidpositive = () => {
-    getUsers().then(users => setIsCovpositive(users !== null && users));
+    getUsers().then(users => setIsCovpositive(users !== null ? users : []));
     GetStoreData('shareLocation').then(sharing =>
       setIsSharing(sharing !== null ? true : false),
     );
@@ -115,7 +115,7 @@ export const SettingsScreen = ({ navigation }) => {
             icon={isLogging ? checkmarkIcon : xmarkIcon}
             onPress={locationToggleButtonPressed}
           />
-          {getMyself(isCovidPositive) && (
+          {isCovidPositive.length > 0 && getMyself(isCovidPositive) && (
             <Item
               label={
                 isSharing

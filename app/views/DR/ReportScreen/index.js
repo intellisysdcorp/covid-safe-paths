@@ -18,7 +18,11 @@ export default function ReportScreen({ navigation }) {
 
   const [, setGlobalState] = useContext(context);
   const [users, setUsers] = useState([]);
-  getUsers().then(data => setUsers(data));
+
+  getUsers().then(data => {
+    setUsers(data !== null ? data : []);
+  });
+
   const setSelectedOption = selected => {
     setGlobalState({
       type: 'ADD_ANSWERS',
@@ -39,7 +43,7 @@ export default function ReportScreen({ navigation }) {
             <Text style={[styles.text, { marginVertical: 30, fontSize: 17 }]}>
               {t('report.usage.subtitle')}
             </Text>
-            {!getMyself(users) && (
+            {!(users.length > 0 && getMyself(users)) && (
               <Button
                 style={[
                   styles.buttons,
