@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.LIGHT_BLUE,
   },
   formContainer: {
-    marginHorizontal: wp('6%'),
+    marginHorizontal: wp('5%'),
     marginBottom: 40,
   },
   header: {
@@ -204,6 +204,7 @@ const styles = StyleSheet.create({
     fontSize: textFontSize + 1,
     marginTop: 15,
     marginBottom: 5,
+    fontFamily: fontFamily.primaryBold,
   },
   textHeader: {
     fontSize: textFontSize + 2,

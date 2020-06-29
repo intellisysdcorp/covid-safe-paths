@@ -4,10 +4,7 @@ import { Card, Text } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, TouchableHighlight, View } from 'react-native';
-import {
-  heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
-} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import styles from '../../../components/DR/Header/style';
@@ -33,33 +30,41 @@ export default function UserFor({ navigation }) {
       title={t('label.epidemiologic_report_title')}
       onBackPress={() => navigation.goBack()}>
       <ScrollView>
-        <View
-          style={{
-            height: hp('50%'),
-            alignItems: 'center',
-            marginTop: 20,
-          }}>
-          <Text style={styles.subtitles}>¿Quien está usando?</Text>
-          {nicknameArray.map(user => (
-            <TouchableHighlight
-              onPress={() =>
-                navigation.navigate('EpidemiologicResponse', {
-                  screen: 'EpidemiologicReport',
-                  params: { nickname: user.name },
-                })
-              }
-              underlayColor={Colors.WHITE}
-              key={user.name}>
-              <Card style={[styles.bigCards, styles.userDataCard]}>
-                {console.log(user)}
+        <View style={styles.formContainer}>
+          <Text
+            style={[
+              styles.textSemiBold,
+              { marginTop: 25, marginBottom: 8, fontSize: 17 },
+            ]}>
+            ¿Quien está usando?
+          </Text>
+          <View style={styles.bottomLine} />
+          <View style={{ marginTop: 15 }}>
+            {nicknameArray.map(user => (
+              <TouchableHighlight
+                onPress={() =>
+                  navigation.navigate('EpidemiologicResponse', {
+                    screen: 'EpidemiologicReport',
+                    params: { nickname: user.name },
+                  })
+                }
+                underlayColor={Colors.WHITE}
+                key={user.name}>
+                <Card style={[styles.bigCards, styles.userDataCard]}>
+                  {console.log(user)}
 
-                <Text style={[styles.textSemiBold, { marginHorizontal: 12 }]}>
-                  {user.name}
-                </Text>
-                <Icon name='user' size={wp('7%')} color={Colors.BLUE_RIBBON} />
-              </Card>
-            </TouchableHighlight>
-          ))}
+                  <Text style={[styles.textSemiBold, { marginHorizontal: 12 }]}>
+                    {user.name}
+                  </Text>
+                  <Icon
+                    name='user'
+                    size={wp('7%')}
+                    color={Colors.BLUE_RIBBON}
+                  />
+                </Card>
+              </TouchableHighlight>
+            ))}
+          </View>
         </View>
       </ScrollView>
     </NavigationBarWrapper>
