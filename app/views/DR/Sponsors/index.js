@@ -1,17 +1,13 @@
-import { Button, Card, Text } from 'native-base';
+import { Card } from 'native-base';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import {
-  heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
-} from 'react-native-responsive-screen';
-import { Dialog } from 'react-native-simple-dialogs';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
-import DialogStyle from '../../../components/DR/Header/style';
 import NavigationBarWrapper from '../../../components/NavigationBarWrapper';
 import Colors from '../../../constants/colors';
+import DialogAdvices from '../../DialogAdvices';
 import { sponsorsList } from './List';
 
 function CreateCard(img, url, navigate) {
@@ -49,31 +45,11 @@ export default function Index({ navigation: { navigate, goBack } }) {
       onBackPress={() => goBack()}>
       <View style={styles.container}>
         <ScrollView>
-          <Dialog
+          <DialogAdvices
             visible={showDialog}
-            dialogStyle={{ backgroundColor: Colors.WHITE }}>
-            <View>
-              <Text style={DialogStyle.textSemiBold}>
-                {t('label.dialog_advice')}
-              </Text>
-              <Button
-                style={[
-                  DialogStyle.buttons,
-                  {
-                    backgroundColor: Colors.GREEN,
-                    width: '70%',
-                    marginTop: hp('3%'),
-                  },
-                ]}
-                onPress={() => {
-                  closeDialog();
-                }}>
-                <Text style={[DialogStyle.text, { color: Colors.WHITE }]}>
-                  {t('label.accept')}
-                </Text>
-              </Button>
-            </View>
-          </Dialog>
+            text={t('label.dialog_advice')}
+            close={closeDialog}
+          />
           <View style={styles.cardsContainer}>{createAllCard()}</View>
         </ScrollView>
       </View>

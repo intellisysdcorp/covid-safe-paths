@@ -1,15 +1,11 @@
-import { Button, Text } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BackHandler, Dimensions, View } from 'react-native';
+import { BackHandler, Dimensions } from 'react-native';
 import PDFView from 'react-native-pdf';
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { Dialog } from 'react-native-simple-dialogs';
 import { WebView } from 'react-native-webview';
 
-import DialogStyle from '../../../components/DR/Header/style';
 import NavigationBarWrapper from '../../../components/NavigationBarWrapper';
-import Colors from '../../../constants/colors';
+import DialogAdvices from '../../DialogAdvices';
 
 // This is to make the images responsive in the page of a new
 const fixerImage = `
@@ -57,29 +53,11 @@ const Details = ({
 
   return (
     <NavigationBarWrapper title='Atrás' onBackPress={backToMain.bind(this)}>
-      <Dialog
+      <DialogAdvices
         visible={showDialog}
-        dialogStyle={{ backgroundColor: Colors.WHITE }}>
-        <View>
-          <Text style={DialogStyle.textSemiBold}>{dialogText}</Text>
-          <Button
-            style={[
-              DialogStyle.buttons,
-              {
-                backgroundColor: Colors.GREEN,
-                width: '70%',
-                marginTop: hp('3%'),
-              },
-            ]}
-            onPress={() => {
-              closeDialog();
-            }}>
-            <Text style={[DialogStyle.text, { color: Colors.WHITE }]}>
-              {t('label.accept')}
-            </Text>
-          </Button>
-        </View>
-      </Dialog>
+        text={dialogText}
+        close={closeDialog}
+      />
       {switchScreenTo === 'PDFView' && (
         <PDFView
           source={source}
