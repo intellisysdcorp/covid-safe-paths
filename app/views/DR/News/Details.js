@@ -100,7 +100,7 @@ const Details = ({
               setTimeout(() => {
                 setDialogText(t('label.dialog_interval_advice'));
                 setShowDialog(true);
-              }, 15000),
+              }, 10000),
             );
           }}
           onLoadEnd={() => {
