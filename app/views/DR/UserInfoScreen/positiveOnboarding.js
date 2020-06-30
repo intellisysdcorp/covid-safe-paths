@@ -191,9 +191,7 @@ const PositiveOnboarding = ({ route, navigation }) => {
                 ]}
                 onPress={async () => {
                   if (!getNicknamesCoincidences(nicknameArray, nickname)) {
-                    nicknameArray.unshift(
-                      createEntry(nickname, body, positive),
-                    );
+                    nicknameArray.push(createEntry(nickname, body, positive));
                     await SetStoreData('users', nicknameArray);
                     setShowShareLocDialog(true);
                     navigation.navigate('EpidemiologicResponse', {

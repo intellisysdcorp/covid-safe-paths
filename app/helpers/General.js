@@ -73,7 +73,7 @@ export async function pickFile() {
   }
 }
 
-export const getMyself = data => {
+export function getMyself(data) {
   let response = false;
   data.map(users => {
     if (users.usage === 'mySelf') {
@@ -81,9 +81,13 @@ export const getMyself = data => {
     }
   });
   return response;
-};
+}
 
-export const getUsers = async () => {
-  const data = await GetStoreData('users');
-  return JSON.parse(data);
-};
+export async function getUsers() {
+  try {
+    const response = await GetStoreData('users');
+    return JSON.parse(response);
+  } catch (e) {
+    console.log(e);
+  }
+}

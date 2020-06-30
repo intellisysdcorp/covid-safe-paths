@@ -43,9 +43,11 @@ export const SettingsScreen = ({ navigation }) => {
   };
 
   const getCovidpositive = () => {
-    getUsers().then(users => setIsCovpositive(users !== null ? users : []));
     GetStoreData('shareLocation').then(sharing =>
       setIsSharing(sharing !== null ? true : false),
+    );
+    GetStoreData('users').then(users =>
+      setIsCovpositive(users !== null ? JSON.parse(users) : []),
     );
   };
 
