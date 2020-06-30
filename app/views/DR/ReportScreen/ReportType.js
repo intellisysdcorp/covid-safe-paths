@@ -66,7 +66,7 @@ export default function ReportScreen({
                 ]}
                 onPress={() => {
                   setSelectedOption('mySelf');
-                  navigation.navigate('UserInfo');
+                  navigation.navigate('UserInfo', { type });
                 }}>
                 <Text
                   style={[

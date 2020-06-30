@@ -153,7 +153,7 @@ const PositiveOnboarding = ({ route, navigation }) => {
               <Text
                 style={[
                   styles.subtitles,
-                  { textAlign: 'center', marginLeft: 10 },
+                  { textAlign: 'center', alignSelf: 'center', marginLeft: 10 },
                 ]}>
                 {t('positives.you_are_positive')}
               </Text>
