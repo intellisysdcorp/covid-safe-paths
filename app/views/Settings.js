@@ -13,12 +13,7 @@ import NativePicker from '../components/NativePicker';
 import NavigationBarWrapper from '../components/NavigationBarWrapper';
 import Colors from '../constants/colors';
 import { PARTICIPATE } from '../constants/storage';
-import {
-  GetStoreData,
-  SetStoreData,
-  getMyself,
-  getUsers,
-} from '../helpers/General';
+import { GetStoreData, SetStoreData, getMyself } from '../helpers/General';
 import {
   LOCALE_LIST,
   getUserLocaleOverride,
