@@ -188,7 +188,7 @@
     "title": "Share location history"
   },
   "version_update": {
-    "alert_label": "COVID RD is outdated",
+    "alert_label": "COVID-RD is outdated",
     "alert_sublabel": "Do you want to upgrade to the new version?",
     "later": "Later",
     "push_notification_message": "Please update your application",
