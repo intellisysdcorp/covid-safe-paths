@@ -27,6 +27,8 @@ import { SettingsItem as Item } from './Settings/SettingsItem';
 export const SettingsScreen = ({ navigation }) => {
   const { t } = useTranslation();
   const [isLogging, setIsLogging] = useState(undefined);
+  const [isSharing, setIsSharing] = useState(false);
+  const [isCovidPositive, setIsCovpositive] = useState();
   const [userLocale, setUserLocale] = useState(
     supportedDeviceLanguageOrEnglish(),
   );
@@ -35,6 +37,12 @@ export const SettingsScreen = ({ navigation }) => {
     navigation.goBack();
   };
 
+  const getCovidpositive = async () => {
+    const isPositive = await AsyncStorage.getItem(COVID_POSITIVE);
+    const sharing = await AsyncStorage.getItem('shareLocation');
+    setIsCovpositive(isPositive);
+    setIsSharing(sharing !== null ? true : false);
+  };
   useEffect(() => {
     const handleBackPress = () => {
       navigation.goBack();
@@ -42,6 +50,7 @@ export const SettingsScreen = ({ navigation }) => {
     };
     BackHandler.addEventListener('hardwareBackPress', handleBackPress);
 
+    getCovidpositive();
     // TODO: this should be a service or hook
     GetStoreData(PARTICIPATE)
       .then(isParticipating => setIsLogging(isParticipating === 'true'))
@@ -65,6 +74,17 @@ export const SettingsScreen = ({ navigation }) => {
     }
   };
 
+  const subcribeLocationToggleButtonPressed = async () => {
+    try {
+      isSharing
+        ? await AsyncStorage.removeItem('shareLocation')
+        : await SetStoreData('shareLocation', true);
+      setIsSharing(!isSharing);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const localeChanged = async locale => {
     // If user picks manual lang, update and store setting
     try {
@@ -74,7 +94,6 @@ export const SettingsScreen = ({ navigation }) => {
       console.log('something went wrong in lang change', e);
     }
   };
-
   return (
     <NavigationBarWrapper
       title={t('label.settings_title')}
@@ -90,10 +109,21 @@ export const SettingsScreen = ({ navigation }) => {
             icon={isLogging ? checkmarkIcon : xmarkIcon}
             onPress={locationToggleButtonPressed}
           />
+          {isCovidPositive !== null && (
+            <Item
+              label={
+                isSharing
+                  ? t('label.share_loc_active')
+                  : t('label.share_loc_inactive')
+              }
+              icon={isSharing ? checkmarkIcon : xmarkIcon}
+              onPress={subcribeLocationToggleButtonPressed}
+            />
+          )}
           <NativePicker
             items={LOCALE_LIST}
             value={userLocale}
-            onValueChange={localeChanged}>
+            onValueChange={picker => localeChanged(picker)}>
             {({ label, openPicker }) => (
               <Item
                 last
@@ -118,9 +148,8 @@ export const SettingsScreen = ({ navigation }) => {
           <Item
             label={t('label.epidemiologic_report_title')}
             description={t('label.epidemiologic_report_subtitle')}
-            onPress={async () => {
-              const value = await AsyncStorage.getItem(COVID_POSITIVE);
-              if (value !== null) {
+            onPress={() => {
+              if (isCovidPositive !== null) {
                 navigation.navigate('EpidemiologicResponse');
               } else {
                 navigation.navigate('UserInfo');
@@ -148,6 +177,10 @@ export const SettingsScreen = ({ navigation }) => {
           <Item
             label={t('label.legal_page_title')}
             onPress={() => navigation.navigate('LicensesScreen')}
+          />
+          <Item
+            label={t('label.terms_and_conditions')}
+            onPress={() => navigation.navigate('TermsCondition')}
           />
           <Item
             label={t('label.label_faqs')}
