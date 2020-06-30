@@ -40,6 +40,11 @@ const FAQ = ({ navigation }) => {
     Linking.openURL(HEALTH_MINISTRY_URL);
   };
 
+  const removeGoogleHeader = `(function() {
+    const header = document.getElementsByTagName("div");
+    header[0].style.display="none";
+  })()`;
+
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', handleBackPress);
     return () => {
@@ -54,11 +59,13 @@ const FAQ = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={{ flex: 4 }}>
           <WebView
+            injectedJavaScript={removeGoogleHeader}
             originWhitelist={['*']}
             source={{
               uri: i18n.language === 'es' ? spanishFAQ : englishFAQ,
             }}
             style={{
+              marginTop: -70,
               backgroundColor: Colors.INTRO_WHITE_BG,
             }}
           />
