@@ -56,6 +56,19 @@ const PositiveOnboarding = ({ route, navigation }) => {
     }
     return coincidence;
   };
+  const verifyAndAccept = async () => {
+    if (!getNicknamesCoincidences(nicknameArray, nickname)) {
+      nicknameArray.push(createEntry(nickname, body, positive));
+      await SetStoreData('users', nicknameArray);
+      setShowShareLocDialog(true);
+      navigation.navigate('EpidemiologicResponse', {
+        screen: 'EpidemiologicReport',
+        params: { nickname: nickname },
+      });
+    } else {
+      showError(true);
+    }
+  };
   const enabled = nickname.length > 2 ? true : false;
 
   return (
@@ -189,19 +202,7 @@ const PositiveOnboarding = ({ route, navigation }) => {
                   { width: wp('70%') },
                   !enabled && { backgroundColor: Colors.BLUE_DISABLED },
                 ]}
-                onPress={async () => {
-                  if (!getNicknamesCoincidences(nicknameArray, nickname)) {
-                    nicknameArray.push(createEntry(nickname, body, positive));
-                    await SetStoreData('users', nicknameArray);
-                    setShowShareLocDialog(true);
-                    navigation.navigate('EpidemiologicResponse', {
-                      screen: 'EpidemiologicReport',
-                      params: { nickname: nickname },
-                    });
-                  } else {
-                    showError(true);
-                  }
-                }}>
+                onPress={() => verifyAndAccept()}>
                 <Text style={[styles.text, { color: Colors.WHITE }]}>
                   {t('common.done')}
                 </Text>
