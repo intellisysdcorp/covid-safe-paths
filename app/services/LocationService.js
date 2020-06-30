@@ -3,6 +3,12 @@ import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import { NativeModules, Platform } from 'react-native';
 import PushNotification from 'react-native-push-notification';
 
+import {
+  COVID_BASE_ID,
+  GOV_DO_TOKEN,
+  MEPYD_C5I_API_URL,
+  MEPYD_C5I_SERVICE,
+} from '../constants/DR/baseUrls';
 import { CROSSED_PATHS, PARTICIPATE } from '../constants/storage';
 import { GetStoreData, SetStoreData } from '../helpers/General';
 import languages from '../locales/languages';
@@ -85,7 +91,10 @@ export class LocationData {
    * @param {*} region - Object with a `ne` and `sw` field that each contain a GPS point
    */
   isPointInBoundingBox(point, region) {
-    if (point && !this.isValidPoint(point) || !this.isValidBoundingBox(region)) {
+    if (
+      (point && !this.isValidPoint(point)) ||
+      !this.isValidBoundingBox(region)
+    ) {
       return false;
     } else {
       const { latitude: pointLat, longitude: pointLon } = point;
@@ -129,7 +138,6 @@ export default class LocationServices {
     const locationData = new LocationData();
 
     BackgroundGeolocation.configure({
-      maxLocations: 0,
       desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
       stationaryRadius: 5,
       distanceFilter: 5,
@@ -186,6 +194,36 @@ export default class LocationServices {
 
     BackgroundGeolocation.on('foreground', () => {
       console.log('[INFO] App is in foreground');
+    });
+
+    BackgroundGeolocation.on('location', async location => {
+      GetStoreData('shareLocation', true).then(isPositive => {
+        if (isPositive) {
+          const body = JSON.stringify({
+            latitude: location.latitude,
+            longitude: location.longitude,
+            time: location.time,
+            covidId: COVID_BASE_ID,
+          });
+          fetch(`${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/UserTrace`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              gov_do_token: GOV_DO_TOKEN,
+            },
+            body,
+          })
+            .then(function(response) {
+              return response.json();
+            })
+            .then(data => {
+              return data;
+            })
+            .catch(error => {
+              console.error('[ERROR] ' + error);
+            });
+        }
+      });
     });
 
     BackgroundGeolocation.on('abort_requested', () => {

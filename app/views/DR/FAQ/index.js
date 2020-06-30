@@ -11,24 +11,21 @@ import {
 } from 'react-native';
 import { WebView } from 'react-native-webview';
 
-import foreArrow from './../assets/images/foreArrow.png';
-import englishLicense from './../assets/LICENSE.json';
-import spanishLicense from './../assets/SPANISH_LICENSE.json';
-import NavigationBarWrapper from '../components/NavigationBarWrapper';
-import { Typography } from '../components/Typography';
-import Colors from '../constants/colors';
-import { Theme } from '../constants/themes';
+import foreArrow from '../../../assets/images/foreArrow.png';
+import NavigationBarWrapper from '../../../components/NavigationBarWrapper';
+import { Typography } from '../../../components/Typography';
+import Colors from '../../../constants/colors';
+import { Theme } from '../../../constants/themes';
 
-const PRIVACY_POLICY_URL =
-  'https://docs.google.com/document/d/17u0f8ni9S0D4w8RCUlMMqxAlXKJAd2oiYGP8NUwkINo/edit';
-
-const PRIVACY_POLICY_URL_ES =
-  'https://docs.google.com/document/d/1znFbxn02pqVFFR9EDQh7jc28qBjWWI-MH7G50EFxEgs/edit';
-
-export const LicensesScreen = ({ navigation }) => {
+const FAQ = ({ navigation }) => {
   const { t, i18n } = useTranslation();
-  const urlPrivacyPolicy =
-    i18n.language === 'es' ? PRIVACY_POLICY_URL_ES : PRIVACY_POLICY_URL;
+
+  const englishFAQ =
+    'https://docs.google.com/document/d/15IARgC5qGILNB13coHQcMZusWXh4VlU83UhnUZjiCXc/edit';
+  const spanishFAQ =
+    'https://docs.google.com/document/d/1koy_baiJouSir-rEQJrqS8l0e7eMw9vKCiVz9RW6a3E/edit?usp=sharing';
+  const HEALTH_MINISTRY_URL =
+    'http://digepisalud.gob.do/documentos/?drawer=Vigilancia%20Epidemiologica*Alertas%20epidemiologicas*Coronavirus*Nacional*Materiales%20IEC%20COVID-19';
 
   const backToMain = () => {
     navigation.goBack();
@@ -40,8 +37,13 @@ export const LicensesScreen = ({ navigation }) => {
   };
 
   const handleTermsOfUsePressed = () => {
-    Linking.openURL(urlPrivacyPolicy);
+    Linking.openURL(HEALTH_MINISTRY_URL);
   };
+
+  const removeGoogleHeader = `(function() {
+    const header = document.getElementsByTagName("div");
+    header[0].style.display="none";
+  })()`;
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', handleBackPress);
@@ -50,39 +52,20 @@ export const LicensesScreen = ({ navigation }) => {
     };
   });
 
-  function getLicenses(license) {
-    let result = '<html>';
-    result +=
-      '<style>  html, body { font-size: 40px; margin: 0; padding: 0; } </style>';
-    result += '<body>';
-
-    for (let i = 0; i < license.terms_and_licenses.length; i++) {
-      const element = license.terms_and_licenses[i];
-
-      result += '<H2>' + element.name + '</H2><P>';
-      result += element.text.replace(/\n/g, '<br/>');
-      result += '<hr/>';
-    }
-    result += '</body></html>';
-
-    return result;
-  }
-
   return (
     <NavigationBarWrapper
-      title={t('label.legal_page_title')}
+      title={t('label.faq_page_title')}
       onBackPress={backToMain}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={{ flex: 4 }}>
           <WebView
+            injectedJavaScript={removeGoogleHeader}
             originWhitelist={['*']}
             source={{
-              html: getLicenses(
-                i18n.language === 'es' ? spanishLicense : englishLicense,
-              ),
+              uri: i18n.language === 'es' ? spanishFAQ : englishFAQ,
             }}
             style={{
-              marginTop: 15,
+              marginTop: -70,
               backgroundColor: Colors.INTRO_WHITE_BG,
             }}
           />
@@ -94,8 +77,8 @@ export const LicensesScreen = ({ navigation }) => {
           style={styles.termsInfoRow}>
           <Typography
             use='headline2'
-            onPress={() => Linking.openURL(urlPrivacyPolicy)}>
-            {t('label.privacy_policy')}
+            onPress={() => Linking.openURL(HEALTH_MINISTRY_URL)}>
+            {t('label.health_resources')}
           </Typography>
           <View style={styles.arrowContainer}>
             <Image source={foreArrow} />
@@ -106,12 +89,14 @@ export const LicensesScreen = ({ navigation }) => {
   );
 };
 
+export default FAQ;
+
 const styles = StyleSheet.create({
   contentContainer: {
     flexDirection: 'column',
     width: '100%',
     backgroundColor: Colors.INTRO_WHITE_BG,
-    paddingHorizontal: 26,
+    paddingRight: 40,
     flex: 1,
   },
   termsInfoRow: {

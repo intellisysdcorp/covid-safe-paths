@@ -1,6 +1,5 @@
 import 'moment/locale/es';
 
-import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import { Button, Card, Container, Content, Text } from 'native-base';
 import React, { useContext, useState } from 'react';
@@ -30,8 +29,14 @@ import {
   MEPYD_C5I_API_URL,
   MEPYD_C5I_SERVICE,
 } from '../../../constants/DR/baseUrls';
+import { GetStoreData } from '../../../helpers/General';
 
-export default function UserInfo({ navigation }) {
+export default function UserInfo({
+  navigation,
+  route: {
+    params: { type },
+  },
+}) {
   navigation.setOptions({
     headerShown: false,
   });
@@ -44,6 +49,7 @@ export default function UserInfo({ navigation }) {
   const [useIdCard, setUseIdCard] = useState(false);
   const [useNss, setUseNss] = useState(false);
   const [error, setError] = useState(false);
+  const [positiveError, setPositiveError] = useState(false);
   const [
     {
       answers: {
@@ -53,7 +59,6 @@ export default function UserInfo({ navigation }) {
         passportName = '',
         nssId = '',
         phoneNumber,
-        usage,
       },
     },
     setGlobalState,
@@ -83,20 +88,15 @@ export default function UserInfo({ navigation }) {
         },
       );
       response = await response.json();
+      console.log(response);
       return response;
     } catch (e) {
       console.log('ha ocurrido un error', e);
     }
   };
 
-  const storeData = async (key, value) => {
-    try {
-      await AsyncStorage.setItem(key, JSON.stringify(value));
-    } catch (e) {
-      console.log(e);
-    }
-  };
   const validate = async data => {
+    const { body } = data;
     try {
       let response = await fetch(
         `${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/Person`,
@@ -106,23 +106,44 @@ export default function UserInfo({ navigation }) {
             'Content-Type': 'application/json',
             gov_do_token: GOV_DO_TOKEN,
           },
-          body: JSON.stringify(data.body),
+          body: JSON.stringify(body),
         },
       );
 
       response = await response.json();
       setLoading(false);
+
       if (response.valid !== undefined) {
         if (response.valid) {
           getAge(birth);
-          let { positive } = await validateCovidPositive(data.body);
+          let { positive } = await validateCovidPositive(body);
           closeDialog(false);
           if (positive) {
-            if (usage === 'mySelf') {
-              storeData('positive', positive);
-              storeData('UserPersonalInfo', data.body);
-            }
-            navigation.navigate('EpidemiologicResponse');
+            GetStoreData('users', false).then(data => {
+              if (data !== null) {
+                let same = false;
+                let name = '';
+                data.map(user => {
+                  if (JSON.stringify(user.data) === JSON.stringify(body)) {
+                    same = true;
+                    name = user.data.name;
+                  }
+                });
+                same
+                  ? navigation.navigate('EpidemiologicResponse', {
+                      screen: 'EpidemiologicReport',
+                      params: { nickname: name },
+                    })
+                  : navigation.navigate('PositiveOnboarding', {
+                      positive,
+                      body,
+                    });
+              }
+            });
+            navigation.navigate('PositiveOnboarding', { positive, body });
+          } else if (type && !positive) {
+            setShowValidationDialog(true);
+            setPositiveError(true);
           } else {
             navigation.navigate('Report');
           }
@@ -136,6 +157,8 @@ export default function UserInfo({ navigation }) {
       return response;
     } catch (e) {
       setLoading(false);
+      closeDialog();
+      setShowValidationDialog(true);
       console.log('ha ocurrido un error', e);
     }
   };
@@ -164,6 +187,25 @@ export default function UserInfo({ navigation }) {
       };
     }
     return await validate(data);
+  };
+
+  const isPassport = usePassport => {
+    if (usePassport) {
+      return (
+        <View>
+          <Text style={styles.textSemiBold}>
+            {t('report.userInfo.name_and_lastname')}
+          </Text>
+          <Input
+            value={passportName}
+            onChange={text => setSelectedOption('passportName', text)}
+            style={{ marginBottom: 12 }}
+            keyboardType={'default'}
+            maxLength={35}
+          />
+        </View>
+      );
+    }
   };
 
   const setSelectedOption = (option, selected) => {
@@ -204,7 +246,11 @@ export default function UserInfo({ navigation }) {
                 size={30}
                 style={{ marginBottom: 12, alignSelf: 'center' }}
               />
-              <Text>{t('report.userInfo.api_down_error_msg')}</Text>
+              {positiveError ? (
+                <Text>{t('report.userInfo.is_not_positive_msg')}</Text>
+              ) : (
+                <Text>{t('report.userInfo.api_down_error_msg')}</Text>
+              )}
               <Button
                 style={[
                   styles.buttons,
@@ -276,33 +322,19 @@ export default function UserInfo({ navigation }) {
                   />
                 )}
 
-                {usePassport ? (
-                  <View>
-                    <Text style={styles.textSemiBold}>
-                      {t('report.userInfo.name_and_lastname')}
-                    </Text>
-                    <Input
-                      value={passportName}
-                      onChange={text => setSelectedOption('passportName', text)}
-                      style={{ marginBottom: 12 }}
-                      keyboardType={'default'}
-                      maxLength={35}
-                    />
-                  </View>
-                ) : (
-                  <View>
-                    <Text style={styles.textSemiBold}>
-                      {t('report.userInfo.tel_number')}
-                    </Text>
-                    <PhoneInput
-                      value={phoneNumber}
-                      handleOnChange={text =>
-                        setSelectedOption('phoneNumber', text)
-                      }
-                      style={{ marginBottom: 12 }}
-                    />
-                  </View>
-                )}
+                {isPassport(usePassport)}
+
+                <Text style={styles.textSemiBold}>
+                  {t('report.userInfo.tel_number')}
+                </Text>
+                <PhoneInput
+                  value={phoneNumber}
+                  handleOnChange={text =>
+                    setSelectedOption('phoneNumber', text)
+                  }
+                  style={{ marginBottom: 12 }}
+                />
+
                 <Text style={[styles.textSemiBold, { marginBottom: 10 }]}>
                   {t('report.userInfo.birthdate')}
                 </Text>
@@ -369,53 +401,57 @@ export default function UserInfo({ navigation }) {
                   />
                 </Card>
               </TouchableHighlight>
-              <TouchableHighlight
-                onPress={() => {
-                  setShowDialog(true);
-                  setUsePassport(true);
-                }}
-                underlayColor='#FFF'>
-                <Card style={[styles.bigCards, styles.userDataCard]}>
-                  <Text
+              {!type && (
+                <TouchableHighlight
+                  onPress={() => {
+                    setShowDialog(true);
+                    setUsePassport(true);
+                  }}
+                  underlayColor='#FFF'>
+                  <Card style={[styles.bigCards, styles.userDataCard]}>
+                    <Text
+                      style={[
+                        styles.textSemiBold,
+                        { marginVertical: 10, marginHorizontal: 12 },
+                      ]}>
+                      {t('report.userInfo.start_with_passport')}
+                    </Text>
+                    <Icon
+                      name='passport'
+                      size={wp('9%')}
+                      color={Colors.BLUE_RIBBON}
+                    />
+                  </Card>
+                </TouchableHighlight>
+              )}
+              {!type && (
+                <TouchableHighlight
+                  onPress={() => {
+                    setShowDialog(true);
+                    setUseNss(true);
+                  }}
+                  underlayColor='#FFF'>
+                  <Card
                     style={[
-                      styles.textSemiBold,
-                      { marginVertical: 10, marginHorizontal: 12 },
+                      styles.bigCards,
+                      styles.userDataCard,
+                      { alignItems: 'center' },
                     ]}>
-                    {t('report.userInfo.start_with_passport')}
-                  </Text>
-                  <Icon
-                    name='passport'
-                    size={wp('9%')}
-                    color={Colors.BLUE_RIBBON}
-                  />
-                </Card>
-              </TouchableHighlight>
-              <TouchableHighlight
-                onPress={() => {
-                  setShowDialog(true);
-                  setUseNss(true);
-                }}
-                underlayColor='#FFF'>
-                <Card
-                  style={[
-                    styles.bigCards,
-                    styles.userDataCard,
-                    { alignItems: 'center' },
-                  ]}>
-                  <Text
-                    style={[
-                      styles.textSemiBold,
-                      { marginVertical: 10, marginHorizontal: 12 },
-                    ]}>
-                    {t('report.userInfo.start_with_nss')}
-                  </Text>
-                  <Icon
-                    name='id-card-alt'
-                    size={wp('8.5%')}
-                    color={Colors.BLUE_RIBBON}
-                  />
-                </Card>
-              </TouchableHighlight>
+                    <Text
+                      style={[
+                        styles.textSemiBold,
+                        { marginVertical: 10, marginHorizontal: 12 },
+                      ]}>
+                      {t('report.userInfo.start_with_nss')}
+                    </Text>
+                    <Icon
+                      name='id-card-alt'
+                      size={wp('8.5%')}
+                      color={Colors.BLUE_RIBBON}
+                    />
+                  </Card>
+                </TouchableHighlight>
+              )}
             </View>
           </View>
         </ScrollView>
