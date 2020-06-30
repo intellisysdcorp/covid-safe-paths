@@ -152,7 +152,11 @@ export const SettingsScreen = ({ navigation }) => {
             onPress={() => navigation.navigate('ExposureHistoryScreen')}
           />
           <Item
-            label={t('label.epidemiologic_report_title')}
+            label={
+              isCovidPositive.length > 0
+                ? t('label.epidemiologic_report_title')
+                : t('label.epidemiologic_report_title_new')
+            }
             description={t('label.epidemiologic_report_subtitle')}
             onPress={() => {
               if (isCovidPositive.length > 0) {
