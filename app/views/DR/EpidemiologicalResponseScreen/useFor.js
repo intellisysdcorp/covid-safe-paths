@@ -48,7 +48,7 @@ export default function UserFor({ navigation }) {
                 onPress={() =>
                   navigation.navigate('EpidemiologicResponse', {
                     screen: 'EpidemiologicReport',
-                    params: { nickname: user.name },
+                    params: { nickname: user.name, path: true },
                   })
                 }
                 underlayColor={Colors.WHITE}

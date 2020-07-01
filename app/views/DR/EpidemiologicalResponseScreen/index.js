@@ -12,11 +12,14 @@ const TopBar = createMaterialTopTabNavigator();
 
 const EpidemiologicScreen = ({ route, navigation }) => {
   const { t } = useTranslation();
-  const { nickname } = route.params;
+  const { nickname, path } = route.params;
+  const navigationHandler = path => {
+    return path ? navigation.goBack() : navigation.popToTop();
+  };
   return (
     <NavigationBarWrapper
       title={t('label.epidemiologic_report_title')}
-      onBackPress={() => navigation.goBack()}>
+      onBackPress={() => navigationHandler(path)}>
       <View style={{ flex: 1, backgroundColor: Colors.WHITE }}>
         <TopBar.Navigator
           tabBarOptions={{

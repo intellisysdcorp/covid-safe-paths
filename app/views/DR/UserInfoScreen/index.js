@@ -124,9 +124,12 @@ export default function UserInfo({
                 let same = false;
                 let name = '';
                 data.map(user => {
-                  if (JSON.stringify(user.data) === JSON.stringify(body)) {
+                  if (
+                    user.data.cid === body.cid ||
+                    user.data.nssid === body.nssid
+                  ) {
                     same = true;
-                    name = user.data.name;
+                    name = user.name;
                   }
                 });
                 same

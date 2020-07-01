@@ -63,7 +63,7 @@ const PositiveOnboarding = ({ route, navigation }) => {
       setShowShareLocDialog(true);
       navigation.navigate('EpidemiologicResponse', {
         screen: 'EpidemiologicReport',
-        params: { nickname: nickname },
+        params: { nickname: nickname, path: false },
       });
     } else {
       showError(true);
