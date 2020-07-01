@@ -85,7 +85,7 @@ export default function ReportScreen({
             <Button
               onPress={() => {
                 setSelectedOption('others');
-                navigation.navigate('UserInfo', { type });
+                navigation.navigate('UserInfo', { type, usage });
               }}
               style={[
                 styles.buttons,

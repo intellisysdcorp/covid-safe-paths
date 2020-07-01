@@ -12,7 +12,7 @@ const TopBar = createMaterialTopTabNavigator();
 
 const EpidemiologicScreen = ({ route, navigation }) => {
   const { t } = useTranslation();
-  const { nickname, path } = route.params;
+  const { path } = route.params;
   const navigationHandler = path => {
     return path ? navigation.goBack() : navigation.popToTop();
   };
@@ -33,7 +33,6 @@ const EpidemiologicScreen = ({ route, navigation }) => {
             name={'EpidemiologicReport'}
             component={EpidemiologicalStatus}
             options={{ tabBarLabel: t('positives.epidemiologic_report_tab') }}
-            initialParams={{ nickname }}
           />
           <TopBar.Screen
             name={'mentalHealthAdvices'}
