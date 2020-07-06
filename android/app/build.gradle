@@ -97,6 +97,7 @@ project.ext.react = [
 
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/@sentry/react-native/sentry.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -153,8 +154,8 @@ android {
         testBuildType System.getProperty('testBuildType', 'debug')
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
-        versionCode 21
-        versionName "1.2.1"
+        versionCode 23
+        versionName "1.2.2"
     }
     splits {
         abi {
@@ -234,6 +235,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-sentry')
     // loading html files
     compile project(':react-native-local-resource')
     implementation project(':react-native-reanimated')

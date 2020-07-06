@@ -274,6 +274,9 @@ PODS:
     - React
   - RNScreens (2.8.0):
     - React
+  - RNSentry (1.6.1):
+    - React
+    - Sentry (~> 5.1.8)
   - RNShare (3.3.2):
     - React
   - RNSVG (12.1.0):
@@ -287,6 +290,9 @@ PODS:
   - RNZipArchive/Core (5.0.2):
     - React
     - SSZipArchive (= 2.2.2)
+  - Sentry (5.1.8):
+    - Sentry/Core (= 5.1.8)
+  - Sentry/Core (5.1.8)
   - SSZipArchive (2.2.2)
   - Yoga (1.14.0)
 
@@ -346,6 +352,7 @@ DEPENDENCIES:
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - "RNSentry (from `../node_modules/@sentry/react-native`)"
   - RNShare (from `../node_modules/react-native-share`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
@@ -357,6 +364,7 @@ SPEC REPOS:
     - boost-for-react-native
     - Realm
     - RealmSwift
+    - Sentry
     - SSZipArchive
 
 EXTERNAL SOURCES:
@@ -460,6 +468,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSentry:
+    :path: "../node_modules/@sentry/react-native"
   RNShare:
     :path: "../node_modules/react-native-share"
   RNSVG:
@@ -525,10 +535,12 @@ SPEC CHECKSUMS:
   RNPermissions: ad71dd4f767ec254f2cd57592fbee02afee75467
   RNReanimated: b5ccb50650ba06f6e749c7c329a1bc3ae0c88b43
   RNScreens: 62211832af51e0aebcf6e8c36bcf7dd65592f244
+  RNSentry: 57824da1293d03966605d682d5868b11aa1b6e5a
   RNShare: bd6518701db274b8ba282b33620885f2225a5bcf
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   RNZipArchive: ab51bc004a31657f34010254a9182014c6a81217
+  Sentry: 795e8ffe1c45d9d20b3aa398774d7ea6a443fb05
   SSZipArchive: fa16b8cc4cdeceb698e5e5d9f67e9558532fbf23
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
