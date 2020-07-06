@@ -16,8 +16,8 @@ export default {
     fontWeight: '900',
   },
   buttonStyle: {
-    marginLeft: 23,
     borderRadius: 40,
+    alignSelf: 'center',
     justifyContent: 'center',
     width: wp('75%'),
     height: hp('6.5%'),
