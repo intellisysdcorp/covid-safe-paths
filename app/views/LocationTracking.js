@@ -178,7 +178,6 @@ class LocationTracking extends Component {
 
   componentDidMount() {
     AppState.addEventListener('change', this.handleAppStateChange);
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     // refresh state if settings have changed
     this.unsubscribe = this.props.navigation.addListener('focus', () => {
       this.checkIfUserAtRisk();
@@ -213,7 +212,6 @@ class LocationTracking extends Component {
   componentWillUnmount() {
     AppState.removeEventListener('change', this.handleAppStateChange);
     clearInterval(this.state.timer_intersect);
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
     this.unsubscribe();
   }
 
@@ -227,11 +225,6 @@ class LocationTracking extends Component {
       this.checkCurrentState();
     }
     this.setState({ appState: nextAppState });
-  };
-
-  handleBackPress = () => {
-    this.props.navigation.goBack(); // works best when the goBack is async
-    return true;
   };
 
   export() {
