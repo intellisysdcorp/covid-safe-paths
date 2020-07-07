@@ -230,7 +230,7 @@ class LocationTracking extends Component {
   };
 
   handleBackPress = () => {
-    BackHandler.exitApp(); // works best when the goBack is async
+    this.props.navigation.goBack(); // works best when the goBack is async
     return true;
   };
 
