@@ -17,6 +17,8 @@ import VersionCheckService from './app/services/VersionCheckService';
 Sentry.init({
   dsn:
     'https://6d77818b863e4e409a0985e64566781f@o416827.ingest.sentry.io/5313567',
+  enableAutoSessionTracking: true,
+  sessionTrackingIntervalMillis: 10000,
 });
 
 const App = () => {
