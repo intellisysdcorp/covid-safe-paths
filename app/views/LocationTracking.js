@@ -435,7 +435,7 @@ const PULSE_GAP = 80;
 const styles = StyleSheet.create({
   backgroundImage: {
     width: '100%',
-    height: '100%',
+    height: '50%',
     resizeMode: 'cover',
     flex: 1,
     justifyContent: 'flex-end',
@@ -475,8 +475,11 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   buttonContainer: {
+    width: '100%',
+    height: 'auto',
     marginTop: 24,
-    height: 54, // fixes overlaying buttons on really small screens
+    minHeight: 54, // fixes overlaying buttons on really small screens
+    maxHeight: 90,
   },
   pulseContainer: {
     backgroundColor: Colors.BLUE_RIBBON,
