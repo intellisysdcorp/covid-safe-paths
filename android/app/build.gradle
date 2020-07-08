@@ -236,7 +236,6 @@ android {
 
 dependencies {
     implementation project(':@sentry_react-native')
-    implementation project(':react-native-sentry')
     // loading html files
     compile project(':react-native-local-resource')
     implementation project(':react-native-reanimated')
