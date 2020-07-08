@@ -16,3 +16,8 @@ export const GOV_DO_TOKEN = (env.GOV_DO_TOKEN || '').replace(
   '" #ignoreline',
   '',
 );
+export const SENTRY_DNS = (env.SENTRY_DNS || '').replace('" #ignoreline', '');
+export const SENTRY_AUTH_TOKEN = (env.SENTRY_AUTH_TOKEN || '').replace(
+  '" #ignoreline',
+  '',
+);

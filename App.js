@@ -9,14 +9,14 @@ import context from './app/components/DR/Reduces/context';
 import { initialState, reducer } from './app/components/DR/Reduces/index';
 import StatusBar from './app/components/DR/StatusBar';
 import Colors from './app/constants/colors';
+import { SENTRY_DNS } from './app/constants/DR/baseUrls';
 import { Theme } from './app/constants/themes';
 import Entry from './app/Entry';
 import { FlagsProvider } from './app/helpers/Flags';
 import VersionCheckService from './app/services/VersionCheckService';
 
 Sentry.init({
-  dsn:
-    'https://6d77818b863e4e409a0985e64566781f@o416827.ingest.sentry.io/5313567',
+  dsn: SENTRY_DNS,
   enableAutoSessionTracking: true,
   sessionTrackingIntervalMillis: 10000,
 });
