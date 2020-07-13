@@ -110,8 +110,8 @@ const styles = StyleSheet.create({
   contentContainer: {
     flexDirection: 'column',
     width: '100%',
-    backgroundColor: Colors.INTRO_WHITE_BG,
-    paddingHorizontal: 5,
+    backgroundColor: Colors.WHITE,
+    paddingHorizontal: 26,
     flex: 1,
   },
   termsInfoRow: {
