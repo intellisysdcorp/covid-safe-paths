@@ -73,7 +73,7 @@ export const LicensesScreen = ({ navigation }) => {
       title={t('label.legal_page_title')}
       onBackPress={backToMain}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
-        <View style={{ flex: 4 }}>
+        <View style={{ flex: 1 }}>
           <WebView
             originWhitelist={['*']}
             source={{
@@ -83,7 +83,7 @@ export const LicensesScreen = ({ navigation }) => {
             }}
             style={{
               marginTop: 15,
-              backgroundColor: Colors.INTRO_WHITE_BG,
+              backgroundColor: Colors.WHITE,
             }}
           />
         </View>
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     flexDirection: 'column',
     width: '100%',
-    backgroundColor: Colors.INTRO_WHITE_BG,
+    backgroundColor: Colors.WHITE,
     paddingHorizontal: 26,
     flex: 1,
   },
