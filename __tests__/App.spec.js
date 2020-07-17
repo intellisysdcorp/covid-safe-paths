@@ -12,6 +12,10 @@ import App from '../App';
 
 jest.mock('../app/Entry', () => 'Entry');
 
+jest.mock('@sentry/react-native', () => ({
+  init: jest.fn(),
+}));
+
 it('renders correctly', () => {
   const { asJSON } = render(<App />);
 

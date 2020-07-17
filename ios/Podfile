@@ -48,6 +48,8 @@ target 'COVIDSafePaths' do
 
 
 
+  pod 'RNSentry', :path => '../node_modules/@sentry/react-native'
+
   target 'COVIDSafePathsTests' do
     inherit! :search_paths
     # Pods for testing
