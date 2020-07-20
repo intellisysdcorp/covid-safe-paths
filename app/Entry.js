@@ -42,14 +42,14 @@ class Entry extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      initialRouteName: 'true',
+      initialRouteName: null,
     };
   }
 
   async componentDidMount() {
-    let onboardingDoneName = await GetStoreData('ONBOARDING_DONE');
-    this.setState({
-      initialRouteName: onboardingDoneName,
+    GetStoreData('ONBOARDING_DONE').then(onboardingDoneName => {
+      this.setState({ initialRouteName: onboardingDoneName });
+      console.log(onboardingDoneName, 'thissss');
     });
   }
 
