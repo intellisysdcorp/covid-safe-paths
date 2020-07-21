@@ -47,10 +47,9 @@ class Entry extends Component {
   }
 
   async componentDidMount() {
-    GetStoreData('ONBOARDING_DONE').then(onboardingDoneName => {
-      this.setState({ initialRouteName: onboardingDoneName });
-      console.log(onboardingDoneName, 'thissss');
-    });
+    GetStoreData('ONBOARDING_DONE').then(onboardingDoneName =>
+      this.setState({ initialRouteName: onboardingDoneName }),
+    );
   }
 
   render() {
