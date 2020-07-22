@@ -10,7 +10,6 @@ import { NativeModules } from 'react-native';
 import PushNotification from 'react-native-push-notification';
 
 import { isPlatformiOS } from './../Util';
-import { GOV_DO_TOKEN } from '../constants/DR/baseUrls';
 import {
   CONCERN_TIME_WINDOW_MINUTES,
   DEFAULT_EXPOSURE_PERIOD_MINUTES,
@@ -31,6 +30,7 @@ import {
   SetStoreData,
 } from '../helpers/General';
 import languages from '../locales/languages';
+import getToken from '../services/DR/getToken';
 import { HCAService } from '../services/HCAService';
 
 /**
@@ -399,10 +399,28 @@ function notifyUserOfRisk() {
  * @param {*} url
  */
 async function retrieveUrlAsJson(url) {
-  let response = await fetch(url, {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json', gov_do_token: GOV_DO_TOKEN },
-  });
+  let GOV_DO_TOKEN = await getToken();
+
+  const responseFunc = () => {
+    return fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        gov_do_token: GOV_DO_TOKEN,
+      },
+    });
+  };
+
+  let response = await responseFunc();
+
+  if (response.status === 401) {
+    // CODE 401 TOKEN NOT VALID
+    const newToken = await getToken(true);
+
+    GOV_DO_TOKEN = newToken;
+
+    response = await responseFunc();
+  }
 
   let responseJson = await response.json();
   return responseJson;

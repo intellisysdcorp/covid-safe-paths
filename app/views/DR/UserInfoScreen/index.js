@@ -2,7 +2,7 @@ import 'moment/locale/es';
 
 import moment from 'moment';
 import { Button, Card, Container, Content, Text } from 'native-base';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   ActivityIndicator,
@@ -25,11 +25,11 @@ import PhoneInput from '../../../components/DR/PhoneInput/index';
 import context from '../../../components/DR/Reduces/context.js';
 import Colors from '../../../constants/colors';
 import {
-  GOV_DO_TOKEN,
   MEPYD_C5I_API_URL,
   MEPYD_C5I_SERVICE,
 } from '../../../constants/DR/baseUrls';
 import { GetStoreData } from '../../../helpers/General';
+import getToken from '../../../services/DR/getToken';
 
 export default function UserInfo({
   navigation,
@@ -42,6 +42,7 @@ export default function UserInfo({
   });
   const { t } = useTranslation();
 
+  const [GOV_DO_TOKEN, setToken] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showValidationDialog, setShowValidationDialog] = useState(false);
@@ -64,6 +65,14 @@ export default function UserInfo({
     setGlobalState,
   ] = useContext(context);
 
+  useEffect(() => {
+    async function fetchToken() {
+      const token = await getToken();
+      setToken(token);
+    }
+    fetchToken();
+  }, []);
+
   const closeDialog = final => {
     setError(false);
     setShowDialog(false);
@@ -75,20 +84,31 @@ export default function UserInfo({
   };
 
   const validateCovidPositive = async info => {
-    try {
-      let response = await fetch(
-        `${MEPYD_C5I_SERVICE}:443/${MEPYD_C5I_API_URL}/Form`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            gov_do_token: GOV_DO_TOKEN,
-          },
-          body: JSON.stringify(
-            type === 'PositiveReport' ? { ...info, IamPositive: true } : info,
-          ),
+    const responseFunc = info => {
+      return fetch(`${MEPYD_C5I_SERVICE}:443/${MEPYD_C5I_API_URL}/Form`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          gov_do_token: GOV_DO_TOKEN,
         },
-      );
+        body: JSON.stringify(
+          type === 'PositiveReport' ? { ...info, IamPositive: true } : info,
+        ),
+      });
+    };
+
+    try {
+      let response = await responseFunc(info);
+
+      if (response.status === 401) {
+        // CODE 401 TOKEN NOT VALID
+        const newToken = await getToken(true);
+
+        setToken(newToken);
+
+        response = await responseFunc(info);
+      }
+
       response = await response.json();
       return response;
     } catch (e) {
@@ -98,18 +118,28 @@ export default function UserInfo({
 
   const validate = async data => {
     const { body } = data;
-    try {
-      let response = await fetch(
-        `${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/Person`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            gov_do_token: GOV_DO_TOKEN,
-          },
-          body: JSON.stringify(body),
+
+    const responseFunc = body => {
+      return fetch(`${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/Person`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          gov_do_token: GOV_DO_TOKEN,
         },
-      );
+        body: JSON.stringify(body),
+      });
+    };
+    try {
+      let response = await responseFunc(body);
+
+      if (response.status === 401) {
+        // CODE 401 TOKEN NOT VALID
+        const newToken = await getToken(true);
+
+        setToken(newToken);
+
+        response = await responseFunc(body);
+      }
 
       response = await response.json();
       setLoading(false);
