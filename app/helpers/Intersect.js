@@ -24,13 +24,13 @@ import {
   LOCATION_DATA,
 } from '../constants/storage';
 import { DEBUG_MODE } from '../constants/storage';
+import validateResponse from '../helpers/DR/validateResponse';
 import {
   GetStoreData,
   RemoveStoreData,
   SetStoreData,
 } from '../helpers/General';
 import languages from '../locales/languages';
-import getToken from '../services/DR/getToken';
 import { HCAService } from '../services/HCAService';
 
 /**
@@ -399,31 +399,7 @@ function notifyUserOfRisk() {
  * @param {*} url
  */
 async function retrieveUrlAsJson(url) {
-  let GOV_DO_TOKEN = await getToken();
-
-  const responseFunc = () => {
-    return fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        gov_do_token: GOV_DO_TOKEN,
-      },
-    });
-  };
-
-  let response = await responseFunc();
-
-  if (response.status === 401) {
-    // CODE 401 TOKEN NOT VALID
-    const newToken = await getToken(true);
-
-    GOV_DO_TOKEN = newToken;
-
-    response = await responseFunc();
-  }
-
-  let responseJson = await response.json();
-  return responseJson;
+  return await validateResponse(url, 'GET');
 }
 
 /** Set the app into debug mode */

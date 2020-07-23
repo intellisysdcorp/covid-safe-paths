@@ -9,9 +9,9 @@ import {
   MEPYD_C5I_SERVICE,
 } from '../constants/DR/baseUrls';
 import { CROSSED_PATHS, PARTICIPATE } from '../constants/storage';
+import validateResponse from '../helpers/DR/validateResponse';
 import { GetStoreData, SetStoreData } from '../helpers/General';
 import languages from '../locales/languages';
-import getToken from './DR/getToken';
 
 let isBackgroundGeolocationConfigured = false;
 const LOCATION_DISABLED_NOTIFICATION = '55';
@@ -197,8 +197,6 @@ export default class LocationServices {
     });
 
     BackgroundGeolocation.on('location', async location => {
-      let GOV_DO_TOKEN = await getToken();
-
       const isPositive = await GetStoreData('shareLocation', true);
 
       if (isPositive) {
@@ -209,33 +207,11 @@ export default class LocationServices {
           covidId: COVID_BASE_ID,
         });
 
-        const responseFunc = body => {
-          return fetch(`${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/UserTrace`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              gov_do_token: GOV_DO_TOKEN,
-            },
-            body,
-          });
-        };
-
-        try {
-          let response = await responseFunc(body);
-
-          if (response.status === 401) {
-            // CODE 401 TOKEN NOT VALID
-            const newToken = await getToken(true);
-            GOV_DO_TOKEN = newToken;
-
-            response = await responseFunc(body);
-          }
-
-          response = response.json();
-          return response;
-        } catch (error) {
-          console.error('[ERROR] ' + error);
-        }
+        return await validateResponse(
+          `${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/UserTrace`,
+          'POST',
+          body,
+        );
       }
     });
 

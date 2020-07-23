@@ -20,8 +20,8 @@ import styles from '../../../components/DR/Header/style';
 import context from '../../../components/DR/Reduces/context';
 import Colors from '../../../constants/colors';
 import { COVID_ID } from '../../../constants/storage';
+import validateResponse from '../../../helpers/DR/validateResponse';
 import { SetStoreData } from '../../../helpers/General';
-import getToken from '../../../services/DR/getToken';
 import StepAdress from './sections/SetpAdress';
 import StepAge from './sections/StepAge';
 import StepCovidContact from './sections/StepCovidContact';
@@ -38,7 +38,6 @@ export default function ReportScreenQuestions({ navigation }) {
   const { t } = useTranslation();
 
   const wizard = useRef(null);
-  const [GOV_DO_TOKEN, setToken] = useState('');
   const [isFirstStep, setIsFirstStep] = useState(true);
   const [isLastStep, setIsLastStep] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
@@ -48,12 +47,6 @@ export default function ReportScreenQuestions({ navigation }) {
   const [{ answers }, setGlobalState] = useContext(context);
 
   React.useEffect(() => {
-    async function fetchToken() {
-      const token = await getToken();
-      setToken(token);
-    }
-    fetchToken();
-
     const unsubscribe = navigation.addListener('blur', () => {
       setData({});
     });
@@ -61,43 +54,20 @@ export default function ReportScreenQuestions({ navigation }) {
   }, [navigation]);
 
   const sendDataToApi = async () => {
-    const responseFunc = merged => {
-      fetch(`${MEPYD_C5I_SERVICE}:443/${MEPYD_C5I_API_URL}/Form`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          gov_do_token: GOV_DO_TOKEN,
-        },
-        body: JSON.stringify(merged),
-      });
-    };
-
-    try {
-      let merged = {};
-      if (answers.usage === 'mySelf') {
-        let userInfo = await AsyncStorage.getItem('UserPersonalInfo');
-        userInfo = await JSON.parse(userInfo);
-        merged = { ...userInfo, ...answers };
-      } else {
-        merged = answers;
-      }
-
-      let response = await responseFunc(merged);
-
-      if (response.status === 401) {
-        // CODE 401 TOKEN NOT VALID
-        const newToken = await getToken(true);
-
-        setToken(newToken);
-
-        response = await responseFunc(merged);
-      }
-
-      const data = await response.json();
-      return data;
-    } catch (e) {
-      console.log('[error] ', e);
+    let merged = {};
+    if (answers.usage === 'mySelf') {
+      let userInfo = await AsyncStorage.getItem('UserPersonalInfo');
+      userInfo = await JSON.parse(userInfo);
+      merged = { ...userInfo, ...answers };
+    } else {
+      merged = answers;
     }
+
+    return await validateResponse(
+      `${MEPYD_C5I_SERVICE}:443/${MEPYD_C5I_API_URL}/Form`,
+      'POST',
+      merged,
+    );
   };
 
   const stepList = [

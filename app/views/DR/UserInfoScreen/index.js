@@ -28,8 +28,8 @@ import {
   MEPYD_C5I_API_URL,
   MEPYD_C5I_SERVICE,
 } from '../../../constants/DR/baseUrls';
+import validateResponse from '../../../helpers/DR/validateResponse';
 import { GetStoreData } from '../../../helpers/General';
-import getToken from '../../../services/DR/getToken';
 
 export default function UserInfo({
   navigation,
@@ -42,7 +42,6 @@ export default function UserInfo({
   });
   const { t } = useTranslation();
 
-  const [GOV_DO_TOKEN, setToken] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showValidationDialog, setShowValidationDialog] = useState(false);
@@ -65,14 +64,6 @@ export default function UserInfo({
     setGlobalState,
   ] = useContext(context);
 
-  useEffect(() => {
-    async function fetchToken() {
-      const token = await getToken();
-      setToken(token);
-    }
-    fetchToken();
-  }, []);
-
   const closeDialog = final => {
     setError(false);
     setShowDialog(false);
@@ -84,64 +75,25 @@ export default function UserInfo({
   };
 
   const validateCovidPositive = async info => {
-    const responseFunc = info => {
-      return fetch(`${MEPYD_C5I_SERVICE}:443/${MEPYD_C5I_API_URL}/Form`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          gov_do_token: GOV_DO_TOKEN,
-        },
-        body: JSON.stringify(
-          type === 'PositiveReport' ? { ...info, IamPositive: true } : info,
-        ),
-      });
-    };
+    const body =
+      type === 'PositiveReport' ? { ...info, IamPositive: true } : info;
 
-    try {
-      let response = await responseFunc(info);
-
-      if (response.status === 401) {
-        // CODE 401 TOKEN NOT VALID
-        const newToken = await getToken(true);
-
-        setToken(newToken);
-
-        response = await responseFunc(info);
-      }
-
-      response = await response.json();
-      return response;
-    } catch (e) {
-      console.log('ha ocurrido un error', e);
-    }
+    return await validateResponse(
+      `${MEPYD_C5I_SERVICE}:443/${MEPYD_C5I_API_URL}/Form`,
+      'POST',
+      body,
+    );
   };
 
   const validate = async data => {
     const { body } = data;
 
-    const responseFunc = body => {
-      return fetch(`${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/Person`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          gov_do_token: GOV_DO_TOKEN,
-        },
-        body: JSON.stringify(body),
-      });
-    };
     try {
-      let response = await responseFunc(body);
-
-      if (response.status === 401) {
-        // CODE 401 TOKEN NOT VALID
-        const newToken = await getToken(true);
-
-        setToken(newToken);
-
-        response = await responseFunc(body);
-      }
-
-      response = await response.json();
+      let response = await validateResponse(
+        `${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/Person`,
+        'POST',
+        body,
+      );
       setLoading(false);
 
       if (response.valid !== undefined) {
