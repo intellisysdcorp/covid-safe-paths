@@ -11,7 +11,7 @@ import languages from '../../../locales/languages';
 export default function Advices({ navigation }) {
   const recommendationData = data.map(item => ({
     ...item,
-    img: { source: iconAdvertisement },
+    icon: { iconName: 'comment-medical' },
   }));
 
   return (

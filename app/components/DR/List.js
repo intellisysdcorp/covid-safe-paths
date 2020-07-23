@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import fontFamily from '../../constants/fonts';
 
@@ -28,7 +29,7 @@ export default function DataList({
         (
           {
             url = '#',
-            img: { source },
+            icon: { iconName },
             title = '',
             dateLabel = '',
             content = '',
@@ -44,7 +45,8 @@ export default function DataList({
             }
             key={String(index)}
             style={styles.itemContainer}>
-            <Image style={styles.image} source={source} />
+            <Icon name={iconName} size={30} color='#000' />
+            {/* <Image style={styles.image} source={source} /> */}
             <View style={styles.right}>
               <Text
                 numberOfLines={titleLinesNum}
