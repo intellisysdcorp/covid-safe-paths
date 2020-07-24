@@ -12,6 +12,7 @@ import {
 import imgBulletins from '../../../assets/images/bulletins.jpg';
 import HeaderImage from '../../../components/DR/ActionCards/HeaderImage';
 import List from '../../../components/DR/List';
+import Colors from '../../../constants/colors-dr';
 import { FIREBASE_SERVICE } from '../../../constants/DR/baseUrls';
 import buttonStyle from '../../../constants/DR/buttonStyles';
 import fetch from '../../../helpers/Fetch';
@@ -32,7 +33,7 @@ export default function BulletinsScreen({ navigation }) {
   const addImgToBulletin = bulletinList => {
     return bulletinList.map(item => ({
       ...item,
-      icon: { iconName: 'copy' },
+      icon: { iconName: 'copy', color: Colors.BLUE_RIBBON },
     }));
   };
 

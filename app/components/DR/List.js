@@ -29,7 +29,7 @@ export default function DataList({
         (
           {
             url = '#',
-            icon: { iconName },
+            icon: { iconName, color },
             title = '',
             dateLabel = '',
             content = '',
@@ -45,8 +45,12 @@ export default function DataList({
             }
             key={String(index)}
             style={styles.itemContainer}>
-            <Icon name={iconName} size={30} color='#000' />
-            {/* <Image style={styles.image} source={source} /> */}
+            <Icon
+              name={iconName}
+              size={30}
+              color={color}
+              style={{ marginLeft: 10 }}
+            />
             <View style={styles.right}>
               <Text
                 numberOfLines={titleLinesNum}
