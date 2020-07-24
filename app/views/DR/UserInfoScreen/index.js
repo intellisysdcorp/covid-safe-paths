@@ -2,7 +2,7 @@ import 'moment/locale/es';
 
 import moment from 'moment';
 import { Button, Card, Container, Content, Text } from 'native-base';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   ActivityIndicator,
