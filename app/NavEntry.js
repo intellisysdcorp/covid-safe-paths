@@ -37,16 +37,15 @@ class MainNavigation extends React.Component {
   async componentDidMount() {
     const { t } = this.props;
     try {
-      const { data } = await fetch(BULLETINS_URL);
-      const bulletins = data.bulletins;
+      const {
+        data: { bulletins },
+      } = await fetch(BULLETINS_URL);
       const lastBulletin = await GetStoreData('lastBulletin', true);
-      console.log(lastBulletin);
 
       if (bulletins[0].order != lastBulletin) {
-        console.log(bulletins[0].order);
         PushNotification.localNotification({
-          title: t('label.new_bulletin_title'),
-          message: t('label.new_bulletin_message'),
+          title: t('label.new_bulletin_available_title'),
+          message: t('label.new_bulletin_available_message'),
         });
         await SetStoreData('lastBulletin', bulletins[0].order);
       }
