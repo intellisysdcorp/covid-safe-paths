@@ -154,6 +154,7 @@
     "positive_label": "Positivos",
     "positive_symptoms_description": "Como COVID positivo tienes opcion a resultados del laboratorio y consejos diarios",
     "positive_symptoms_label": "Apoyo al positivo",
+    "positive_covid_message": "Usted ha resultado ser COVID positivo en los resultados de los laboratorios",
     "privacy_policy": "Política de privacidad",
     "push_at_risk_message": "Has estado cerca de alguien con COVID-19",
     "push_at_risk_title": "Puedes estar en riesgo",

@@ -24,7 +24,11 @@ import {
   LocationMatch,
 } from '../../../components/DR/ActionCards/ActionCards.js';
 import Colors from '../../../constants/colors';
+import { FIREBASE_SERVICE } from '../../../constants/DR/baseUrls';
+import fetch from '../../../helpers/Fetch';
+import { GetStoreData, SetStoreData } from '../../../helpers/General';
 import { getAllCases } from '../../../services/DR/getAllCases.js';
+import DialogAdvice from '../../DialogAdvices';
 import styles from './style';
 
 class HomeScreen extends Component {
@@ -37,14 +41,19 @@ class HomeScreen extends Component {
       recovered: 0,
       current: 0,
       refreshing: false,
+      notified: false,
     };
     this.handler = this.handler.bind(this);
   }
 
-  handler() {
-    this.setState({
-      isPositiveConfirmed: true,
-    });
+  handler(notify) {
+    this.setState(
+      notify
+        ? { notified: !this.state.notified }
+        : {
+            isPositiveConfirmed: true,
+          },
+    );
   }
 
   // This fuction is to abreviate or separate numbers, ex: 1000 => 1,000, 100000 => 100K
@@ -112,7 +121,21 @@ class HomeScreen extends Component {
     this.setState(state => ({ ...state, refreshing: true }), this.getCases);
   };
 
-  componentDidMount() {
+  async componentDidMount() {
+    const COVID_STATE_URL = `${FIREBASE_SERVICE}/covid-state`;
+
+    const covidId = await GetStoreData('userCovidId');
+    const haveBeenNotified = await GetStoreData('haveBeenNotified');
+    if (covidId !== null) {
+      fetch(`${COVID_STATE_URL}/${covidId}`)
+        .then(({ data: { positive } }) => {
+          if (positive && !haveBeenNotified) {
+            SetStoreData('haveBeenNotified', true);
+            this.handler(true);
+          }
+        })
+        .catch(err => console.log('Something went wrong ', err));
+    }
     this.getCases();
   }
 
@@ -134,7 +157,7 @@ class HomeScreen extends Component {
     const {
       getUpdateDate,
       props: { navigation },
-      state: { confirmed, deaths, recovered, current, refreshing },
+      state: { confirmed, deaths, recovered, current, refreshing, notified },
     } = this;
 
     return (
@@ -253,6 +276,11 @@ class HomeScreen extends Component {
               {this.getSettings()}
             </ScrollView>
           </View>
+          <DialogAdvice
+            visible={notified}
+            text={t('label.positive_covid_message')}
+            close={this.handler(true)}
+          />
         </View>
       </SafeAreaView>
     );
