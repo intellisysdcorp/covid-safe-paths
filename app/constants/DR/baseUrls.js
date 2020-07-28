@@ -1,8 +1,6 @@
 import env from 'react-native-config';
 
-export const MEPYD_C5I_SERVICE = __DEV__
-  ? 'https://webapps.mepyd.gob.do'
-  : env.MEPYD_C5I_URL.replace('" #ignoreline', '');
+export const MEPYD_C5I_SERVICE = env.MEPYD_C5I_URL.replace('" #ignoreline', '');
 export const MEPYD_C5I_API_URL = 'contact_tracing/api'; //This point to the API version currently use
 export const COV_CASES_SERVICE = env.COV_CASES_URL;
 export const FIREBASE_SERVICE = env.FIREBASE_URL;
