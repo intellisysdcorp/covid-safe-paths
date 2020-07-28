@@ -173,7 +173,10 @@ class HomeScreen extends Component {
                         {t('label.current_situation_label')}
                       </Text>
                       <Text
-                        style={[styles.dateSubtitle, { alignSelf: 'center' }]}>
+                        style={[
+                          styles.dateSubtitle,
+                          { alignSelf: 'center', textAlign: 'center' },
+                        ]}>
                         {getUpdateDate()}
                       </Text>
                     </View>

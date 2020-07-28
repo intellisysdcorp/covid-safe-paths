@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
   },
   dateSubtitle: {
     color: '#808080',
+    width: wp('12%'),
   },
 });
 
