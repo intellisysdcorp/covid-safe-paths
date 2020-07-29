@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { getI18n, useTranslation } from 'react-i18next';
 import { Linking, View } from 'react-native';
 import loadLocalResource from 'react-native-local-resource';
 import WebView from 'react-native-webview';
 
 import NavigationBarWrapper from '../../../components/NavigationBarWrapper';
-import { GetStoreData } from '../../../helpers/General';
 import en from '../../../locales/eula/en.html';
 import es from '../../../locales/eula/es.html';
 
@@ -33,9 +32,9 @@ export default function Index({ navigation }) {
 
   useEffect(() => {
     (async () => {
-      const storedLocale = await GetStoreData('LANG_OVERRIDE');
+      const appLocale = getI18n().language;
 
-      const eulaPath = eulaFiles[storedLocale] || en;
+      const eulaPath = eulaFiles[appLocale] || en;
       setHtml(await loadLocalResource(eulaPath));
     })();
   });
