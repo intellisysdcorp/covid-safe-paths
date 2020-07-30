@@ -42,17 +42,14 @@ class HomeScreen extends Component {
       current: 0,
       refreshing: false,
       notified: false,
+      useType: '',
     };
     this.handler = this.handler.bind(this);
   }
 
-  handler(notify) {
+  handler(notify, useType) {
     this.setState(
-      notify
-        ? { notified: !this.state.notified }
-        : {
-            isPositiveConfirmed: true,
-          },
+      notify ? { notified: true, useType } : { isPositiveConfirmed: true },
     );
   }
 
@@ -121,20 +118,30 @@ class HomeScreen extends Component {
     this.setState(state => ({ ...state, refreshing: true }), this.getCases);
   };
 
-  async componentDidMount() {
-    const COVID_STATE_URL = `${FIREBASE_SERVICE}/covid-state`;
+  handlerPositiveState = () => {
+    this.setState({ notified: false });
+    this.props.navigation.navigate('PositiveOnboarding', {
+      positive: true,
+      use: this.state.useType,
+    });
+  };
 
-    const covidId = await GetStoreData('userCovidId');
+  async componentDidMount() {
+    const covidIdList = JSON.parse(await GetStoreData('covidIdList'));
     const haveBeenNotified = await GetStoreData('haveBeenNotified');
-    if (covidId !== null) {
-      fetch(`${COVID_STATE_URL}/${covidId}`)
-        .then(({ data: { positive } }) => {
-          if (positive && !haveBeenNotified) {
-            SetStoreData('haveBeenNotified', true);
-            this.handler(true);
-          }
-        })
-        .catch(err => console.log('Something went wrong ', err));
+
+    if (covidIdList !== null && !haveBeenNotified) {
+      const promiseList = covidIdList.map(userState => {
+        return fetch(`${FIREBASE_SERVICE}/covid-state/${userState.covidId}`);
+      });
+
+      Promise.all(promiseList).then(state => {
+        const checkState = state.find(({ data }) => data.positive === true);
+        if (checkState) {
+          SetStoreData('haveBeenNotified', true);
+          this.handler(true, checkState.useType);
+        }
+      });
     }
     this.getCases();
   }
@@ -279,7 +286,7 @@ class HomeScreen extends Component {
           <DialogAdvice
             visible={notified}
             text={t('label.positive_covid_message')}
-            close={this.handler(true)}
+            close={this.handlerPositiveState}
           />
         </View>
       </SafeAreaView>

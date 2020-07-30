@@ -75,9 +75,25 @@ export default function UserInfo({
     final && setGlobalState({ type: 'CLEAN_ANSWERS' });
   };
 
+  const handleCovidIdCoincidense = async covidId => {
+    const covidIdList = JSON.parse(await GetStoreData('covidIdList'));
+    if (covidIdList !== null) {
+      const noCoincidenseExist = covidIdList.every(
+        data => data.covidId !== covidId,
+      );
+
+      if (noCoincidenseExist) {
+        covidIdList.push({ covidId, useType: use });
+        SetStoreData('covidIdList', covidIdList);
+      }
+    } else {
+      SetStoreData('covidIdList', [{ covidId, useType: use }]);
+    }
+  };
+
   const saveUserState = async state => {
-    console.log('===>>>', state.covidId);
-    SetStoreData('userCovidId', state.covidId);
+    handleCovidIdCoincidense(state.covidId);
+
     await fetch(`${FIREBASE_SERVICE}/update-state`, {
       method: 'POST',
       headers: {
@@ -100,7 +116,6 @@ export default function UserInfo({
 
   const validate = async data => {
     const { body } = data;
-
     try {
       let response = await validateResponse(
         `${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/Person`,
@@ -138,7 +153,6 @@ export default function UserInfo({
                   })
                 : navigation.navigate('PositiveOnboarding', {
                     positive,
-                    body,
                     use,
                   });
             });
