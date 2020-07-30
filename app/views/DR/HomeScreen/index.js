@@ -96,7 +96,7 @@ class HomeScreen extends Component {
 
   getUpdateDate = () => {
     const { lastUpdate } = this.state;
-
+    const { t } = this.props;
     const dateOfCase = new Date(lastUpdate);
 
     let month = dateOfCase.getMonth() + 1;
@@ -105,7 +105,7 @@ class HomeScreen extends Component {
     day = day <= 9 ? '0' + day : day;
     const year = dateOfCase.getFullYear();
 
-    return `${day}/${month}/${year}`;
+    return `${t('label.date_dashboard_label')}\n${day}/${month}/${year}`;
   };
 
   refresh = () => {
@@ -173,7 +173,10 @@ class HomeScreen extends Component {
                         {t('label.current_situation_label')}
                       </Text>
                       <Text
-                        style={[styles.dateSubtitle, { alignSelf: 'center' }]}>
+                        style={[
+                          styles.dateSubtitle,
+                          { alignSelf: 'center', textAlign: 'center' },
+                        ]}>
                         {getUpdateDate()}
                       </Text>
                     </View>
