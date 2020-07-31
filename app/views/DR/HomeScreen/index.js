@@ -139,7 +139,7 @@ class HomeScreen extends Component {
         const checkState = state.find(({ data }) => data.positive === true);
         if (checkState) {
           SetStoreData('haveBeenNotified', true);
-          this.handler(true, checkState.useType);
+          this.handler(true, 'mySelf');
         }
       });
     }
