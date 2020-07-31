@@ -16,66 +16,33 @@
 default_platform(:android)
 
 platform :android do
-  desc "Runs Android (Native) unit tests"
+  desc "Runs all the tests"
   lane :test do
     gradle(task: "test")
+    slack(message: "App successfully released!", channel: "#covid-team")
   end
 
-  JS_PACKAGE = load_json(json_path: "../package.json")
-
-  desc "Build a Staging APK and AAB"
-  lane :staging do
-    gradle(
-      task: "clean assembleStagingDebug",
-      print_command: false,
-    )
-  end 
-
-  desc "Build a Release APK and AAB"
-  lane :release do
-
-    increment_version_code(
-      gradle_file_path: "../android/app/build.gradle",
-    )
-
-    increment_version_name(
-      gradle_file_path: "../android/app/build.gradle",
-      version_name: JS_PACKAGE['version']
-    )
-
-    gradle(
-      task: "assemble",
-      build_type: "prodRelease",
-      print_command: false,
-      properties: {
-        "android.injected.signing.store.password" => ENV["KEY_STORE_PASSWORD"],
-        "android.injected.signing.key.alias" => ENV["KEY_ALIAS"],
-        "android.injected.signing.key.password" =>  ENV["KEY_PASSWORD"]
-      }
-    )
-
-    gradle(
-      task: "bundle",
-      build_type: "prodRelease",
-      print_command: false,
-      properties: {
-        "android.injected.signing.store.password" => ENV["KEY_STORE_PASSWORD"],
-        "android.injected.signing.key.alias" => ENV["KEY_ALIAS"],
-        "android.injected.signing.key.password" =>  ENV["KEY_PASSWORD"]
-      }
-    )
+  desc "Submit a new Beta Build to Crashlytics Beta"
+  lane :beta do
+    gradle(task: "clean assembleRelease")
+    crashlytics
+  
+    # sh "your_script.sh"
+    # You can also use other beta testing services here
   end
 
-  desc "Upload to google play store beta track"
-  lane :play_store do
-    validate_play_store_json_key(
-      json_key: "app/json_key.json",
-    )
-    
-    upload_to_play_store(
-      track: 'beta',
-      skip_upload_apk: true,
-      aab: 'app/build/outputs/bundle/prodRelease/app.aab',
-    )
+  desc "Run Slack test for automate release"
+  lane :slack_message do
+  slack(
+    message: "App successfully tested",
+    success: true,
+    slack_url: "https://hooks.slack.com/services/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"
+  )
+  end
+
+  desc "Deploy a new version to the Google Play"
+  lane :deploy do
+    gradle(task: "clean assembleRelease")
+    upload_to_play_store
   end
 end
