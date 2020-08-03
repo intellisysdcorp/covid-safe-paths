@@ -44,14 +44,11 @@ class HomeScreen extends Component {
       notified: false,
       useType: '',
     };
-    this.handler = this.handler.bind(this);
   }
 
-  handler(notify, useType) {
-    this.setState(
-      notify ? { notified: true, useType } : { isPositiveConfirmed: true },
-    );
-  }
+  handler = useType => {
+    this.setState({ notified: true, useType });
+  };
 
   // This fuction is to abreviate or separate numbers, ex: 1000 => 1,000, 100000 => 100K
   separateOrAbreviate = data => {
@@ -139,7 +136,7 @@ class HomeScreen extends Component {
         const checkState = state.find(({ data }) => data.positive === true);
         if (checkState) {
           SetStoreData('haveBeenNotified', true);
-          this.handler(true, 'mySelf');
+          this.handler('mySelf');
         }
       });
     }
@@ -192,7 +189,7 @@ class HomeScreen extends Component {
               </View>
               <View style={{ marginHorizontal: wp('2%') }}>
                 <View style={styles.marginAndAlign}>
-                  <Feels navigation={navigation} handler={this.handler} />
+                  <Feels navigation={navigation} />
                   <View style={styles.marginAndAlign}>
                     <View style={styles.actualSituationContent}>
                       <Text
