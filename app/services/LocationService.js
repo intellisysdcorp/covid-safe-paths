@@ -206,7 +206,6 @@ export default class LocationServices {
           time: location.time,
           covidId: COVID_BASE_ID,
         };
-
         return await validateResponse(
           `${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/UserTrace`,
           'POST',
