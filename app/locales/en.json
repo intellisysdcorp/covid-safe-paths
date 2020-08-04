@@ -161,6 +161,7 @@
     "positive_label": "Positive Cases",
     "positive_symptoms_description": "As a positive COVID you have the option of laboratory results and daily advice",
     "positive_symptoms_label": "Support the positive",
+    "positive_covid_message": "You have turned out to be COVID positive in the laboratory results",
     "privacy_policy": "Privacy Policy",
     "push_at_risk_message": "You have crossed paths with a COVID-19 patient",
     "push_at_risk_title": "You may be at risk",

@@ -19,7 +19,7 @@ import {
 } from '../../../helpers/General';
 
 const PositiveOnboarding = ({ route, navigation }) => {
-  const { positive, body, use } = route.params;
+  const { positive, use } = route.params;
   const { t } = useTranslation();
   const [showShareLocDialog, setShowShareLocDialog] = useState(false);
   const [error, showError] = useState(false);
@@ -30,10 +30,9 @@ const PositiveOnboarding = ({ route, navigation }) => {
     getUsers().then(data => setNicknameArray(data !== null ? data : []));
   }, []);
 
-  const createEntry = (nickname, data, positive) => {
+  const createEntry = (nickname, positive) => {
     return {
       name: nickname,
-      data,
       positive,
       use,
     };
@@ -52,7 +51,7 @@ const PositiveOnboarding = ({ route, navigation }) => {
   };
   const verifyAndAccept = async () => {
     if (!getNicknamesCoincidences(nicknameArray, nickname)) {
-      nicknameArray.push(createEntry(nickname, body, positive, use));
+      nicknameArray.push(createEntry(nickname, positive, use));
       await SetStoreData('users', nicknameArray);
       setShowShareLocDialog(true);
       navigation.navigate('EpidemiologicResponse', {

@@ -200,13 +200,12 @@ export default class LocationServices {
       const isPositive = await GetStoreData('shareLocation', true);
 
       if (isPositive) {
-        const body = JSON.stringify({
+        const body = {
           latitude: location.latitude,
           longitude: location.longitude,
           time: location.time,
           covidId: COVID_BASE_ID,
-        });
-
+        };
         return await validateResponse(
           `${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/UserTrace`,
           'POST',
