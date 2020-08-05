@@ -1,6 +1,7 @@
 import BackgroundGeolocation from '@mauron85/react-native-background-geolocation';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import { NativeModules, Platform } from 'react-native';
+import RNLocation from 'react-native-location';
 import PushNotification from 'react-native-push-notification';
 
 import {
@@ -196,23 +197,59 @@ export default class LocationServices {
       console.log('[INFO] App is in foreground');
     });
 
-    BackgroundGeolocation.on('location', async location => {
-      const isPositive = await GetStoreData('shareLocation', true);
-
-      if (isPositive) {
-        const body = {
-          latitude: location.latitude,
-          longitude: location.longitude,
-          time: location.time,
-          covidId: COVID_BASE_ID,
-        };
-        return await validateResponse(
-          `${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/UserTrace`,
-          'POST',
-          body,
-        );
-      }
+    RNLocation.configure({
+      distanceFilter: 5, // Meters
+      desiredAccuracy: {
+        ios: 'best',
+        android: 'balancedPowerAccuracy',
+      },
+      // Android only
+      androidProvider: 'auto',
+      interval: 5000, // Milliseconds
+      fastestInterval: 10000, // Milliseconds
+      maxWaitTime: 5000, // Milliseconds
+      // iOS Only
+      activityType: 'AutomotiveNavigation',
+      allowsBackgroundLocationUpdates: true,
+      headingFilter: 1, // Degrees
+      headingOrientation: 'portrait',
+      pausesLocationUpdatesAutomatically: false,
+      showsBackgroundLocationIndicator: false,
     });
+
+    RNLocation.requestPermission({
+      ios: 'whenInUse', // or 'always'
+      android: {
+        detail: 'coarse', // or 'fine'
+      },
+    })
+      .then(granted => {
+        if (granted) {
+          this.locationSubscription = RNLocation.subscribeToLocationUpdates(
+            async ([location]) => {
+              const isPositive = await GetStoreData('shareLocation', true);
+
+              if (isPositive) {
+                const body = {
+                  latitude: location.latitude,
+                  longitude: location.longitude,
+                  time: location.timestamp,
+                  covidId: COVID_BASE_ID,
+                };
+
+                return await validateResponse(
+                  `${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/UserTrace`,
+                  'POST',
+                  body,
+                );
+              }
+            },
+          );
+        }
+      })
+      .catch(error =>
+        console.log('something went wrong with the coordenades ', error),
+      );
 
     BackgroundGeolocation.on('abort_requested', () => {
       console.log('[INFO] Server responded with 285 Updates Not Required');
