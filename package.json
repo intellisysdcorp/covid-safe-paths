@@ -33,7 +33,8 @@
     "test:dev_setup": "bats __tests__/dev_setup.test.bats",
     "version:bump:major": "version --premajor",
     "version:bump:minor": "version --preminor",
-    "version:bump:patch": "version --prepatch"
+    "version:bump:patch": "version --prepatch",
+    "beta:android": "cd ./android && fastlane beta"
   },
   "lint-staged": {
     "*.js": [
