@@ -197,6 +197,45 @@ export default class LocationServices {
       console.log('[INFO] App is in foreground');
     });
 
+    BackgroundGeolocation.on('abort_requested', () => {
+      console.log('[INFO] Server responded with 285 Updates Not Required');
+      // Here we can decide whether we want stop the updates or not.
+      // If you've configured the server to return 285, then it means the server does not require further update.
+      // So the normal thing to do here would be to `BackgroundGeolocation.stop()`.
+      // But you might be counting on it to receive location updates in the UI, so you could just reconfigure and set `url` to null.
+    });
+
+    BackgroundGeolocation.on('http_authorization', () => {
+      console.log('[INFO] App needs to authorize the http requests');
+    });
+
+    BackgroundGeolocation.on('stop', () => {
+      PushNotification.localNotification({
+        title: languages.t('label.location_disabled_title'),
+        message: languages.t('label.location_disabled_message'),
+      });
+      console.log('[INFO] stop');
+    });
+    BackgroundGeolocation.on('stationary', () => {
+      console.log('[INFO] stationary');
+    });
+
+    const {
+      authorization,
+      isRunning,
+      locationServicesEnabled,
+    } = await this.getBackgroundGeoStatus();
+
+    console.log('[INFO] BackgroundGeolocation service is running', isRunning);
+    console.log(
+      '[INFO] BackgroundGeolocation services enabled',
+      locationServicesEnabled,
+    );
+    console.log('[INFO] BackgroundGeolocation auth status: ' + authorization);
+
+    BackgroundGeolocation.start(); //triggers start on start event
+    isBackgroundGeolocationConfigured = true;
+
     RNLocation.configure({
       distanceFilter: 5, // Meters
       desiredAccuracy: {
@@ -250,45 +289,6 @@ export default class LocationServices {
       .catch(error =>
         console.log('something went wrong with the coordenades ', error),
       );
-
-    BackgroundGeolocation.on('abort_requested', () => {
-      console.log('[INFO] Server responded with 285 Updates Not Required');
-      // Here we can decide whether we want stop the updates or not.
-      // If you've configured the server to return 285, then it means the server does not require further update.
-      // So the normal thing to do here would be to `BackgroundGeolocation.stop()`.
-      // But you might be counting on it to receive location updates in the UI, so you could just reconfigure and set `url` to null.
-    });
-
-    BackgroundGeolocation.on('http_authorization', () => {
-      console.log('[INFO] App needs to authorize the http requests');
-    });
-
-    BackgroundGeolocation.on('stop', () => {
-      PushNotification.localNotification({
-        title: languages.t('label.location_disabled_title'),
-        message: languages.t('label.location_disabled_message'),
-      });
-      console.log('[INFO] stop');
-    });
-    BackgroundGeolocation.on('stationary', () => {
-      console.log('[INFO] stationary');
-    });
-
-    const {
-      authorization,
-      isRunning,
-      locationServicesEnabled,
-    } = await this.getBackgroundGeoStatus();
-
-    console.log('[INFO] BackgroundGeolocation service is running', isRunning);
-    console.log(
-      '[INFO] BackgroundGeolocation services enabled',
-      locationServicesEnabled,
-    );
-    console.log('[INFO] BackgroundGeolocation auth status: ' + authorization);
-
-    BackgroundGeolocation.start(); //triggers start on start event
-    isBackgroundGeolocationConfigured = true;
   }
 
   static async stop() {
