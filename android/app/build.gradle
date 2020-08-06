@@ -234,6 +234,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-location')
     // loading html files
     compile project(':react-native-local-resource')
     implementation project(':react-native-reanimated')
