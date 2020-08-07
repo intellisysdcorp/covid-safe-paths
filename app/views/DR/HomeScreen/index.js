@@ -164,6 +164,10 @@ class HomeScreen extends Component {
       state: { confirmed, deaths, recovered, current, refreshing, notified },
     } = this;
 
+    const getUrlMap = () => {
+      const url = 'https://coronavirusrd.gob.do/casos-de-covid-19-confirmados/';
+      return navigation.navigate('Details', { source: { uri: url } });
+    };
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <View style={{ flex: 1, backgroundColor: Colors.BLUE_RIBBON }}>
@@ -209,42 +213,60 @@ class HomeScreen extends Component {
                     </View>
                   </View>
                   <View style={styles.actualSituationContainer}>
-                    <Card style={styles.infoCards}>
-                      <Text style={[styles.dataText]}>{confirmed}</Text>
-                      <Text style={styles.text}>
-                        {t('label.positive_label')}
-                      </Text>
-                    </Card>
+                    <TouchableOpacity
+                      style={styles.shadowBorder}
+                      onPress={() => getUrlMap()}>
+                      <Card style={styles.infoCards}>
+                        <Text style={[styles.dataText]}>{confirmed}</Text>
+                        <Text style={styles.text}>
+                          {t('label.positive_label')}
+                        </Text>
+                      </Card>
+                    </TouchableOpacity>
 
-                    <Card style={styles.infoCards}>
-                      <Text
-                        style={[
-                          styles.dataText,
-                          { color: Colors.BUTTON_LIGHT_TEX },
-                        ]}>
-                        {deaths}
-                      </Text>
-                      <Text style={styles.text}>
-                        {t('label.deceased_label')}
-                      </Text>
-                    </Card>
+                    <TouchableOpacity
+                      style={styles.shadowBorder}
+                      onPress={() => getUrlMap()}>
+                      <Card style={styles.infoCards}>
+                        <Text
+                          style={[
+                            styles.dataText,
+                            { color: Colors.BUTTON_LIGHT_TEX },
+                          ]}>
+                          {deaths}
+                        </Text>
+                        <Text style={styles.text}>
+                          {t('label.deceased_label')}
+                        </Text>
+                      </Card>
+                    </TouchableOpacity>
 
-                    <Card style={styles.infoCards}>
-                      <Text style={[styles.dataText, { color: Colors.GREEN }]}>
-                        {recovered}
-                      </Text>
-                      <Text style={styles.text}>
-                        {t('label.recovered_label')}
-                      </Text>
-                    </Card>
-                    <Card style={styles.infoCards}>
-                      <Text style={[styles.dataText, { color: Colors.SUN }]}>
-                        {current}
-                      </Text>
-                      <Text style={styles.text}>
-                        {t('label.case_day_label')}
-                      </Text>
-                    </Card>
+                    <TouchableOpacity
+                      style={styles.shadowBorder}
+                      onPress={() => getUrlMap()}>
+                      <Card style={styles.infoCards}>
+                        <Text
+                          style={[styles.dataText, { color: Colors.GREEN }]}>
+                          {recovered}
+                        </Text>
+                        <Text style={styles.text}>
+                          {t('label.recovered_label')}
+                        </Text>
+                      </Card>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                      style={styles.shadowBorder}
+                      onPress={() => getUrlMap()}>
+                      <Card style={styles.infoCards}>
+                        <Text style={[styles.dataText, { color: Colors.SUN }]}>
+                          {current}
+                        </Text>
+                        <Text style={styles.text}>
+                          {t('label.case_day_label')}
+                        </Text>
+                      </Card>
+                    </TouchableOpacity>
                   </View>
                   <LocationMatch navigation={this.props.navigation} />
                   <Aurora navigation={this.props.navigation} />
