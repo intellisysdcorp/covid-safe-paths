@@ -153,8 +153,8 @@ android {
         testBuildType System.getProperty('testBuildType', 'debug')
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
-        versionCode 27
-        versionName "1.2.4"
+        versionCode 29
+        versionName "1.2.6"
     }
     splits {
         abi {
@@ -234,6 +234,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-location')
     // loading html files
     compile project(':react-native-local-resource')
     implementation project(':react-native-reanimated')
