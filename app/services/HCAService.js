@@ -192,10 +192,20 @@ class HCAService {
    * @returns {void}
    */
   async pushAlertNewSubscribedAuthorities(count) {
-    await PushNotification.localNotification({
-      title: languages.t('label.authorities_new_subscription_title', { count }),
-      message: languages.t('label.authorities_new_subscription_msg', { count }),
-    });
+    const notifiedNewSubs = await GetStoreData('notifiedNewAuthSubscription');
+
+    if (!notifiedNewSubs) {
+      await SetStoreData('notifiedNewAuthSubscription', true);
+
+      await PushNotification.localNotification({
+        title: languages.t('label.authorities_new_subscription_title', {
+          count,
+        }),
+        message: languages.t('label.authorities_new_subscription_msg', {
+          count,
+        }),
+      });
+    }
   }
 
   /**
