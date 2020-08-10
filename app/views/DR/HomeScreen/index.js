@@ -29,6 +29,7 @@ import fetch from '../../../helpers/Fetch';
 import { GetStoreData, SetStoreData } from '../../../helpers/General';
 import { getAllCases } from '../../../services/DR/getAllCases.js';
 import DialogAdvice from '../../DialogAdvices';
+import Index from '../Sponsors';
 import styles from './style';
 
 class HomeScreen extends Component {
@@ -164,9 +165,45 @@ class HomeScreen extends Component {
       state: { confirmed, deaths, recovered, current, refreshing, notified },
     } = this;
 
-    const getUrlMap = () => {
-      const url = 'https://coronavirusrd.gob.do/casos-de-covid-19-confirmados/';
-      return navigation.navigate('Details', { source: { uri: url } });
+    const dashboardCards = () => {
+      const dashboardCategories = [
+        { label: 'label.positive_label', styles: '', value: confirmed },
+        {
+          label: 'label.deceased_label',
+          styles: { color: Colors.BUTTON_LIGHT_TEX },
+          value: deaths,
+        },
+        {
+          label: 'label.recovered_label',
+          styles: { color: Colors.GREEN },
+          value: recovered,
+        },
+        {
+          label: 'label.case_day_label',
+          styles: { color: Colors.SUN },
+          value: current,
+        },
+      ];
+      const CONFIRMED_COVID_CASES_URL =
+        'https://coronavirusrd.gob.do/casos-de-covid-19-confirmados/';
+
+      return dashboardCategories.map(obj => {
+        return (
+          <TouchableOpacity
+            style={styles.shadowBorder}
+            key={Index}
+            onPress={() =>
+              navigation.navigate('Details', {
+                source: { uri: CONFIRMED_COVID_CASES_URL },
+              })
+            }>
+            <Card style={styles.infoCards}>
+              <Text style={[styles.dataText, obj.styles]}>{obj.value}</Text>
+              <Text style={styles.text}>{t(obj.label)}</Text>
+            </Card>
+          </TouchableOpacity>
+        );
+      });
     };
     return (
       <SafeAreaView style={{ flex: 1 }}>
@@ -213,60 +250,7 @@ class HomeScreen extends Component {
                     </View>
                   </View>
                   <View style={styles.actualSituationContainer}>
-                    <TouchableOpacity
-                      style={styles.shadowBorder}
-                      onPress={() => getUrlMap()}>
-                      <Card style={styles.infoCards}>
-                        <Text style={[styles.dataText]}>{confirmed}</Text>
-                        <Text style={styles.text}>
-                          {t('label.positive_label')}
-                        </Text>
-                      </Card>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                      style={styles.shadowBorder}
-                      onPress={() => getUrlMap()}>
-                      <Card style={styles.infoCards}>
-                        <Text
-                          style={[
-                            styles.dataText,
-                            { color: Colors.BUTTON_LIGHT_TEX },
-                          ]}>
-                          {deaths}
-                        </Text>
-                        <Text style={styles.text}>
-                          {t('label.deceased_label')}
-                        </Text>
-                      </Card>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                      style={styles.shadowBorder}
-                      onPress={() => getUrlMap()}>
-                      <Card style={styles.infoCards}>
-                        <Text
-                          style={[styles.dataText, { color: Colors.GREEN }]}>
-                          {recovered}
-                        </Text>
-                        <Text style={styles.text}>
-                          {t('label.recovered_label')}
-                        </Text>
-                      </Card>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                      style={styles.shadowBorder}
-                      onPress={() => getUrlMap()}>
-                      <Card style={styles.infoCards}>
-                        <Text style={[styles.dataText, { color: Colors.SUN }]}>
-                          {current}
-                        </Text>
-                        <Text style={styles.text}>
-                          {t('label.case_day_label')}
-                        </Text>
-                      </Card>
-                    </TouchableOpacity>
+                    {dashboardCards()}
                   </View>
                   <LocationMatch navigation={this.props.navigation} />
                   <Aurora navigation={this.props.navigation} />
