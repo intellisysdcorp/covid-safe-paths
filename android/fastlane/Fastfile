@@ -19,14 +19,18 @@ platform :android do
   desc "Runs all the tests"
   lane :test do
     gradle(task: "test")
-    slack(message: "App successfully released!", channel: "#covid-team")
+    slack(message: "App successfully tested!", slack_url: ENV["SLACK_URL"])
   end
 
   desc "Submit a new Beta Build to Crashlytics Beta"
   lane :beta do
     gradle(task: "clean assembleRelease")
     crashlytics
-  
+    slack(
+      message: "App successfully released in Beta",
+      success: true,
+      slack_url: ENV["SLACK_URL"]
+    )
     # sh "your_script.sh"
     # You can also use other beta testing services here
   end
@@ -34,15 +38,29 @@ platform :android do
   desc "Run Slack test for automate release"
   lane :slack_message do
   slack(
-    message: "App successfully tested",
+    message: "Slack successfully tested",
     success: true,
-    slack_url: "https://hooks.slack.com/services/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"
+    slack_url: ENV["SLACK_URL"]
   )
   end
 
   desc "Deploy a new version to the Google Play"
   lane :deploy do
-    gradle(task: "clean assembleRelease")
+    increment_version_code(gradle_file_path: "app/build.gradle")
+    gradle(
+      task: "clean assembleRelease", 
+      build_type: "release",
+      properties: {
+        "android.injected.signing.store.password" => ENV["KEYSTORE_PASSWORD"],
+        "android.injected.signing.key.alias" => ENV["KEY_ALIAS"],
+        "android.injected.signing.key.password" =>  ENV["KEY_PASSWORD"]
+      }
+    )
     upload_to_play_store
+    slack(
+      message: "App successfully uploaded to the PlayStore",
+      success: true,
+      slack_url: ENV["SLACK_URL"]
+  )
   end
 end
