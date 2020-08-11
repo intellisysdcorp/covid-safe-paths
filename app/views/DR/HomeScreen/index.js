@@ -187,8 +187,8 @@ class HomeScreen extends Component {
       const CONFIRMED_COVID_CASES_URL =
         'https://coronavirusrd.gob.do/casos-de-covid-19-confirmados/';
 
-      return dashboardCategories.map(obj => {
-        return (
+      return dashboardCategories.map(obj => 
+         (
           <TouchableOpacity
             style={styles.shadowBorder}
             key={Index}
