@@ -6,6 +6,7 @@ import HeaderImage from '../../../components/DR/HeaderImage';
 import List from '../../../components/DR/List';
 import Colors from '../../../constants/colors-dr';
 import { FIREBASE_SERVICE } from '../../../constants/DR/baseUrls';
+import fetch from '../../../helpers/Fetch';
 import languages from '../../../locales/languages';
 
 const ADVICE_URL = `${FIREBASE_SERVICE}/advices`;
