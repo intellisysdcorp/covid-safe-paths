@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native';
 import Colors from '../../../constants/colors';
 import styles from './style';
 
-export default function dashboardCards({
+export default function DashboardCards({
   navigation,
   t,
   confirmed,
