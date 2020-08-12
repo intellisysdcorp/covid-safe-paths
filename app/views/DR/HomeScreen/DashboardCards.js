@@ -37,7 +37,7 @@ export default function DashboardCards({
   return dashboardCategories.map((obj, index) => (
     <TouchableOpacity
       style={styles.shadowBorder}
-      key={index}
+      key={obj.label}
       onPress={() =>
         navigation.navigate('Details', {
           source: { uri: CONFIRMED_COVID_CASES_URL },
