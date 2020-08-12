@@ -23,7 +23,7 @@ export default function UserFor({ navigation }) {
   const { t } = useTranslation();
 
   useEffect(() => {
-    getUsers.then(data => setNicknameArray(data));
+    getUsers().then(data => setNicknameArray(data));
   }, []);
 
   return (

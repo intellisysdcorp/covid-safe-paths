@@ -152,7 +152,7 @@ export default function UserInfo({
               same
                 ? navigation.navigate('EpidemiologicResponse', {
                     screen: 'EpidemiologicReport',
-                    params: { nickname: name },
+                    params: { nickname: name, positive },
                   })
                 : navigation.navigate('PositiveOnboarding', {
                     positive,
