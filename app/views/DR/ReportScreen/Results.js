@@ -500,7 +500,7 @@ export default function Results({ navigation }) {
                   },
                 ]}
                 onPress={() => {
-                  navigation.navigate('HomeScreen');
+                  navigation.popToTop();
                 }}>
                 <Text style={[styles.buttonText, { color: Colors.WHITE }]}>
                   {t('report.close')}
