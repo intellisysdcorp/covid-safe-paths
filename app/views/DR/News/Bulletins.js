@@ -30,12 +30,11 @@ export default function BulletinsScreen({ navigation }) {
     return true;
   };
 
-  const addImgToBulletin = bulletinList => {
-    return bulletinList.map(item => ({
+  const addImgToBulletin = bulletinList =>
+    bulletinList.map(item => ({
       ...item,
       icon: { iconName: 'copy', color: Colors.BLUE_RIBBON },
     }));
-  };
 
   const onPress = () => {
     const { order } = bulletins[bulletins.length - 1] || {};
