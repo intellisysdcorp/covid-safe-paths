@@ -35,14 +35,11 @@ export default function Policy_And_Terms_Viewer({ navigation, files, title }) {
   });
   return (
     <NavigationBarWrapper title={title} onBackPress={backToMain.bind(this)}>
-      <View
-        style={{ flex: 1, width: '100%', height: '100%', alignSelf: 'center' }}>
+      <View style={{ flex: 1, width: '100%', height: '100%' }}>
         <WebView
           source={{ html }}
           style={{
             flex: 1,
-            width: '97%',
-            alignSelf: 'center',
           }}
           onShouldStartLoadWithRequest={shouldStartLoadWithRequestHandler}
         />
