@@ -29,6 +29,11 @@ import {
   MEPYD_C5I_API_URL,
   MEPYD_C5I_SERVICE,
 } from '../../../constants/DR/baseUrls';
+import {
+  COVID_ID_LIST,
+  HAVE_BEEN_NOTIFIED,
+  USERS,
+} from '../../../constants/storage';
 import validateResponse from '../../../helpers/DR/validateResponse';
 import { GetStoreData, SetStoreData } from '../../../helpers/General';
 
@@ -76,7 +81,7 @@ export default function UserInfo({
   };
 
   const handleCovidIdCoincidense = async covidId => {
-    const covidIdList = JSON.parse(await GetStoreData('covidIdList'));
+    const covidIdList = await GetStoreData(COVID_ID_LIST, false);
     if (covidIdList !== null) {
       const noCoincidenseExist = covidIdList.every(
         data => data.covidId !== covidId,
@@ -84,10 +89,10 @@ export default function UserInfo({
 
       if (noCoincidenseExist) {
         covidIdList.push({ covidId, useType: use });
-        SetStoreData('covidIdList', covidIdList);
+        SetStoreData(COVID_ID_LIST, covidIdList);
       }
     } else {
-      SetStoreData('covidIdList', [{ covidId, useType: use }]);
+      SetStoreData(COVID_ID_LIST, [{ covidId, useType: use }]);
     }
   };
 
@@ -131,16 +136,14 @@ export default function UserInfo({
           saveUserState({ covidId, positive });
           closeDialog(false);
           if (positive) {
-            SetStoreData('haveBeenNotified', true);
-            GetStoreData('users', false).then(data => {
+            SetStoreData(HAVE_BEEN_NOTIFIED, true);
+            GetStoreData(USERS, false).then(data => {
               let same = false;
               let name = '';
               if (data !== null) {
                 data.map(user => {
-                  if (
-                    (body.cid !== undefined && user.data.cid === body.cid) ||
-                    (body.nssid !== undefined && user.data.nssid === body.nssid)
-                  ) {
+                  if (covidId === user.covidId) {
+                    //verify if there's a matching covidID in the Users Array
                     same = true;
                     name = user.name;
                   }
@@ -154,6 +157,7 @@ export default function UserInfo({
                 : navigation.navigate('PositiveOnboarding', {
                     positive,
                     use,
+                    covidId,
                   });
             });
           } else if (type && !positive) {

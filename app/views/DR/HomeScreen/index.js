@@ -25,6 +25,7 @@ import {
 } from '../../../components/DR/ActionCards/ActionCards.js';
 import Colors from '../../../constants/colors';
 import { FIREBASE_SERVICE } from '../../../constants/DR/baseUrls';
+import { COVID_ID_LIST, HAVE_BEEN_NOTIFIED } from '../../../constants/storage';
 import fetch from '../../../helpers/Fetch';
 import { GetStoreData, SetStoreData } from '../../../helpers/General';
 import { getAllCases } from '../../../services/DR/getAllCases.js';
@@ -124,8 +125,8 @@ class HomeScreen extends Component {
   };
 
   async componentDidMount() {
-    const covidIdList = JSON.parse(await GetStoreData('covidIdList'));
-    const haveBeenNotified = await GetStoreData('haveBeenNotified');
+    const covidIdList = await GetStoreData(COVID_ID_LIST, false);
+    const haveBeenNotified = await GetStoreData(HAVE_BEEN_NOTIFIED);
 
     if (covidIdList !== null && !haveBeenNotified) {
       const promiseList = covidIdList.map(userState => {
@@ -135,7 +136,7 @@ class HomeScreen extends Component {
       Promise.all(promiseList).then(state => {
         const checkState = state.find(({ data }) => data.positive === true);
         if (checkState) {
-          SetStoreData('haveBeenNotified', true);
+          SetStoreData(HAVE_BEEN_NOTIFIED, true);
           this.handler('mySelf');
         }
       });

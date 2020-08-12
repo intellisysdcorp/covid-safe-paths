@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-community/async-storage';
 import { Button, Text } from 'native-base';
 import React, { useContext, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -54,19 +53,10 @@ export default function ReportScreenQuestions({ navigation }) {
   }, [navigation]);
 
   const sendDataToApi = async () => {
-    let merged = {};
-    if (answers.usage === 'mySelf') {
-      let userInfo = await AsyncStorage.getItem('UserPersonalInfo');
-      userInfo = await JSON.parse(userInfo);
-      merged = { ...userInfo, ...answers };
-    } else {
-      merged = answers;
-    }
-
     return await validateResponse(
       `${MEPYD_C5I_SERVICE}:443/${MEPYD_C5I_API_URL}/Form`,
       'POST',
-      merged,
+      answers,
     );
   };
 

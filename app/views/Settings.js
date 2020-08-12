@@ -12,7 +12,7 @@ import { FeatureFlag } from '../components/FeatureFlag';
 import NativePicker from '../components/NativePicker';
 import NavigationBarWrapper from '../components/NavigationBarWrapper';
 import Colors from '../constants/colors';
-import { PARTICIPATE } from '../constants/storage';
+import { PARTICIPATE, SHARE_LOCATION, USERS } from '../constants/storage';
 import { GetStoreData, SetStoreData, getMyself } from '../helpers/General';
 import {
   LOCALE_LIST,
@@ -38,10 +38,10 @@ export const SettingsScreen = ({ navigation }) => {
   };
 
   const getCovidpositive = () => {
-    GetStoreData('shareLocation').then(sharing =>
+    GetStoreData(SHARE_LOCATION).then(sharing =>
       setIsSharing(sharing !== null ? true : false),
     );
-    GetStoreData('users').then(users =>
+    GetStoreData(USERS).then(users =>
       setIsCovpositive(users !== null ? JSON.parse(users) : []),
     );
   };
@@ -80,8 +80,8 @@ export const SettingsScreen = ({ navigation }) => {
   const subcribeLocationToggleButtonPressed = async () => {
     try {
       isSharing
-        ? await AsyncStorage.removeItem('shareLocation')
-        : await SetStoreData('shareLocation', true);
+        ? await AsyncStorage.removeItem(SHARE_LOCATION)
+        : await SetStoreData(SHARE_LOCATION, true);
       setIsSharing(!isSharing);
     } catch (e) {
       console.log(e);
