@@ -30,7 +30,7 @@ import IconGranted from '../../assets/svgs/permissionGranted';
 import { Typography } from '../../components/Typography';
 import Colors from '../../constants/colors';
 import buttonStyle from '../../constants/DR/buttonStyles';
-import { PARTICIPATE } from '../../constants/storage';
+import { ONBOARDING_DONE, PARTICIPATE } from '../../constants/storage';
 import { Theme } from '../../constants/themes';
 import { SetStoreData } from '../../helpers/General';
 import { HCAService } from '../../services/HCAService';
@@ -308,7 +308,7 @@ class Onboarding extends Component {
           PARTICIPATE,
           this.state.locationPermission === PermissionStatusEnum.GRANTED,
         );
-        SetStoreData('ONBOARDING_DONE', true);
+        SetStoreData(ONBOARDING_DONE, true);
         this.props.navigation.replace('HomeScreen');
     }
   }

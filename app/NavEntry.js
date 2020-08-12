@@ -8,7 +8,7 @@ import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { FIREBASE_SERVICE } from './constants/DR/baseUrls';
-import { PARTICIPATE } from './constants/storage';
+import { LAST_BULLETIN, PARTICIPATE } from './constants/storage';
 import fetch from './helpers/Fetch';
 import { GetStoreData, SetStoreData } from './helpers/General';
 import { HCAService } from './services/HCAService';
@@ -40,14 +40,14 @@ class MainNavigation extends React.Component {
       const {
         data: { bulletins },
       } = await fetch(BULLETINS_URL);
-      const lastBulletin = await GetStoreData('lastBulletin', true);
+      const lastBulletin = await GetStoreData(LAST_BULLETIN, true);
 
       if (bulletins[0].order != lastBulletin) {
         PushNotification.localNotification({
           title: t('label.new_bulletin_available_title'),
           message: t('label.new_bulletin_available_message'),
         });
-        await SetStoreData('lastBulletin', bulletins[0].order);
+        await SetStoreData(LAST_BULLETIN, bulletins[0].order);
       }
     } catch (e) {
       console.log('[ERROR]', e);

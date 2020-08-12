@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import PDFView from 'react-native-pdf';
 
 import Colors from '../../../constants/colors';
+import { EPIDEMIOLOGICAL_TIPS } from '../../../constants/storage';
 import { GetStoreData, SetStoreData } from '../../../helpers/General';
 
 class MentalHealthAdvices extends Component {
@@ -15,13 +16,13 @@ class MentalHealthAdvices extends Component {
   }
 
   getData = async () => {
-    const storageData = await GetStoreData('epidemiologicalTips', false);
+    const storageData = await GetStoreData(EPIDEMIOLOGICAL_TIPS, false);
 
     return storageData || { date: undefined, tip: 0 };
   };
 
   saveData = async (date, tip) => {
-    return await SetStoreData('epidemiologicalTips', {
+    return await SetStoreData(EPIDEMIOLOGICAL_TIPS, {
       date,
       tip,
     });

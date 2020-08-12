@@ -13,7 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import styles from '../../../components/DR/Header/style';
 import NavigationBarWrapper from '../../../components/NavigationBarWrapper';
 import Colors from '../../../constants/colors';
-import { GetStoreData } from '../../../helpers/General';
+import { getUsers } from '../../../helpers/General';
 
 export default function UserFor({ navigation }) {
   navigation.setOptions({
@@ -23,9 +23,7 @@ export default function UserFor({ navigation }) {
   const { t } = useTranslation();
 
   useEffect(() => {
-    GetStoreData('users', true).then(data =>
-      setNicknameArray(JSON.parse(data)),
-    );
+    getUsers.then(data => setNicknameArray(data));
   }, []);
 
   return (

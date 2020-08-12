@@ -1,5 +1,4 @@
 import styled, { css } from '@emotion/native';
-import AsyncStorage from '@react-native-community/async-storage';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BackHandler, ScrollView, View } from 'react-native';
@@ -13,7 +12,12 @@ import NativePicker from '../components/NativePicker';
 import NavigationBarWrapper from '../components/NavigationBarWrapper';
 import Colors from '../constants/colors';
 import { PARTICIPATE, SHARE_LOCATION, USERS } from '../constants/storage';
-import { GetStoreData, SetStoreData, getMyself } from '../helpers/General';
+import {
+  GetStoreData,
+  RemoveStoreData,
+  SetStoreData,
+  getMyself,
+} from '../helpers/General';
 import {
   LOCALE_LIST,
   getUserLocaleOverride,
@@ -80,7 +84,7 @@ export const SettingsScreen = ({ navigation }) => {
   const subcribeLocationToggleButtonPressed = async () => {
     try {
       isSharing
-        ? await AsyncStorage.removeItem(SHARE_LOCATION)
+        ? await RemoveStoreData(SHARE_LOCATION)
         : await SetStoreData(SHARE_LOCATION, true);
       setIsSharing(!isSharing);
     } catch (e) {

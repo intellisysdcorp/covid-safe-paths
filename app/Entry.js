@@ -9,6 +9,7 @@ import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 import ExposedResponse from './components/DR/LocationTracking/ExposedResponse';
 import Colors from './constants/colors';
+import { ONBOARDING_DONE } from './constants/storage';
 import { GetStoreData } from './helpers/General';
 import NavEntry from './NavEntry';
 import AboutScreen from './views/About';
@@ -46,8 +47,8 @@ class Entry extends Component {
     };
   }
 
-   componentDidMount() {
-    GetStoreData('ONBOARDING_DONE').then(onboardingDoneName =>
+  componentDidMount() {
+    GetStoreData(ONBOARDING_DONE).then(onboardingDoneName =>
       this.setState({ initialRouteName: onboardingDoneName }),
     );
   }

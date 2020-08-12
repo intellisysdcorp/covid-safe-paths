@@ -3,12 +3,13 @@ import {
   MEPYD_C5I_SERVICE,
   TOKEN_KEY,
 } from '../../constants/DR/baseUrls';
+import { GOV_DO_TOKEN } from '../../constants/storage';
 import { GetStoreData, SetStoreData } from '../../helpers/General';
 
 const tokenUrl = `${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/Token`;
 
 export default async function getToken(needNewToken = false) {
-  const savedToken = await GetStoreData('GOV_DO_TOKEN', true);
+  const savedToken = await GetStoreData(GOV_DO_TOKEN, true);
 
   if (savedToken && !needNewToken) {
     return savedToken;
@@ -22,7 +23,7 @@ export default async function getToken(needNewToken = false) {
       });
       const tokenData = await response.json();
 
-      SetStoreData('GOV_DO_TOKEN', tokenData.token);
+      SetStoreData(GOV_DO_TOKEN, tokenData.token);
 
       return tokenData.token;
     } catch (e) {
