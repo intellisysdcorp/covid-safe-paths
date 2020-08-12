@@ -12,6 +12,7 @@ import styles from '../../../components/DR/Header/style';
 import Input from '../../../components/DR/Input/index';
 import NavigationBarWrapper from '../../../components/NavigationBarWrapper';
 import Colors from '../../../constants/colors';
+import { SHARE_LOCATION, USERS } from '../../../constants/storage';
 import {
   RemoveStoreData,
   SetStoreData,
@@ -19,7 +20,7 @@ import {
 } from '../../../helpers/General';
 
 const PositiveOnboarding = ({ route, navigation }) => {
-  const { positive, use } = route.params;
+  const { positive, use, covidId } = route.params;
   const { t } = useTranslation();
   const [showShareLocDialog, setShowShareLocDialog] = useState(false);
   const [error, showError] = useState(false);
@@ -35,6 +36,7 @@ const PositiveOnboarding = ({ route, navigation }) => {
       name: nickname,
       positive,
       use,
+      covidId,
     };
   };
 
@@ -52,7 +54,7 @@ const PositiveOnboarding = ({ route, navigation }) => {
   const verifyAndAccept = async () => {
     if (!getNicknamesCoincidences(nicknameArray, nickname)) {
       nicknameArray.push(createEntry(nickname, positive, use));
-      await SetStoreData('users', nicknameArray);
+      await SetStoreData(USERS, nicknameArray);
       setShowShareLocDialog(true);
       navigation.navigate('EpidemiologicResponse', {
         screen: 'EpidemiologicReport',
@@ -99,7 +101,7 @@ const PositiveOnboarding = ({ route, navigation }) => {
                     ]}
                     onPress={() => {
                       setTimeout(async () => {
-                        await RemoveStoreData('shareLocation');
+                        await RemoveStoreData(SHARE_LOCATION);
                         setShowShareLocDialog(false);
                       }, 500);
                     }}>
@@ -120,7 +122,7 @@ const PositiveOnboarding = ({ route, navigation }) => {
                     ]}
                     onPress={() => {
                       setTimeout(() => {
-                        SetStoreData('shareLocation', 'yes');
+                        SetStoreData(SHARE_LOCATION, 'yes');
                         setShowShareLocDialog(false);
                       }, 900);
                     }}>
