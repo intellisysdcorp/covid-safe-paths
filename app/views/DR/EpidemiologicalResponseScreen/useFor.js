@@ -49,7 +49,7 @@ export default function UserFor({ navigation }) {
                   navigation.navigate('EpidemiologicResponse', {
                     screen: 'EpidemiologicReport',
                     path: true,
-                    params: { nickname: user.name },
+                    params: { nickname: user.name, positive: user.positive },
                   });
                 }}
                 underlayColor={Colors.WHITE}

@@ -15,9 +15,9 @@ import Colors from '../../../constants/colors';
 
 const EpidemiologicalStatus = ({ route, navigation }) => {
   //Change for a call to the goverment's epidemiology department API, to validate the status of the user
-  //by the moment the response state is always waiting dor results.
-  const { nickname } = route.params;
-  const valid = true;
+  //by the moment the response state is always waiting for results.
+  const { nickname, positive } = route.params;
+  const valid = positive;
   const { t } = useTranslation();
   const [todaysFeeling, setTodaysFeeling] = useState('');
   const [showDialog, setShowDialog] = useState(false);
