@@ -19,6 +19,7 @@ import EpidemiologicScreen from './views/DR/EpidemiologicalResponseScreen';
 import UseFor from './views/DR/EpidemiologicalResponseScreen/useFor';
 import FAQ from './views/DR/FAQ';
 import Details from './views/DR/News/Details';
+import PrivacyScreen from './views/DR/PrivacyPolicy';
 import ReportScreen from './views/DR/ReportScreen';
 import Report from './views/DR/ReportScreen/ReportScreenQuestions';
 import ReportType from './views/DR/ReportScreen/ReportType';
@@ -30,7 +31,6 @@ import PositiveOnboarding from './views/DR/UserInfoScreen/positiveOnboarding';
 import { ExportScreen } from './views/Export';
 import { ExposureHistoryScreen } from './views/ExposureHistory/ExposureHistory';
 import ImportScreen from './views/Import';
-import { LicensesScreen } from './views/Licenses';
 import LocationTracking from './views/LocationTracking';
 import Onboarding1 from './views/onboarding/Onboarding1';
 import Onboarding2 from './views/onboarding/Onboarding2';
@@ -128,8 +128,8 @@ class Entry extends Component {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name='LicensesScreen'
-            component={LicensesScreen}
+            name='PrivacyScreen'
+            component={PrivacyScreen}
             options={{ headerShown: false }}
           />
           <Stack.Screen
