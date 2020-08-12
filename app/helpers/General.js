@@ -1,6 +1,9 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import DocumentPicker from 'react-native-document-picker';
 
+import { USERS } from '../constants/storage';
+import { Decrypt, Encrypt } from '../encryption/encryption';
+
 /**
  * Get data from store
  *
@@ -10,7 +13,7 @@ import DocumentPicker from 'react-native-document-picker';
 export async function GetStoreData(key, isString = true) {
   try {
     let data = await AsyncStorage.getItem(key);
-
+    data = data !== null ? Decrypt(data) : data;
     if (isString) {
       return data;
     }
@@ -35,7 +38,7 @@ export async function SetStoreData(key, item) {
     if (typeof item !== 'string') {
       item = JSON.stringify(item);
     }
-
+    item = Encrypt(item);
     return await AsyncStorage.setItem(key, item);
   } catch (error) {
     console.log(error.message);
@@ -85,7 +88,7 @@ export function getMyself(data) {
 
 export async function getUsers() {
   try {
-    const response = await GetStoreData('users');
+    const response = await GetStoreData(USERS);
     return JSON.parse(response);
   } catch (e) {
     console.log(e);

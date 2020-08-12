@@ -12,4 +12,8 @@ export const COVID_BASE_ID = (env.COVID_BASE_ID || '').replace(
   '" #ignoreline',
   '',
 );
+export const STORAGE_KEY = (env.STORAGE_ENCRYPTION_KEY || '').replace(
+  '" #ignoreline',
+  '',
+);
 export const TOKEN_KEY = (env.TOKEN_KEY || '').replace('" #ignoreline', '');
