@@ -34,7 +34,7 @@ export default function DashboardCards({
   const CONFIRMED_COVID_CASES_URL =
     'https://coronavirusrd.gob.do/casos-de-covid-19-confirmados/';
 
-  return dashboardCategories.map((obj, index) => (
+  return dashboardCategories.map(obj => (
     <TouchableOpacity
       style={styles.shadowBorder}
       key={obj.label}
