@@ -4,11 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BackHandler, ScrollView, View } from 'react-native';
 
-import checkmarkIcon from '../assets/svgs/checkmarkIcon';
-import languagesIcon from '../assets/svgs/languagesIcon';
-import xmarkIcon from '../assets/svgs/xmarkIcon';
 import { Divider } from '../components/Divider';
-import { FeatureFlag } from '../components/FeatureFlag';
+// import { FeatureFlag } from '../components/FeatureFlag';
 import NativePicker from '../components/NativePicker';
 import NavigationBarWrapper from '../components/NavigationBarWrapper';
 import Colors from '../constants/colors';
@@ -21,7 +18,7 @@ import {
   supportedDeviceLanguageOrEnglish,
 } from '../locales/languages';
 import LocationServices from '../services/LocationService';
-import { GoogleMapsImport } from './Settings/GoogleMapsImport';
+// import { GoogleMapsImport } from './Settings/GoogleMapsImport';
 import { SettingsItem as Item } from './Settings/SettingsItem';
 
 export const SettingsScreen = ({ navigation }) => {
@@ -109,17 +106,27 @@ export const SettingsScreen = ({ navigation }) => {
                 ? t('label.logging_active')
                 : t('label.logging_inactive')
             }
-            icon={isLogging ? checkmarkIcon : xmarkIcon}
+            icon={
+              isLogging
+                ? { name: 'check-circle', color: 'lightgreen', size: 27 }
+                : { name: 'times-circle', color: 'red', size: 27 }
+            }
             onPress={locationToggleButtonPressed}
           />
+          <Divider />
           {isCovidPositive.length > 0 && getMyself(isCovidPositive) && (
             <Item
+              last
               label={
                 isSharing
                   ? t('label.share_loc_active')
                   : t('label.share_loc_inactive')
               }
-              icon={isSharing ? checkmarkIcon : xmarkIcon}
+              icon={
+                isSharing
+                  ? { name: 'check-circle', color: 'lightgreen', size: 27 }
+                  : { name: 'times-circle', color: 'red', size: 27 }
+              }
               onPress={subcribeLocationToggleButtonPressed}
             />
           )}
@@ -129,14 +136,15 @@ export const SettingsScreen = ({ navigation }) => {
             onValueChange={picker => localeChanged(picker)}>
             {({ label, openPicker }) => (
               <Item
-                last
                 label={label || t('label.home_unknown_header')}
-                icon={languagesIcon}
+                icon={{ name: 'globe', color: '#3C4ED8', size: 27 }}
                 onPress={openPicker}
               />
             )}
           </NativePicker>
         </Section>
+        <Divider />
+
         <Section>
           {/* <Item
             label={t('label.choose_provider_title')}
@@ -144,11 +152,14 @@ export const SettingsScreen = ({ navigation }) => {
             onPress={() => navigation.navigate('ChooseProviderScreen')}
           /> */}
           <Item
+            icon={{ name: 'history', color: '#0161F2', size: 25 }}
             label={t('label.event_history_title')}
             description={t('label.event_history_subtitle')}
             onPress={() => navigation.navigate('ExposureHistoryScreen')}
           />
           <Item
+            last
+            icon={{ name: 'shield-virus', color: '#0161F2', size: 26 }}
             label={
               isCovidPositive.length > 0
                 ? t('label.epidemiologic_report_title')
@@ -162,34 +173,40 @@ export const SettingsScreen = ({ navigation }) => {
                 navigation.navigate('ReportScreen', { back: true });
               }
             }}
-            last
           />
         </Section>
 
-        <FeatureFlag name='google_import'>
+        {/* <FeatureFlag name='google_import'>
           <Section>
             <GoogleMapsImport navigation={navigation} />
           </Section>
-        </FeatureFlag>
+        </FeatureFlag> */}
+
+        <Divider />
 
         <Section last>
-          <Item
+          {/* <Item
             label={t('label.about_title')}
             onPress={() => navigation.navigate('AboutScreen')}
-          />
+          /> */}
           <Item
+            icon={{ name: 'handshake', color: '#0161F2', size: 22 }}
             label={t('label.sponsor_title')}
             onPress={() => navigation.navigate('Sponsors')}
           />
           <Item
+            icon={{ name: 'user-shield', color: '#0161F2', size: 22 }}
             label={t('label.privacy_policy')}
             onPress={() => navigation.navigate('PrivacyScreen')}
           />
           <Item
+            icon={{ name: 'scroll', color: '#0161F2', size: 22 }}
             label={t('label.terms_and_conditions')}
             onPress={() => navigation.navigate('TermsCondition')}
           />
           <Item
+            icon={{ name: 'question-circle', color: '#0161F2', size: 22 }}
+            last
             label={t('label.label_faqs')}
             onPress={() => navigation.navigate('FAQ')}
           />
@@ -205,25 +222,12 @@ export const SettingsScreen = ({ navigation }) => {
  * @param {{last?: boolean}} param0
  */
 export const Section = ({ last, children }) => (
-  <>
+  <View>
     <SectionWrapper>{children}</SectionWrapper>
-
-    <Divider />
-
-    {!last && (
-      <>
-        <View
-          style={css`
-            margin: 2% 0;
-          `}
-        />
-        <Divider />
-      </>
-    )}
-  </>
+  </View>
 );
 
 const SectionWrapper = styled.View`
   background-color: ${Colors.WHITE};
-  padding: 0px 6.25%;
+  padding: 0px 3.25%;
 `;
