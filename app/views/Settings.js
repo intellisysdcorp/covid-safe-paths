@@ -186,8 +186,8 @@ export const SettingsScreen = ({ navigation }) => {
             onPress={() => navigation.navigate('Sponsors')}
           />
           <Item
-            label={t('label.legal_page_title')}
-            onPress={() => navigation.navigate('LicensesScreen')}
+            label={t('label.privacy_policy')}
+            onPress={() => navigation.navigate('PrivacyScreen')}
           />
           <Item
             label={t('label.terms_and_conditions')}
