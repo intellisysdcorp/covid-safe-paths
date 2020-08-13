@@ -1,7 +1,7 @@
 import 'moment/locale/es';
 
 import moment from 'moment';
-import { Button, Card, Left, Text } from 'native-base';
+import { Button, Left, Text } from 'native-base';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import {
@@ -24,7 +24,12 @@ import {
   LocationMatch,
 } from '../../../components/DR/ActionCards/ActionCards.js';
 import Colors from '../../../constants/colors';
+import { FIREBASE_SERVICE } from '../../../constants/DR/baseUrls';
+import fetch from '../../../helpers/Fetch';
+import { GetStoreData, SetStoreData } from '../../../helpers/General';
 import { getAllCases } from '../../../services/DR/getAllCases.js';
+import DialogAdvice from '../../DialogAdvices';
+import DashboardCards from './DashboardCards';
 import styles from './style';
 
 class HomeScreen extends Component {
@@ -37,15 +42,14 @@ class HomeScreen extends Component {
       recovered: 0,
       current: 0,
       refreshing: false,
+      notified: false,
+      useType: '',
     };
-    this.handler = this.handler.bind(this);
   }
 
-  handler() {
-    this.setState({
-      isPositiveConfirmed: true,
-    });
-  }
+  handler = useType => {
+    this.setState({ notified: true, useType });
+  };
 
   // This fuction is to abreviate or separate numbers, ex: 1000 => 1,000, 100000 => 100K
   separateOrAbreviate = data => {
@@ -96,7 +100,7 @@ class HomeScreen extends Component {
 
   getUpdateDate = () => {
     const { lastUpdate } = this.state;
-
+    const { t } = this.props;
     const dateOfCase = new Date(lastUpdate);
 
     let month = dateOfCase.getMonth() + 1;
@@ -105,14 +109,38 @@ class HomeScreen extends Component {
     day = day <= 9 ? '0' + day : day;
     const year = dateOfCase.getFullYear();
 
-    return `${day}/${month}/${year}`;
+    return `${t('label.date_dashboard_label')}\n${day}/${month}/${year}`;
   };
 
   refresh = () => {
     this.setState(state => ({ ...state, refreshing: true }), this.getCases);
   };
 
-  componentDidMount() {
+  handlerPositiveState = () => {
+    this.setState({ notified: false });
+    this.props.navigation.navigate('PositiveOnboarding', {
+      positive: true,
+      use: this.state.useType,
+    });
+  };
+
+  async componentDidMount() {
+    const covidIdList = JSON.parse(await GetStoreData('covidIdList'));
+    const haveBeenNotified = await GetStoreData('haveBeenNotified');
+
+    if (covidIdList !== null && !haveBeenNotified) {
+      const promiseList = covidIdList.map(userState => {
+        return fetch(`${FIREBASE_SERVICE}/covid-state/${userState.covidId}`);
+      });
+
+      Promise.all(promiseList).then(state => {
+        const checkState = state.find(({ data }) => data.positive === true);
+        if (checkState) {
+          SetStoreData('haveBeenNotified', true);
+          this.handler('mySelf');
+        }
+      });
+    }
     this.getCases();
   }
 
@@ -134,7 +162,7 @@ class HomeScreen extends Component {
     const {
       getUpdateDate,
       props: { navigation },
-      state: { confirmed, deaths, recovered, current, refreshing },
+      state: { confirmed, deaths, recovered, current, refreshing, notified },
     } = this;
 
     return (
@@ -162,7 +190,7 @@ class HomeScreen extends Component {
               </View>
               <View style={{ marginHorizontal: wp('2%') }}>
                 <View style={styles.marginAndAlign}>
-                  <Feels navigation={navigation} handler={this.handler} />
+                  <Feels navigation={navigation} />
                   <View style={styles.marginAndAlign}>
                     <View style={styles.actualSituationContent}>
                       <Text
@@ -173,48 +201,23 @@ class HomeScreen extends Component {
                         {t('label.current_situation_label')}
                       </Text>
                       <Text
-                        style={[styles.dateSubtitle, { alignSelf: 'center' }]}>
+                        style={[
+                          styles.dateSubtitle,
+                          { alignSelf: 'center', textAlign: 'center' },
+                        ]}>
                         {getUpdateDate()}
                       </Text>
                     </View>
                   </View>
                   <View style={styles.actualSituationContainer}>
-                    <Card style={styles.infoCards}>
-                      <Text style={[styles.dataText]}>{confirmed}</Text>
-                      <Text style={styles.text}>
-                        {t('label.positive_label')}
-                      </Text>
-                    </Card>
-
-                    <Card style={styles.infoCards}>
-                      <Text
-                        style={[
-                          styles.dataText,
-                          { color: Colors.BUTTON_LIGHT_TEX },
-                        ]}>
-                        {deaths}
-                      </Text>
-                      <Text style={styles.text}>
-                        {t('label.deceased_label')}
-                      </Text>
-                    </Card>
-
-                    <Card style={styles.infoCards}>
-                      <Text style={[styles.dataText, { color: Colors.GREEN }]}>
-                        {recovered}
-                      </Text>
-                      <Text style={styles.text}>
-                        {t('label.recovered_label')}
-                      </Text>
-                    </Card>
-                    <Card style={styles.infoCards}>
-                      <Text style={[styles.dataText, { color: Colors.SUN }]}>
-                        {current}
-                      </Text>
-                      <Text style={styles.text}>
-                        {t('label.case_day_label')}
-                      </Text>
-                    </Card>
+                    <DashboardCards
+                      t={t}
+                      navigation={navigation}
+                      confirmed={confirmed}
+                      deaths={deaths}
+                      recovered={recovered}
+                      current={current}
+                    />
                   </View>
                   <LocationMatch navigation={this.props.navigation} />
                   <Aurora navigation={this.props.navigation} />
@@ -253,6 +256,11 @@ class HomeScreen extends Component {
               {this.getSettings()}
             </ScrollView>
           </View>
+          <DialogAdvice
+            visible={notified}
+            text={t('label.positive_covid_message')}
+            close={this.handlerPositiveState}
+          />
         </View>
       </SafeAreaView>
     );

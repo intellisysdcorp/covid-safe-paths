@@ -13,9 +13,13 @@ NativeModules.SecureStorageManager = NativeModules.SecureStorageManager || {
   migrateExistingLocations: jest.fn(),
 };
 
+jest.mock('react-native-version-check');
 jest.mock('react-native-pulse');
 jest.mock('@mauron85/react-native-background-geolocation');
-
+jest.mock('react-native-location', () => ({
+  addEventListener: jest.fn(),
+  requestPermissions: jest.fn(),
+}));
 // Silence YellowBox useNativeDriver warning
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
 
