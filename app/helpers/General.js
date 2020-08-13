@@ -13,7 +13,15 @@ import { Decrypt, Encrypt } from '../encryption/encryption';
 export async function GetStoreData(key, isString = true) {
   try {
     let data = await AsyncStorage.getItem(key);
-    data = data !== null ? Decrypt(data) : data;
+    if (data !== null) {
+      Decrypt(data)
+        .then(decrypted => {
+          data = decrypted;
+        })
+        .catch(e => {
+          console.log('error', e);
+        });
+    }
     if (isString) {
       return data;
     }
@@ -88,7 +96,7 @@ export function getMyself(data) {
 
 export async function getUsers() {
   try {
-    const response = await GetStoreData(USERS);
+    const response = await GetStoreData(USERS, false);
     return JSON.parse(response);
   } catch (e) {
     console.log(e);
