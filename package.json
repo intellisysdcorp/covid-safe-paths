@@ -123,7 +123,7 @@
     "react-navigation": "^4.3.9",
     "react-navigation-tabs": "^2.8.13",
     "reanimated-bottom-sheet": "^1.0.0-alpha.19",
-    "rn-fetch-blob": "^0.12.0",
+    "rn-fetch-blob": "0.11.0",
     "semver": "^7.3.2",
     "sort-by-distance": "^1.1.0",
     "utm-latlng": "^1.0.6",
