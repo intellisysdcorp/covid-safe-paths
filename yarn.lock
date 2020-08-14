@@ -1265,6 +1265,19 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.10.tgz#5dda643e19e587793bc2034dd9bf7398ad43d401"
   integrity sha512-rk4sWFsmtOw8oyx8SD3KSvawwaK7gRBSEIy2TAwURyGt+3TizssXP1r8nx3zY+R7v2vYYHXZ+k2/GULAT/bcaQ==
 
+"@react-native-community/progress-bar-android@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@react-native-community/progress-bar-android/-/progress-bar-android-1.0.3.tgz#a6adc7be7a531269869d653ad9e0cd3d093d7c1c"
+  integrity sha512-Xy+nTCibCLQ6Jy0YNlVwrO+m/j2el6PN8nVQcdgVqp+Jm1XTguq7xjxUV5spzYmVDIVx+zW7WKfkeSbhUk91Tg==
+
+"@react-native-community/progress-view@^1.0.3":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@react-native-community/progress-view/-/progress-view-1.1.0.tgz#d44e7acb91bfb320019f088c7cd8030e5afcfa02"
+  integrity sha512-gsDunmO4blEvcI02NP5Dj+Hk7Qz+9DOhk23DALnICMps/sEr4OKSGk9irvz1ptwTAssWOEdV2uCd9PV7hlqd4A==
+  dependencies:
+    babel "^6.23.0"
+    babel-runtime "^6.26.0"
+
 "@react-native-community/push-notification-ios@^1.1.0", "@react-native-community/push-notification-ios@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@react-native-community/push-notification-ios/-/push-notification-ios-1.2.0.tgz#3353598450a39c42d079603aad2d1c0f9c2c1729"
@@ -2166,6 +2179,19 @@ babel-preset-jest@^25.5.0:
     babel-plugin-jest-hoist "^25.5.0"
     babel-preset-current-node-syntax "^0.1.2"
 
+babel-runtime@^6.26.0:
+  version "6.26.0"
+  resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
+  integrity sha1-llxwWGaOgrVde/4E/yM3vItWR/4=
+  dependencies:
+    core-js "^2.4.0"
+    regenerator-runtime "^0.11.0"
+
+babel@^6.23.0:
+  version "6.23.0"
+  resolved "https://registry.yarnpkg.com/babel/-/babel-6.23.0.tgz#d0d1e7d803e974765beea3232d4e153c0efb90f4"
+  integrity sha1-0NHn2APpdHZb7qMjLU4VPA77kPQ=
+
 balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
@@ -2853,7 +2879,7 @@ core-js@^1.0.0:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
   integrity sha1-ZSKUwUZR2yj6k70tX/KYOk8IxjY=
 
-core-js@^2.2.2, core-js@^2.4.1:
+core-js@^2.2.2, core-js@^2.4.0, core-js@^2.4.1:
   version "2.6.11"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.11.tgz#38831469f9922bded8ee21c9dc46985e0399308c"
   integrity sha512-5wjnpaT/3dV+XB4borEsnAYQchn00XSgTAWKDkEqv+K8KevjbzmofK6hfJ9TZIlpj2N0xQpazy7PiRQiWHqzWg==
@@ -7957,13 +7983,15 @@ react-native-maps@^0.27.1:
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.27.1.tgz#2f10cd417bb2fd938c9e015b1c9b6d9b1a44b97f"
   integrity sha512-HygBkZBecTnIVRYrSiLRAvu4OmXOYso/A7c6Cy73HkOh9CgGV8Ap5eBea24tvmFGptjj5Hg8AJ94/YbmWK1Okw==
 
-react-native-pdf@^6.1.2:
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/react-native-pdf/-/react-native-pdf-6.1.2.tgz#b1ef263a47ff5e3a24d0428960edf56b57dddcad"
-  integrity sha512-edpaBD+Wf9Pt1NFTc9SCk+LSFfoebjJcO7JCI4XFzq2ODYY9ao9bg4uHCZXGBqaoAAugiEBYmpPbXdXGq6G4HA==
+react-native-pdf@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-pdf/-/react-native-pdf-6.2.0.tgz#e6da125b407338b7bca15d7f776b70773c37304f"
+  integrity sha512-OSgF3+PryUl0GIPvZhCXT7VDv9LbvjC7LJgH3aFObCq0WRiiSGf9W1yrhaYmNV3FvL7ZARKF08h+k4LuFcTPNg==
   dependencies:
+    "@react-native-community/progress-bar-android" "^1.0.3"
+    "@react-native-community/progress-view" "^1.0.3"
     crypto-js "^3.2.0"
-    prop-types "^15.5.10"
+    prop-types "^15.7.2"
 
 react-native-permissions@^2.0.10:
   version "2.1.5"
@@ -8317,6 +8345,11 @@ regenerate@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/regenerate/-/regenerate-1.4.0.tgz#4a856ec4b56e4077c557589cae85e7a4c8869a11"
   integrity sha512-1G6jJVDWrt0rK99kBjvEtziZNCICAuvIPkSiUFIQxVP06RCVpq3dmDo2oi6ABpYaDYaTRr67BEhL8r1wgEZZKg==
+
+regenerator-runtime@^0.11.0:
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
+  integrity sha512-MguG95oij0fC3QV3URf4V2SDYGJhJnJGqvIIgdECeODCT98wSWDAJ94SSuVpYQUoTcGUIL6L4yNB7j1DFFHSBg==
 
 regenerator-runtime@^0.13.2, regenerator-runtime@^0.13.4:
   version "0.13.5"
