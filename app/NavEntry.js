@@ -145,7 +145,7 @@ class MainNavigation extends React.Component {
             tabBarIcon: ({ focused, color }) => (
               <Ionicons
                 focused={focused}
-                name='ios-pin'
+                name='location'
                 size={25}
                 color={color}
               />
@@ -161,7 +161,7 @@ class MainNavigation extends React.Component {
             tabBarIcon: ({ focused, color }) => (
               <Ionicons
                 focused={focused}
-                name='md-paper'
+                name='newspaper'
                 size={25}
                 color={color}
               />
