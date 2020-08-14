@@ -77,7 +77,7 @@
     "js-yaml": "^3.13.1",
     "jsdom-jscore-rn": "0.1.8",
     "lodash": "^4.17.15",
-    "native-base": "2.13.8",
+    "native-base": "^2.13.13",
     "patch-package": "^6.2.2",
     "pluralize": "^8.0.0",
     "pods": "^2.0.0",
