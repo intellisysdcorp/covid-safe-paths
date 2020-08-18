@@ -204,7 +204,7 @@ PODS:
     - React
   - react-native-maps (0.27.1):
     - React
-  - react-native-pdf (6.1.2):
+  - react-native-pdf (6.2.0):
     - React
   - react-native-safe-area-context (1.0.2):
     - React
@@ -504,7 +504,7 @@ SPEC CHECKSUMS:
   react-native-geolocation: c956aeb136625c23e0dce0467664af2c437888c9
   react-native-location: 5a40ec1cc6abf2f6d94df979f98ec76c3a415681
   react-native-maps: f4b89da81626ad7f151a8bfcb79733295d31ce5c
-  react-native-pdf: 7d76a6619f76a6ebfb2f82a4f2feeb17826ba8b4
+  react-native-pdf: 909cd849e6a806731b2135263189fea39494b55e
   react-native-safe-area-context: 9d9640a9085014864052e38496fc1dfde0b93974
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-uuid-generator: 82ffa2a1cac94242ebed52c4dedc5044d3412717
