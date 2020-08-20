@@ -155,6 +155,7 @@ android {
 
         versionCode 29
         versionName "1.2.6"
+
     }
     splits {
         abi {
