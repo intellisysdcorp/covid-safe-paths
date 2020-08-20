@@ -1,9 +1,9 @@
-import styled, { css } from '@emotion/native';
+import styled from '@emotion/native';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { SvgXml } from 'react-native-svg';
+import { StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
-import { Divider } from '../../components/Divider';
 import { Typography } from '../../components/Typography';
 
 /**
@@ -20,7 +20,7 @@ export const SettingsItem = ({ label, onPress, description, icon, last }) => {
   const { i18n } = useTranslation();
 
   let getCurrentMarginDirection = () =>
-    i18n.dir() === 'rtl' ? 'margin-left: 12px;' : 'margin-right: 12px;';
+    i18n.dir() === 'rtl' ? { marginLeft: 12 } : { marginRight: 12 };
 
   let getCurrentRowDirection = () =>
     i18n.dir() === 'rtl' ? 'row-reverse' : 'row';
@@ -28,17 +28,14 @@ export const SettingsItem = ({ label, onPress, description, icon, last }) => {
   return (
     <>
       <Container
-        style={css`
-          flex-direction: ${getCurrentRowDirection()};
-        `}
+        style={{ flexDirection: `${getCurrentRowDirection()}`, margin: 3 }}
         onPress={onPress}>
         {icon && (
           <Icon
-            xml={icon}
-            style={css`
-              ${getCurrentMarginDirection()};
-            `}
-            size={24}
+            name={icon.name}
+            color={icon.color}
+            style={styles.icons}
+            size={icon.size}
           />
         )}
         <Label>
@@ -47,15 +44,12 @@ export const SettingsItem = ({ label, onPress, description, icon, last }) => {
             <Typography
               use='body3'
               secondary
-              style={css`
-                margin-top: 4px;
-              `}>
+              style={{ marginTop: 5, fontSize: 17 }}>
               {description}
             </Typography>
           )}
         </Label>
       </Container>
-      {!last && <Divider />}
     </>
   );
 };
@@ -70,8 +64,9 @@ const Label = styled.View`
   justify-content: center;
 `;
 
-const Icon = styled(SvgXml)`
-  max-width: 24px;
-  max-height: 24px;
-  margin-top: 2.5px;
-`;
+const styles = StyleSheet.create({
+  icons: {
+    marginTop: 2.5,
+    marginRight: 12,
+  },
+});
