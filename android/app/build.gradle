@@ -153,6 +153,7 @@ android {
         testBuildType System.getProperty('testBuildType', 'debug')
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
+
         versionCode 30
         versionName "1.2.7"
     }

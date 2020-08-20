@@ -16,66 +16,51 @@
 default_platform(:android)
 
 platform :android do
-  desc "Runs Android (Native) unit tests"
+  desc "Runs all the tests"
   lane :test do
     gradle(task: "test")
+    slack(message: "App successfully tested!", slack_url: ENV["SLACK_URL"])
   end
 
-  JS_PACKAGE = load_json(json_path: "../package.json")
+  desc "Submit a new Beta Build to Crashlytics Beta"
+  lane :beta do
+    gradle(task: "clean assembleRelease")
+    crashlytics
+    slack(
+      message: "App successfully released in Beta",
+      success: true,
+      slack_url: ENV["SLACK_URL"]
+    )
+    # sh "your_script.sh"
+    # You can also use other beta testing services here
+  end
 
-  desc "Build a Staging APK and AAB"
-  lane :staging do
+  desc "Run Slack test for automate release"
+  lane :slack_message do
+  slack(
+    message: "Slack successfully tested",
+    success: true,
+    slack_url: ENV["SLACK_URL"]
+  )
+  end
+
+  desc "Deploy a new version to the Google Play"
+  lane :deploy do
+    increment_version_code(gradle_file_path: "app/build.gradle")
     gradle(
-      task: "clean assembleStagingDebug",
-      print_command: false,
-    )
-  end 
-
-  desc "Build a Release APK and AAB"
-  lane :release do
-
-    increment_version_code(
-      gradle_file_path: "../android/app/build.gradle",
-    )
-
-    increment_version_name(
-      gradle_file_path: "../android/app/build.gradle",
-      version_name: JS_PACKAGE['version']
-    )
-
-    gradle(
-      task: "assemble",
-      build_type: "prodRelease",
-      print_command: false,
+      task: "clean assembleRelease", 
+      build_type: "release",
       properties: {
-        "android.injected.signing.store.password" => ENV["KEY_STORE_PASSWORD"],
+        "android.injected.signing.store.password" => ENV["KEYSTORE_PASSWORD"],
         "android.injected.signing.key.alias" => ENV["KEY_ALIAS"],
         "android.injected.signing.key.password" =>  ENV["KEY_PASSWORD"]
       }
     )
-
-    gradle(
-      task: "bundle",
-      build_type: "prodRelease",
-      print_command: false,
-      properties: {
-        "android.injected.signing.store.password" => ENV["KEY_STORE_PASSWORD"],
-        "android.injected.signing.key.alias" => ENV["KEY_ALIAS"],
-        "android.injected.signing.key.password" =>  ENV["KEY_PASSWORD"]
-      }
-    )
-  end
-
-  desc "Upload to google play store beta track"
-  lane :play_store do
-    validate_play_store_json_key(
-      json_key: "app/json_key.json",
-    )
-    
-    upload_to_play_store(
-      track: 'beta',
-      skip_upload_apk: true,
-      aab: 'app/build/outputs/bundle/prodRelease/app.aab',
-    )
+    upload_to_play_store
+    slack(
+      message: "App successfully uploaded to the PlayStore",
+      success: true,
+      slack_url: ENV["SLACK_URL"]
+  )
   end
 end
