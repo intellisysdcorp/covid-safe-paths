@@ -1,0 +1,9 @@
+COVID-RD permite visualizar los datos de los casos validados de COVID-19 en el país y reportar los síntomas si eres un posible infectado del virus al Ministerio de Salud Pública (MSP). 
+
+En esta entrega de COVID-RD tendrás acceso a:
+
+- Registrar tus síntomas en una encuesta elaborada por la Dirección General de Epidemiología (DIGEPI) con la intención de descartar o validar si es necesario ir a realizarse la prueba del COVID-19 a una entidad de salud
+- Validar si has estado en contacto con otros usuarios que resulten positivos de COVID-19
+- Mapa con el listado de hospitales y laboratorios más cercano a tu residencia
+- Acceder al chatbot de Aurora
+- Consultar los boletines del MSP, informaciones relevantes de Presidencia y consejos relacionados a la pandemia

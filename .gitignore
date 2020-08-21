@@ -149,4 +149,8 @@ freeline_project_description.json
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
 
+#Fastlane keys file for Play Store credentials
+android/app/json_key.json
+android/fastlane/.env
+
 # End of https://www.gitignore.io/api/reactnative
