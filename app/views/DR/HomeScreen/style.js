@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: wp('44%'),
   },
-  marginAndAlign: { alignItems: 'center', marginHorizontal: wp('2%') },
+  marginAndAlign: { alignItems: 'center', marginHorizontal: wp('4%') },
   mainHeader: {
     backgroundColor: Colors.BLUE_RIBBON,
     borderBottomEndRadius: 13,
