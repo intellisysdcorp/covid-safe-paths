@@ -1,0 +1,1 @@
+Esta aplicación te permite visualizar los datos de COVID-19 en Rep. Dom.

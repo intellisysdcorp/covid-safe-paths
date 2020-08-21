@@ -238,7 +238,11 @@ class HomeScreen extends Component {
                     rounded
                     info
                     onPress={() => navigation.navigate('Sponsors')}
-                    style={{ marginBottom: 10, padding: 15 }}>
+                    style={{
+                      marginBottom: 10,
+                      padding: 15,
+                      alignSelf: 'center',
+                    }}>
                     <Text
                       style={[
                         styles.text,
