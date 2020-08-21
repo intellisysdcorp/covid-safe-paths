@@ -260,6 +260,7 @@ Array [
                   },
                 ]
               }
+              uppercase={false}
             >
               Visit Google Takeout
             </Text>
@@ -327,6 +328,7 @@ Array [
                   },
                 ]
               }
+              uppercase={false}
             >
               Import Locations
             </Text>
