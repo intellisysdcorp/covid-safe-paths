@@ -42,6 +42,8 @@ export default function Advices({ navigation }) {
           titleLinesNum={2}
           navigation={navigation}
           switchScreenTo='PDFView'
+          isSponsorsScreen={false}
+          isNewsScreen={false}
         />
       </ScrollView>
     </View>
