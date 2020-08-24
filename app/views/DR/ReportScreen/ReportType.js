@@ -10,7 +10,7 @@ import {
 import Header from '../../../components/DR/Header';
 import context from '../../../components/DR/Reduces/context.js';
 import Colors from '../../../constants/colors';
-import { getMyself, getUsers } from '../../../helpers/General';
+import { GetStoreData, getMyself } from '../../../helpers/General';
 import styles from './style';
 
 export default function ReportScreen({
@@ -28,7 +28,7 @@ export default function ReportScreen({
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    getUsers().then(data => {
+    GetStoreData('users', false).then(data => {
       setUsers(data !== null ? data : []);
     });
   }, []);
