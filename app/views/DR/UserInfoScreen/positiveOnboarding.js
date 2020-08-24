@@ -1,5 +1,5 @@
 import { Button, Text } from 'native-base';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, KeyboardAvoidingView, ScrollView, View } from 'react-native';
 import {
@@ -13,51 +13,47 @@ import Input from '../../../components/DR/Input/index';
 import NavigationBarWrapper from '../../../components/NavigationBarWrapper';
 import Colors from '../../../constants/colors';
 import {
+  GetStoreData,
   RemoveStoreData,
   SetStoreData,
-  getUsers,
 } from '../../../helpers/General';
 
 const PositiveOnboarding = ({ route, navigation }) => {
-  const { positive, use } = route.params;
+  const { positive, use, covidId } = route.params;
   const { t } = useTranslation();
   const [showShareLocDialog, setShowShareLocDialog] = useState(false);
   const [error, showError] = useState(false);
   const [nickname, setNickname] = useState('');
-  const [nicknameArray, setNicknameArray] = useState([]);
 
-  useEffect(() => {
-    getUsers().then(data => setNicknameArray(data !== null ? data : []));
-  }, []);
-
-  const createEntry = (nickname, positive) => {
-    return {
-      name: nickname,
-      positive,
-      use,
-    };
-  };
-
-  const getNicknamesCoincidences = (users, nickname) => {
-    let coincidence = false;
-    if (users.length > 0) {
-      users.map(user => {
-        if (user.name === nickname) {
-          coincidence = true;
-        }
-      });
+  const getCoincidences = (userList, property, propertyToSearch) => {
+    if (userList !== null) {
+      return userList.some(user => user[propertyToSearch] === property);
     }
-    return coincidence;
+
+    return false;
   };
+
   const verifyAndAccept = async () => {
-    if (!getNicknamesCoincidences(nicknameArray, nickname)) {
-      nicknameArray.push(createEntry(nickname, positive, use));
-      await SetStoreData('users', nicknameArray);
-      setShowShareLocDialog(true);
-      navigation.navigate('EpidemiologicResponse', {
-        screen: 'EpidemiologicReport',
-        params: { nickname: nickname, path: false },
-      });
+    const userList = (await GetStoreData('users', false)) || [];
+    const existNickname = getCoincidences(userList, nickname, 'name');
+    const existCovidId = getCoincidences(userList, covidId, 'covidId');
+
+    if (!existNickname) {
+      if (!existCovidId) {
+        userList.push({ name: nickname, positive, use, covidId });
+        await SetStoreData('users', userList);
+      }
+
+      if (positive) {
+        setShowShareLocDialog(true);
+
+        navigation.navigate('EpidemiologicResponse', {
+          screen: 'EpidemiologicReport',
+          params: { nickname: nickname, path: false },
+        });
+      }
+
+      navigation.navigate('Report');
     } else {
       showError(true);
     }

@@ -75,25 +75,7 @@ export default function UserInfo({
     final && setGlobalState({ type: 'CLEAN_ANSWERS' });
   };
 
-  const handleCovidIdCoincidense = async covidId => {
-    const covidIdList = JSON.parse(await GetStoreData('covidIdList'));
-    if (covidIdList !== null) {
-      const noCoincidenseExist = covidIdList.every(
-        data => data.covidId !== covidId,
-      );
-
-      if (noCoincidenseExist) {
-        covidIdList.push({ covidId, useType: use });
-        SetStoreData('covidIdList', covidIdList);
-      }
-    } else {
-      SetStoreData('covidIdList', [{ covidId, useType: use }]);
-    }
-  };
-
   const saveUserState = async state => {
-    handleCovidIdCoincidense(state.covidId);
-
     await fetch(`${FIREBASE_SERVICE}/update-state`, {
       method: 'POST',
       headers: {
@@ -128,10 +110,14 @@ export default function UserInfo({
         if (response.valid) {
           getAge(birth);
           const { positive, covidId } = await validateCovidPositive(body);
-          saveUserState({ covidId, positive });
+          saveUserState({
+            covidId,
+            positive,
+            haveBeenNotified: positive,
+            useType: use,
+          });
           closeDialog(false);
           if (positive) {
-            SetStoreData('haveBeenNotified', true);
             GetStoreData('users', false).then(data => {
               let same = false;
               let name = '';
@@ -154,13 +140,14 @@ export default function UserInfo({
                 : navigation.navigate('PositiveOnboarding', {
                     positive,
                     use,
+                    covidId,
                   });
             });
           } else if (type && !positive) {
             setShowValidationDialog(true);
             setPositiveError(true);
           } else {
-            navigation.navigate('Report');
+            navigation.navigate('PositiveOnboarding', positive, use, covidId);
           }
         } else {
           setError(true);
