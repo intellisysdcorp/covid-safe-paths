@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {
   ActivityIndicator,
+  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -19,20 +20,33 @@ export default function DataList({
   titleLinesNum = 1,
   navigation: { navigate },
   switchScreenTo,
+  descriptionLinesNum = 3,
+  isSponsorsScreen = true,
+  isNewsScreen = true,
 }) {
+  const cropsName = [
+    '120x67',
+    '120x80',
+    '120x86',
+    '250x141',
+    '250x167',
+    '250x179',
+  ];
+
+  const getImageCrop = (img, crops) => {
+    if (img.source) return img.source;
+
+    const firstCropFound = crops.find(cropName => img[cropName]);
+    return firstCropFound ? { uri: img[firstCropFound] } : { uri: img.master };
+  };
+
   if (data.length === 0) return <ActivityIndicator size='large' />;
 
   return (
     <>
       {data.map(
         (
-          {
-            url = '#',
-            icon: { iconName, color },
-            title = '',
-            dateLabel = '',
-            content = '',
-          },
+          { url = '#', icon, img, title = '', dateLabel = '', content = '' },
           index,
         ) => (
           <TouchableOpacity
@@ -40,16 +54,24 @@ export default function DataList({
               navigate('Details', {
                 switchScreenTo,
                 source: { uri: url },
+                isSponsorsScreen,
               })
             }
             key={String(index)}
             style={styles.itemContainer}>
-            <Icon
-              name={iconName}
-              size={30}
-              color={color}
-              style={{ marginLeft: 10 }}
-            />
+            {isNewsScreen ? (
+              <Image
+                style={styles.image}
+                source={getImageCrop(img, cropsName)}
+              />
+            ) : (
+              <Icon
+                name={icon.iconName}
+                size={30}
+                color={icon.color}
+                style={{ marginLeft: 10 }}
+              />
+            )}
             <View style={styles.right}>
               <Text
                 numberOfLines={titleLinesNum}
@@ -59,7 +81,7 @@ export default function DataList({
               {content ? (
                 <Text
                   style={[styles.description, styleDescription]}
-                  numberOfLines={3}>
+                  numberOfLines={descriptionLinesNum}>
                   {content}
                 </Text>
               ) : null}
