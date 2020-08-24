@@ -11,7 +11,8 @@ import languages from '../../../locales/languages';
 
 const ADVICE_URL = `${FIREBASE_SERVICE}/advices`;
 export default function Advices({ navigation }) {
-  const [advices, setAdvices] = useState([]);
+  const [pdfAdvices, setPdfAdvices] = useState([]);
+  const [imgAdvices, setImgAdvices] = useState([]);
 
   const addImgToAdvice = recommendationList =>
     recommendationList.map(item => ({
@@ -19,14 +20,22 @@ export default function Advices({ navigation }) {
       icon: { iconName: 'comment-medical', color: Colors.PINK },
     }));
 
+  const divideAdviceList = (extensionType, adviceList, setState) => {
+    const adviceDivided = adviceList.filter(
+      advice => advice.url.search(extensionType) > 1,
+    );
+    setState(adviceDivided);
+  };
+
   useEffect(() => {
     fetch(ADVICE_URL)
       .then(({ data }) => {
-        const bulletinsData = addImgToAdvice(data);
-        setAdvices(bulletinsData);
+        const adviceData = addImgToAdvice(data);
+        divideAdviceList('.pdf', adviceData, setPdfAdvices);
+        divideAdviceList('.jpg', adviceData, setImgAdvices);
       })
       .catch(() => {
-        setAdvices([]);
+        setPdfAdvices([]);
       });
   }, []);
 
@@ -38,12 +47,18 @@ export default function Advices({ navigation }) {
       />
       <ScrollView>
         <List
-          data={advices}
+          data={pdfAdvices}
           titleLinesNum={2}
           navigation={navigation}
           switchScreenTo='PDFView'
           isSponsorsScreen={false}
           isNewsScreen={false}
+        />
+        <List
+          data={imgAdvices}
+          titleLinesNum={2}
+          navigation={navigation}
+          switchScreenTo='WebView'
         />
       </ScrollView>
     </View>
