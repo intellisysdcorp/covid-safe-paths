@@ -78,6 +78,8 @@ export default function BulletinsScreen({ navigation }) {
           data={bulletins}
           navigation={navigation}
           switchScreenTo='PDFView'
+          isNewsScreen={false}
+          isSponsorsScreen={false}
         />
         <View style={styles.containerPagination}>
           {isNotLastPage && isLoading ? (
