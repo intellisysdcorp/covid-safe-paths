@@ -2,8 +2,8 @@ import { Card, Text } from 'native-base';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 
-import Colors from '../../../constants/colors';
-import styles from './style';
+import Colors from '../../constants/colors';
+import styles from '../../views/DR/HomeScreen/style';
 
 export default function DashboardCards({
   navigation,
