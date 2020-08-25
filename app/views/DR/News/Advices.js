@@ -59,6 +59,8 @@ export default function Advices({ navigation }) {
           titleLinesNum={2}
           navigation={navigation}
           switchScreenTo='WebView'
+          isSponsorsScreen={false}
+          isNewsScreen={false}
         />
       </ScrollView>
     </View>
