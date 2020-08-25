@@ -5,7 +5,7 @@ import { ActivityIndicator, ScrollView, StyleSheet, View } from 'react-native';
 
 import imgNews from '../../../assets/images/news.jpg';
 import HeaderImage from '../../../components/DR/ActionCards/HeaderImage';
-import DataList from '../../../components/DR/ActionCards/List';
+import List from '../../../components/DR/List';
 import { FIREBASE_SERVICE } from '../../../constants/DR/baseUrls';
 import buttonStyle from '../../../constants/DR/buttonStyles';
 import fetch from '../../../helpers/Fetch';
@@ -49,12 +49,11 @@ function NewsScreen({ navigation }) {
     <View style={styles.container}>
       <HeaderImage imgUrl={imgNews} title={t('label.news_title')} />
       <ScrollView>
-        <DataList
+        <List
           data={news}
           navigation={navigation}
           switchScreenTo='WebView'
           descriptionLinesNum={2}
-          isSponsorsScreen
         />
         <View style={styles.containerPagination}>
           {isNotLastPage && isLoading ? (
