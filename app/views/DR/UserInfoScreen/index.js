@@ -25,12 +25,11 @@ import PhoneInput from '../../../components/DR/PhoneInput/index';
 import context from '../../../components/DR/Reduces/context.js';
 import Colors from '../../../constants/colors';
 import {
-  FIREBASE_SERVICE,
   MEPYD_C5I_API_URL,
   MEPYD_C5I_SERVICE,
 } from '../../../constants/DR/baseUrls';
 import validateResponse from '../../../helpers/DR/validateResponse';
-import { GetStoreData, SetStoreData } from '../../../helpers/General';
+import { GetStoreData, saveUserState } from '../../../helpers/General';
 
 export default function UserInfo({
   navigation,
@@ -73,16 +72,6 @@ export default function UserInfo({
     setUseNss(false);
     setUsePassport(false);
     final && setGlobalState({ type: 'CLEAN_ANSWERS' });
-  };
-
-  const saveUserState = async state => {
-    await fetch(`${FIREBASE_SERVICE}/update-state`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(state),
-    });
   };
 
   const validateCovidPositive = async info => {

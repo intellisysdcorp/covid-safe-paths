@@ -26,7 +26,11 @@ import {
 import Colors from '../../../constants/colors';
 import { FIREBASE_SERVICE } from '../../../constants/DR/baseUrls';
 import fetch from '../../../helpers/Fetch';
-import { GetStoreData, SetStoreData } from '../../../helpers/General';
+import {
+  GetStoreData,
+  RemoveStoreData,
+  saveUserState,
+} from '../../../helpers/General';
 import { getAllCases } from '../../../services/DR/getAllCases.js';
 import DialogAdvice from '../../DialogAdvices';
 import DashboardCards from './DashboardCards';
@@ -44,11 +48,32 @@ class HomeScreen extends Component {
       refreshing: false,
       notified: false,
       useType: '',
+      covidUserNickname: '',
+      covidId: '',
     };
   }
 
-  handler = useType => {
-    this.setState({ notified: true, useType });
+  handler = userList => {
+    const promiseList = userList.map(userState => {
+      return fetch(`${FIREBASE_SERVICE}/covid-state/${userState.covidId}`);
+    });
+
+    Promise.all(promiseList).then(state => {
+      const checkState = state.find(({ data }) => data.positive === true);
+      if (checkState) {
+        const { useType, name = 'Usted', positive, covidId } = userList.find(
+          user => user.covidId === checkState.covidId,
+        );
+
+        saveUserState({ covidId, positive, haveBeenNotified: true });
+        this.setState({
+          notified: true,
+          useType,
+          covidUserNickname: name,
+          covidId,
+        });
+      }
+    });
   };
 
   // This fuction is to abreviate or separate numbers, ex: 1000 => 1,000, 100000 => 100K
@@ -117,29 +142,33 @@ class HomeScreen extends Component {
   };
 
   handlerPositiveState = () => {
+    const { useType, covidId, covidUserNickname } = this.state;
     this.setState({ notified: false });
-    this.props.navigation.navigate('PositiveOnboarding', {
-      positive: true,
-      use: this.state.useType,
-    });
+
+    if (this.state.covidUserNickname === 'Usted') {
+      this.props.navigation.navigate('PositiveOnboarding', {
+        positive: true,
+        use: useType,
+        covidId,
+      });
+    } else {
+      this.props.navigation.navigate('EpidemiologicResponse', {
+        screen: 'EpidemiologicReport',
+        params: { nickname: covidUserNickname, path: false },
+      });
+    }
   };
 
   async componentDidMount() {
-    const covidIdList = JSON.parse(await GetStoreData('covidIdList'));
-    const haveBeenNotified = await GetStoreData('haveBeenNotified');
+    const covidIdList = await GetStoreData('covidIdList', false);
+    let userList = await GetStoreData('users', false);
 
-    if (covidIdList !== null && !haveBeenNotified) {
-      const promiseList = covidIdList.map(userState => {
-        return fetch(`${FIREBASE_SERVICE}/covid-state/${userState.covidId}`);
-      });
-
-      Promise.all(promiseList).then(state => {
-        const checkState = state.find(({ data }) => data.positive === true);
-        if (checkState) {
-          SetStoreData('haveBeenNotified', true);
-          this.handler('mySelf');
-        }
-      });
+    if (covidIdList !== null) {
+      userList = userList.concat(covidIdList);
+      RemoveStoreData(covidIdList);
+      this.handler(userList);
+    } else {
+      this.handler(userList);
     }
     this.getCases();
   }
@@ -162,7 +191,15 @@ class HomeScreen extends Component {
     const {
       getUpdateDate,
       props: { navigation },
-      state: { confirmed, deaths, recovered, current, refreshing, notified },
+      state: {
+        covidUserNickname,
+        confirmed,
+        deaths,
+        recovered,
+        current,
+        refreshing,
+        notified,
+      },
     } = this;
 
     return (
@@ -262,7 +299,7 @@ class HomeScreen extends Component {
           </View>
           <DialogAdvice
             visible={notified}
-            text={t('label.positive_covid_message')}
+            text={`${covidUserNickname} ${t('label.positive_covid_message')}`}
             close={this.handlerPositiveState}
           />
         </View>
