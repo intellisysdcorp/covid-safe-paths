@@ -136,7 +136,11 @@ export default function UserInfo({
             setShowValidationDialog(true);
             setPositiveError(true);
           } else {
-            navigation.navigate('PositiveOnboarding', positive, use, covidId);
+            navigation.navigate('PositiveOnboarding', {
+              positive,
+              use,
+              covidId,
+            });
           }
         } else {
           setError(true);

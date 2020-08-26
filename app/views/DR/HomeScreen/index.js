@@ -25,6 +25,7 @@ import fetch from '../../../helpers/Fetch';
 import {
   GetStoreData,
   RemoveStoreData,
+  SetStoreData,
   saveUserState,
 } from '../../../helpers/General';
 import DialogAdvice from '../../DialogAdvices';
@@ -42,22 +43,32 @@ class HomeScreen extends Component {
     };
   }
 
+  filterState = async userList => {
+    const filterUserList = userList.filter(user => user.covidId !== undefined);
+    await SetStoreData('users', filterUserList);
+  };
+
   handler = userList => {
     const promiseList = userList.map(userState => {
       return fetch(`${FIREBASE_SERVICE}/covid-state/${userState.covidId}`);
     });
 
     Promise.all(promiseList).then(state => {
-      const checkState = state.find(({ data }) => data.positive === true);
-      if (checkState) {
-        const { useType, name = 'Usted', positive, covidId } = userList.find(
-          user => user.covidId === checkState.covidId,
+      const {
+        data: { covidId = false, haveBeenNotified = false },
+      } = state.find(
+        ({ data }) => data.positive === true && data.haveBeenNotified === false,
+      );
+      if (covidId && !haveBeenNotified) {
+        this.filterState(userList);
+        const { use, name = 'Usted', positive } = userList.find(
+          user => user.covidId === covidId,
         );
 
         saveUserState({ covidId, positive, haveBeenNotified: true });
         this.setState({
           notified: true,
-          useType,
+          useType: use,
           covidUserNickname: name,
           covidId,
         });
@@ -77,7 +88,7 @@ class HomeScreen extends Component {
     const { useType, covidId, covidUserNickname } = this.state;
     this.setState({ notified: false });
 
-    if (this.state.covidUserNickname === 'Usted') {
+    if (covidUserNickname === 'Usted') {
       this.props.navigation.navigate('PositiveOnboarding', {
         positive: true,
         use: useType,

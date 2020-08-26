@@ -12,12 +12,10 @@ import Input from '../../../components/DR/Input/index';
 import NavigationBarWrapper from '../../../components/NavigationBarWrapper';
 import Colors from '../../../constants/colors';
 import { GetStoreData, SetStoreData } from '../../../helpers/General';
-import ShareLocationDialog from './shareLocationDialog';
 
 const PositiveOnboarding = ({ route, navigation }) => {
   const { positive, use, covidId } = route.params;
   const { t } = useTranslation();
-  const [showShareLocDialog, setShowShareLocDialog] = useState(false);
   const [error, showError] = useState(false);
   const [nickname, setNickname] = useState('');
 
@@ -39,17 +37,15 @@ const PositiveOnboarding = ({ route, navigation }) => {
         userList.push({ name: nickname, positive, use, covidId });
         await SetStoreData('users', userList);
       }
-
+      console.log('isPOsitive********* ', covidId);
       if (positive) {
-        setShowShareLocDialog(true);
-
         navigation.navigate('EpidemiologicResponse', {
           screen: 'EpidemiologicReport',
           params: { nickname: nickname, path: false },
         });
+      } else {
+        navigation.navigate('Report');
       }
-
-      navigation.navigate('Report');
     } else {
       showError(true);
     }
@@ -65,12 +61,6 @@ const PositiveOnboarding = ({ route, navigation }) => {
           behavior='position'
           keyboardVerticalOffset={50}
           style={{ flex: 1, backgroundColor: Colors.WHITE }}>
-          <ShareLocationDialog
-            visible={showShareLocDialog}
-            t={t}
-            setVisible={setShowShareLocDialog}
-            useType={use}
-          />
           <View
             style={[
               styles.formContainer,
