@@ -6,17 +6,13 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import { Dialog } from 'react-native-simple-dialogs';
 
 import styles from '../../../components/DR/Header/style';
 import Input from '../../../components/DR/Input/index';
 import NavigationBarWrapper from '../../../components/NavigationBarWrapper';
 import Colors from '../../../constants/colors';
-import {
-  GetStoreData,
-  RemoveStoreData,
-  SetStoreData,
-} from '../../../helpers/General';
+import { GetStoreData, SetStoreData } from '../../../helpers/General';
+import ShareLocationDialog from './shareLocationDialog';
 
 const PositiveOnboarding = ({ route, navigation }) => {
   const { positive, use, covidId } = route.params;
@@ -69,135 +65,80 @@ const PositiveOnboarding = ({ route, navigation }) => {
           behavior='position'
           keyboardVerticalOffset={50}
           style={{ flex: 1, backgroundColor: Colors.WHITE }}>
-          <View>
-            <Dialog
-              visible={showShareLocDialog && use === 'mySelf'}
-              dialogStyle={{ backgroundColor: Colors.WHITE }}>
-              <View>
-                <Text style={styles.textSemiBold}>
-                  {t('positives.share_location_data_title')}
-                </Text>
-                <Text style={styles.text}>
-                  {t('positives.share_location_data_subtitle')}
-                </Text>
-                <View
-                  style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                  <Button
-                    style={[
-                      styles.buttons,
-                      {
-                        borderWidth: 1.5,
-                        borderColor: Colors.RED_BUTTON,
-                        backgroundColor: Colors.WHITE,
-                        width: '40%',
-                        marginTop: hp('3%'),
-                      },
-                    ]}
-                    onPress={() => {
-                      setTimeout(async () => {
-                        await RemoveStoreData('shareLocation');
-                        setShowShareLocDialog(false);
-                      }, 500);
-                    }}>
-                    <Text style={[styles.text, { color: Colors.RED_BUTTON }]}>
-                      {t('report.no')}
-                    </Text>
-                  </Button>
-                  <Button
-                    style={[
-                      styles.buttons,
-                      {
-                        borderWidth: 1.5,
-                        borderColor: Colors.GREEN,
-                        backgroundColor: Colors.WHITE,
-                        width: '40%',
-                        marginTop: hp('3%'),
-                      },
-                    ]}
-                    onPress={() => {
-                      setTimeout(() => {
-                        SetStoreData('shareLocation', 'yes');
-                        setShowShareLocDialog(false);
-                      }, 900);
-                    }}>
-                    <Text
-                      style={[styles.textSemiBold, { color: Colors.GREEN }]}>
-                      {t('report.yes')}
-                    </Text>
-                  </Button>
-                </View>
-              </View>
-            </Dialog>
+          <ShareLocationDialog
+            visible={showShareLocDialog}
+            t={t}
+            setVisible={setShowShareLocDialog}
+            useType={use}
+          />
+          <View
+            style={[
+              styles.formContainer,
+              {
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: hp('80%'),
+                padding: 15,
+              },
+            ]}>
+            <View>
+              <Image
+                resizeMode='contain'
+                style={{
+                  height: 230,
+                  width: 310,
+                  alignSelf: 'center',
+                  marginBottom: 25,
+                }}
+                source={require('../../../assets/images/covidSick.jpg')}
+              />
+            </View>
 
+            <Text
+              style={[
+                styles.subtitles,
+                { textAlign: 'center', alignSelf: 'center', marginLeft: 10 },
+              ]}>
+              {t('positives.you_are_positive')}
+            </Text>
             <View
               style={[
-                styles.formContainer,
-                {
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: hp('80%'),
-                  padding: 15,
-                },
-              ]}>
-              <View>
-                <Image
-                  resizeMode='contain'
-                  style={{
-                    height: 230,
-                    width: 310,
-                    alignSelf: 'center',
-                    marginBottom: 25,
-                  }}
-                  source={require('../../../assets/images/covidSick.jpg')}
-                />
-              </View>
-
-              <Text
-                style={[
-                  styles.subtitles,
-                  { textAlign: 'center', alignSelf: 'center', marginLeft: 10 },
-                ]}>
-                {t('positives.you_are_positive')}
+                styles.bottomLine,
+                { alignSelf: 'center', marginVertical: 10 },
+              ]}
+            />
+            <Text style={[styles.text, { textAlign: 'center' }]}>
+              {t('positives.insert_nickname')}
+            </Text>
+            {error && (
+              <Text style={[styles.text, { color: Colors.RED_TEXT }]}>
+                {t('positives.nickname_exist')}
               </Text>
-              <View
-                style={[
-                  styles.bottomLine,
-                  { alignSelf: 'center', marginVertical: 10 },
-                ]}
-              />
-              <Text style={[styles.text, { textAlign: 'center' }]}>
-                {t('positives.insert_nickname')}
+            )}
+            <Input
+              value={nickname}
+              onChange={text => setNickname(text)}
+              style={{
+                marginBottom: 22,
+                width: wp('50%'),
+                textAlign: 'center',
+              }}
+              autoFocus
+              keyboardType={'default'}
+              maxLength={16}
+            />
+            <Button
+              disabled={!enabled}
+              style={[
+                styles.buttons,
+                { width: wp('70%') },
+                !enabled && { backgroundColor: Colors.BLUE_DISABLED },
+              ]}
+              onPress={() => verifyAndAccept()}>
+              <Text style={[styles.text, { color: Colors.WHITE }]}>
+                {t('common.done')}
               </Text>
-              {error && (
-                <Text style={[styles.text, { color: Colors.RED_TEXT }]}>
-                  {t('positives.nickname_exist')}
-                </Text>
-              )}
-              <Input
-                value={nickname}
-                onChange={text => setNickname(text)}
-                style={{
-                  marginBottom: 22,
-                  width: wp('50%'),
-                  textAlign: 'center',
-                }}
-                autoFocus
-                keyboardType={'default'}
-                maxLength={16}
-              />
-              <Button
-                disabled={!enabled}
-                style={[
-                  styles.buttons,
-                  { width: wp('70%') },
-                  !enabled && { backgroundColor: Colors.BLUE_DISABLED },
-                ]}
-                onPress={() => verifyAndAccept()}>
-                <Text style={[styles.text, { color: Colors.WHITE }]}>
-                  {t('common.done')}
-                </Text>
-              </Button>
-            </View>
+            </Button>
           </View>
         </KeyboardAvoidingView>
       </ScrollView>
