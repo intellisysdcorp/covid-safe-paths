@@ -14,13 +14,7 @@ export async function GetStoreData(key, isString = true) {
   try {
     let data = await AsyncStorage.getItem(key);
     if (data !== null) {
-      Decrypt(data)
-        .then(decrypted => {
-          data = decrypted;
-        })
-        .catch(e => {
-          console.log('error', e);
-        });
+      data = Decrypt(data);
     }
     if (isString) {
       return data;

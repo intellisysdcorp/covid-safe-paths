@@ -8,7 +8,7 @@ export function Encrypt(text) {
 }
 
 // Decrypt
-export async function Decrypt(ciphertext) {
+export function Decrypt(ciphertext) {
   return CryptoJS.AES.decrypt(ciphertext, STORAGE_KEY).toString(
     CryptoJS.enc.Utf8,
   );
