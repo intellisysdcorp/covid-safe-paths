@@ -154,8 +154,8 @@ android {
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
 
-        versionCode 31
-        versionName "1.2.8"
+        versionCode 32
+        versionName "1.2.9"
     }
     splits {
         abi {
@@ -235,6 +235,7 @@ android {
 }
 
 dependencies {
+    implementation project(':@react-native-community_progress-bar-android')
     implementation project(':react-native-location')
     // loading html files
     compile project(':react-native-local-resource')

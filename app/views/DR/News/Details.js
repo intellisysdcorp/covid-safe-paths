@@ -11,9 +11,16 @@ import DialogAdvices from '../../DialogAdvices';
 
 // This is to make the images responsive in the page of a new
 const fixerImage = `
+  const auroraChat = document.getElementsByTagName("iframe");
+
+  for(var indx=0; indx < auroraChat.length; indx+=1 ) {
+    auroraChat[indx].style.display = "none";
+  }
+
   var imgs = document.images;
-  for(var i=0; i < imgs.length; i+=1 ) {
-    imgs[i].style.width = "100%";
+
+  for(var indx=0; indx < imgs.length; indx+=1 ) {
+    imgs[indx].style.width = "100%";
   }
 `;
 
