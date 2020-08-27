@@ -14,7 +14,7 @@ const TopBar = createMaterialTopTabNavigator();
 const EpidemiologicScreen = ({ route, navigation }) => {
   const { t } = useTranslation();
   const [showShareLocDialog, setShowShareLocDialog] = useState(true);
-  const { path } = route.params;
+  const { path, showDialog = false } = route.params;
   const navigationHandler = path => {
     return path ? navigation.goBack() : navigation.popToTop();
   };
@@ -24,7 +24,7 @@ const EpidemiologicScreen = ({ route, navigation }) => {
       onBackPress={() => navigationHandler(path)}>
       <View style={{ flex: 1, backgroundColor: Colors.WHITE }}>
         <ShareLocationDialog
-          visible={showShareLocDialog}
+          visible={showShareLocDialog && showDialog}
           t={t}
           setVisible={setShowShareLocDialog}
         />

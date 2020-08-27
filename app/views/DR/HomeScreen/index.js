@@ -98,6 +98,7 @@ class HomeScreen extends Component {
       this.props.navigation.navigate('EpidemiologicResponse', {
         screen: 'EpidemiologicReport',
         params: { nickname: covidUserNickname, path: false },
+        showDialog: useType === 'mySelf' ? true : false,
       });
     }
   };

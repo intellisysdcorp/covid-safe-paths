@@ -76,7 +76,7 @@ export async function pickFile() {
 }
 
 export function getMyself(data) {
-  return data.some(user => user.use === 'mySelf');
+  return data.some(user => user.use === 'mySelf' && user.positive === true);
 }
 
 export async function saveUserState(state) {

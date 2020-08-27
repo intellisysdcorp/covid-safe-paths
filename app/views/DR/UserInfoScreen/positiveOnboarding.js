@@ -37,11 +37,12 @@ const PositiveOnboarding = ({ route, navigation }) => {
         userList.push({ name: nickname, positive, use, covidId });
         await SetStoreData('users', userList);
       }
-      console.log('isPOsitive********* ', covidId);
+
       if (positive) {
         navigation.navigate('EpidemiologicResponse', {
           screen: 'EpidemiologicReport',
           params: { nickname: nickname, path: false },
+          showDialog: true,
         });
       } else {
         navigation.navigate('Report');

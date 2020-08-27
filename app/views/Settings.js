@@ -38,9 +38,14 @@ export const SettingsScreen = ({ navigation }) => {
     GetStoreData('shareLocation').then(sharing =>
       setIsSharing(sharing !== null ? true : false),
     );
-    GetStoreData('users').then(users =>
-      setIsCovpositive(users !== null ? JSON.parse(users) : []),
-    );
+    GetStoreData('users', false).then(users => {
+      if (users) {
+        const checkIsPositive = users.some(user => user.positive === true);
+        checkIsPositive ? setIsCovpositive(users) : setIsCovpositive([]);
+      } else {
+        setIsCovpositive([]);
+      }
+    });
   };
 
   useEffect(() => {
