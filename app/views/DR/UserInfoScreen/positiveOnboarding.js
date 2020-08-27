@@ -85,13 +85,15 @@ const PositiveOnboarding = ({ route, navigation }) => {
               />
             </View>
 
-            <Text
-              style={[
-                styles.subtitles,
-                { textAlign: 'center', alignSelf: 'center', marginLeft: 10 },
-              ]}>
-              {t('positives.you_are_positive')}
-            </Text>
+            {positive && (
+              <Text
+                style={[
+                  styles.subtitles,
+                  { textAlign: 'center', alignSelf: 'center', marginLeft: 10 },
+                ]}>
+                {t('positives.you_are_positive')}
+              </Text>
+            )}
             <View
               style={[
                 styles.bottomLine,
