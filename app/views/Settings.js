@@ -41,9 +41,7 @@ export const SettingsScreen = ({ navigation }) => {
     GetStoreData('users', false).then(users => {
       if (users) {
         const checkIsPositive = users.some(user => user.positive === true);
-        checkIsPositive ? setIsCovpositive(users) : setIsCovpositive([]);
-      } else {
-        setIsCovpositive([]);
+        checkIsPositive && setIsCovpositive(users);
       }
     });
   };

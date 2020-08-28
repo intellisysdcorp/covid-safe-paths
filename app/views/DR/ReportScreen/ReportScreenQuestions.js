@@ -129,7 +129,7 @@ export default function ReportScreenQuestions({ navigation }) {
             ]}
             onPress={() => {
               setDialogVisible(false);
-              navigation.navigate('HomeScreen');
+              navigation.popToTop();
               setGlobalState({ type: 'CLEAN_ANSWERS' });
             }}>
             <Text>{t('report.close')}</Text>
