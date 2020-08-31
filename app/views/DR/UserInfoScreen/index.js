@@ -21,6 +21,7 @@ import {
 } from '../../../constants/DR/baseUrls';
 import validateResponse from '../../../helpers/DR/validateResponse';
 import { GetStoreData, SetStoreData } from '../../../helpers/General';
+import ReportOptions from './reportOptions';
 
 export default function UserInfo({
   navigation,
@@ -370,6 +371,15 @@ export default function UserInfo({
                 </Button>
               </View>
             </Dialog>
+            <ReportOptions
+              navigation={navigation}
+              setShowDialog={setShowDialog}
+              setUseIdCard={setUseIdCard}
+              setUsePassport={setUsePassport}
+              setUseNss={setUseNss}
+              t={t}
+              type={type}
+            />
           </View>
         </ScrollView>
       </Content>
