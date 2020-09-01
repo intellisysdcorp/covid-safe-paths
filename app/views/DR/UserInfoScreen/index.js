@@ -25,12 +25,11 @@ import PhoneInput from '../../../components/DR/PhoneInput/index';
 import context from '../../../components/DR/Reduces/context.js';
 import Colors from '../../../constants/colors';
 import {
-  FIREBASE_SERVICE,
   MEPYD_C5I_API_URL,
   MEPYD_C5I_SERVICE,
 } from '../../../constants/DR/baseUrls';
 import validateResponse from '../../../helpers/DR/validateResponse';
-import { GetStoreData, SetStoreData } from '../../../helpers/General';
+import { GetStoreData, saveUserState } from '../../../helpers/General';
 
 export default function UserInfo({
   navigation,
@@ -75,34 +74,6 @@ export default function UserInfo({
     final && setGlobalState({ type: 'CLEAN_ANSWERS' });
   };
 
-  const handleCovidIdCoincidense = async covidId => {
-    const covidIdList = JSON.parse(await GetStoreData('covidIdList'));
-    if (covidIdList !== null) {
-      const noCoincidenseExist = covidIdList.every(
-        data => data.covidId !== covidId,
-      );
-
-      if (noCoincidenseExist) {
-        covidIdList.push({ covidId, useType: use });
-        SetStoreData('covidIdList', covidIdList);
-      }
-    } else {
-      SetStoreData('covidIdList', [{ covidId, useType: use }]);
-    }
-  };
-
-  const saveUserState = async state => {
-    handleCovidIdCoincidense(state.covidId);
-
-    await fetch(`${FIREBASE_SERVICE}/update-state`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(state),
-    });
-  };
-
   const validateCovidPositive = async info => {
     const body =
       type === 'PositiveReport' ? { ...info, IamPositive: true } : info;
@@ -128,10 +99,14 @@ export default function UserInfo({
         if (response.valid) {
           getAge(birth);
           const { positive, covidId } = await validateCovidPositive(body);
-          saveUserState({ covidId, positive });
+          saveUserState({
+            covidId,
+            positive,
+            haveBeenNotified: positive,
+            useType: use,
+          });
           closeDialog(false);
           if (positive) {
-            SetStoreData('haveBeenNotified', true);
             GetStoreData('users', false).then(data => {
               let same = false;
               let name = '';
@@ -154,13 +129,26 @@ export default function UserInfo({
                 : navigation.navigate('PositiveOnboarding', {
                     positive,
                     use,
+                    covidId,
                   });
             });
           } else if (type && !positive) {
             setShowValidationDialog(true);
             setPositiveError(true);
           } else {
-            navigation.navigate('Report');
+            const userList = await GetStoreData('users', false);
+            const checkCoincidense = userList.some(
+              user => user.covidId === covidId,
+            );
+            if (!checkCoincidense)
+              navigation.navigate('PositiveOnboarding', {
+                positive,
+                use,
+                covidId,
+              });
+            else {
+              navigation.navigate('Report');
+            }
           }
         } else {
           setError(true);
