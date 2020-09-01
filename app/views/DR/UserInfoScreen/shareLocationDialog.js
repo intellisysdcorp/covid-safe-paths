@@ -8,16 +8,9 @@ import styles from '../../../components/DR/Header/style';
 import Colors from '../../../constants/colors';
 import { RemoveStoreData, SetStoreData } from '../../../helpers/General';
 
-export default function ShareLocationDialog({
-  visible,
-  useType,
-  setVisible,
-  t,
-}) {
+export default function ShareLocationDialog({ visible, setVisible, t }) {
   return (
-    <Dialog
-      visible={visible && useType === 'mySelf'}
-      dialogStyle={{ backgroundColor: Colors.WHITE }}>
+    <Dialog visible={visible} dialogStyle={{ backgroundColor: Colors.WHITE }}>
       <View>
         <Text style={styles.textSemiBold}>
           {t('positives.share_location_data_title')}

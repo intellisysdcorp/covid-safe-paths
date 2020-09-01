@@ -23,9 +23,10 @@ export default function UserFor({ navigation }) {
   const { t } = useTranslation();
 
   useEffect(() => {
-    GetStoreData('users', true).then(data =>
-      setNicknameArray(JSON.parse(data)),
-    );
+    GetStoreData('users', false).then(data => {
+      const positiveUser = data.filter(user => user.positive === true);
+      setNicknameArray(positiveUser);
+    });
   }, []);
 
   return (
