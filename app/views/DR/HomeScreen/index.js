@@ -22,7 +22,12 @@ import CasesStatistics from '../../../components/DR/CasesStatistics';
 import Colors from '../../../constants/colors';
 import { FIREBASE_SERVICE } from '../../../constants/DR/baseUrls';
 import fetch from '../../../helpers/Fetch';
-import { GetStoreData, SetStoreData } from '../../../helpers/General';
+import {
+  GetStoreData,
+  RemoveStoreData,
+  SetStoreData,
+  saveUserState,
+} from '../../../helpers/General';
 import DialogAdvice from '../../DialogAdvices';
 import styles from './style';
 
@@ -33,11 +38,42 @@ class HomeScreen extends Component {
       notified: false,
       useType: '',
       refreshing: false,
+      covidId: '',
+      covidUserNickname: '',
     };
   }
 
-  handler = useType => {
-    this.setState({ notified: true, useType });
+  filterState = async userList => {
+    const filterUserList = userList.filter(user => user.covidId !== undefined);
+    await SetStoreData('users', filterUserList);
+  };
+
+  handler = userList => {
+    const promiseList = userList.map(userState => {
+      return fetch(`${FIREBASE_SERVICE}/covid-state/${userState.covidId}`);
+    });
+
+    Promise.all(promiseList).then(state => {
+      const {
+        data: { covidId = false, haveBeenNotified = false },
+      } = state.find(
+        ({ data }) => data.positive === true && data.haveBeenNotified === false,
+      );
+      if (covidId && !haveBeenNotified) {
+        this.filterState(userList);
+        const { use, name = 'Usted', positive } = userList.find(
+          user => user.covidId === covidId,
+        );
+
+        saveUserState({ covidId, positive, haveBeenNotified: true });
+        this.setState({
+          notified: true,
+          useType: use,
+          covidUserNickname: name,
+          covidId,
+        });
+      }
+    });
   };
 
   refresh = () => {
@@ -49,29 +85,34 @@ class HomeScreen extends Component {
   };
 
   handlerPositiveState = () => {
+    const { useType, covidId, covidUserNickname } = this.state;
     this.setState({ notified: false });
-    this.props.navigation.navigate('PositiveOnboarding', {
-      positive: true,
-      use: this.state.useType,
-    });
+
+    if (covidUserNickname === 'Usted') {
+      this.props.navigation.navigate('PositiveOnboarding', {
+        positive: true,
+        use: useType,
+        covidId,
+      });
+    } else {
+      this.props.navigation.navigate('EpidemiologicResponse', {
+        screen: 'EpidemiologicReport',
+        params: { nickname: covidUserNickname, path: false },
+        showDialog: useType === 'mySelf' ? true : false,
+      });
+    }
   };
 
   async componentDidMount() {
-    const covidIdList = JSON.parse(await GetStoreData('covidIdList'));
-    const haveBeenNotified = await GetStoreData('haveBeenNotified');
+    const covidIdList = await GetStoreData('covidIdList', false);
+    let userList = await GetStoreData('users', false);
 
-    if (covidIdList !== null && !haveBeenNotified) {
-      const promiseList = covidIdList.map(userState => {
-        return fetch(`${FIREBASE_SERVICE}/covid-state/${userState.covidId}`);
-      });
-
-      Promise.all(promiseList).then(state => {
-        const checkState = state.find(({ data }) => data.positive === true);
-        if (checkState) {
-          SetStoreData('haveBeenNotified', true);
-          this.handler('mySelf');
-        }
-      });
+    if (covidIdList !== null) {
+      userList = userList.concat(covidIdList);
+      RemoveStoreData(covidIdList);
+      this.handler(userList);
+    } else {
+      this.handler(userList);
     }
   }
 
@@ -90,7 +131,7 @@ class HomeScreen extends Component {
   render() {
     const {
       props: { t, navigation },
-      state: { refreshing, notified },
+      state: { refreshing, notified, covidUserNickname },
     } = this;
 
     return (
@@ -133,7 +174,7 @@ class HomeScreen extends Component {
         </View>
         <DialogAdvice
           visible={notified}
-          text={t('label.positive_covid_message')}
+          text={`${covidUserNickname} ${t('label.positive_covid_message')}`}
           close={this.handlerPositiveState}
         />
       </SafeAreaView>

@@ -2,15 +2,13 @@ import { Button, Card, Left, Text } from 'native-base';
 import React, { Component } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, View } from 'react-native';
-import {
-  heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
-} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import Colors from '../../../constants/colors';
 import { GetStoreData } from '../../../helpers/General';
 import languages from '../../../locales/languages';
+import getToken from '../../../services/DR/getToken';
 import styles from './styles';
 
 const { ORANGE, GREEN, BLUE_RIBBON, GRAY } = Colors;
@@ -129,7 +127,10 @@ export function LocationMatch({ navigation }) {
           </Text>
         </Left>
         <Button
-          onPress={() => navigation.navigate('Location')}
+          onPress={async () => {
+            await getToken(true);
+            navigation.navigate('Location');
+          }}
           style={[
             styles.buttons,
             { backgroundColor: BLUE_RIBBON, marginLeft: 10 },

@@ -17,7 +17,7 @@ export default async function(url, method, body) {
   try {
     let response = await responseFunc(body, token);
 
-    if (response.status === 401) {
+    if (response.status !== 200) {
       console.log('TOKEN NOT WORKING???');
       // CODE 401 TOKEN NOT VALID
       const newToken = await getToken(true);
