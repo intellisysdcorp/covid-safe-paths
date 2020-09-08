@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'realm-android'
+apply plugin: 'com.google.gms.google-services'
 
 project.ext.envConfigFiles = [
     debug: ".env",
@@ -235,6 +236,7 @@ android {
 }
 
 dependencies {
+    implementation project(':@react-native-firebase_app')
     implementation project(':@react-native-community_progress-bar-android')
     implementation project(':react-native-location')
     // loading html files
