@@ -238,7 +238,7 @@ dependencies {
     implementation project(':@react-native-community_progress-bar-android')
     implementation project(':react-native-location')
     // loading html files
-    compile project(':react-native-local-resource')
+    implementation project(':react-native-local-resource')
     implementation project(':react-native-reanimated')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
