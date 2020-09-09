@@ -97,10 +97,9 @@ const EpidemiologicalStatus = ({ route, navigation }) => {
                 <Image
                   resizeMode='contain'
                   style={{
-                    height: 200,
-                    width: 310,
+                    height: wp('60%'),
+                    width: wp('80%'),
                     alignSelf: 'center',
-                    marginTop: 10,
                   }}
                   source={require('../../../assets/images/waitingResults.jpg')}
                 />
@@ -121,10 +120,9 @@ const EpidemiologicalStatus = ({ route, navigation }) => {
                 <Image
                   resizeMode='contain'
                   style={{
-                    height: 230,
-                    width: 310,
+                    height: wp('60%'),
+                    width: wp('80%'),
                     alignSelf: 'center',
-                    marginTop: 10,
                   }}
                   source={require('../../../assets/images/covidFree.jpg')}
                 />
