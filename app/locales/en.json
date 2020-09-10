@@ -217,6 +217,7 @@
     "share_location_data_subtitle": "By accepting, the data of your recent locations will be shared with the Dominican Republic health authority.",
     "you_can_add_more": "You can add more users from the Report option",
     "who_is_using": "Who is using?",
+    "hello":"Hello ",
     "you_are_positive": "We see that you have been diagnosed positive for COVID-19",
     "insert_nickname": "In order to give you an appropriate and personalized follow-up, enter a name with which you want the application to identify you",
     "nickname_exist": "This identifier already exists"
