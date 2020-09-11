@@ -1,12 +1,15 @@
+import moment from 'moment';
 import { Text } from 'native-base';
 import React from 'react';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
+import CalendarButton from '../../components/DR/CalendarButton';
 import { getAllCases } from '../../services/DR/getAllCases.js';
 import styles from '../../views/DR/HomeScreen/style';
 import DashboardCards from './DashboardCards.js';
 
+const miniumDate = '2020-07-17';
 class CasesStatistics extends React.Component {
   constructor(props) {
     super(props);
@@ -16,11 +19,17 @@ class CasesStatistics extends React.Component {
       deaths: 0,
       recovered: 0,
       current: 0,
+      date: undefined,
     };
   }
   componentDidMount() {
-    this.getCases();
+    this.getCases(this.state.date);
   }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState.confirmed ? true : false;
+  }
+
   // This fuction is to abreviate or separate numbers, ex: 1000 => 1,000, 100000 => 100K
   separateOrAbreviate = data => {
     const { confirmed, deaths, recovered, current } = data;
@@ -50,40 +59,32 @@ class CasesStatistics extends React.Component {
     };
   };
 
-  getCases = () => {
-    getAllCases().then(
-      ({ lastUpdate, confirmed, deaths, recovered, current }) => {
-        this.setState(() => ({
-          lastUpdate,
-          ...this.separateOrAbreviate({
-            confirmed,
-            deaths,
-            recovered,
-            current,
-          }), // To take all the cards' content and abreviate them
-        }));
-        this.props.refreshing();
-      },
-    );
-  };
+  getCases = date => {
+    getAllCases(date).then(response => {
+      const { t } = this.props;
+      if (response === 404) {
+        Alert.alert(t('dashboard.error_title'), t('dashboard.error_message'));
+      }
 
-  getUpdateDate = () => {
-    const { lastUpdate } = this.state;
-    const { t } = this.props;
-    const dateOfCase = new Date(lastUpdate);
+      const { lastUpdate, confirmed, deaths, recovered, current } = response;
 
-    let month = dateOfCase.getMonth() + 1;
-    month = month <= 9 ? '0' + month : month;
-    let day = dateOfCase.getDate();
-    day = day <= 9 ? '0' + day : day;
-    const year = dateOfCase.getFullYear();
-
-    return `${t('label.date_dashboard_label')}\n${day}/${month}/${year}`;
+      this.setState(() => ({
+        lastUpdate,
+        date,
+        ...this.separateOrAbreviate({
+          confirmed,
+          deaths,
+          recovered,
+          current,
+        }), // To take all the cards' content and abreviate them
+      }));
+      this.props.refreshing();
+    });
   };
 
   render() {
     const { t, navigation, refresh } = this.props;
-    const { confirmed, deaths, recovered, current } = this.state;
+    const { confirmed, deaths, recovered, current, date } = this.state;
 
     return (
       <>
@@ -102,8 +103,20 @@ class CasesStatistics extends React.Component {
               styles.dateSubtitle,
               { alignSelf: 'center', textAlign: 'center' },
             ]}>
-            {this.getUpdateDate()}
+            {t('label.date_dashboard_label')}
           </Text>
+          <CalendarButton
+            style={{ backgroundColor: '#FFF' }}
+            date={
+              date
+                ? moment(date, 'YYYY-MM-DD').format('DD-MM-YYYY')
+                : moment(new Date()).format('DD-MM-YYYY')
+            }
+            onChange={date => {
+              this.getCases(moment(date, 'DD-MM-YYYY').format('YYYY-MM-DD'));
+            }}
+            minDate={moment(miniumDate)}
+          />
         </View>
 
         <View style={styles.actualSituationContainer}>

@@ -5,7 +5,12 @@ import DatePicker from 'react-native-datepicker';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default function CalendarButton({ onChange, date, minDate = '' }) {
+export default function CalendarButton({
+  onChange,
+  date,
+  minDate = '',
+  style,
+}) {
   const { t } = useTranslation();
   return (
     <DatePicker
@@ -27,7 +32,7 @@ export default function CalendarButton({ onChange, date, minDate = '' }) {
       }
       confirmBtnText={t('common.ok')}
       cancelBtnText={t('label.cancel')}
-      style={{ width: wp('40%'), backgroundColor: '#EFF4F9' }}
+      style={({ width: wp('40%'), backgroundColor: '#EFF4F9' }, style)}
       customStyles={{
         dateInput: {
           borderWidth: 0,
