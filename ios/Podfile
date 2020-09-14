@@ -48,9 +48,7 @@ target 'COVIDSafePaths' do
 
 
 
-  pod 'react-native-location', :path => '../node_modules/react-native-location'
 
-  pod 'react-native-progress-bar-android', :path => '../node_modules/@react-native-community/progress-bar-android'
 
   target 'COVIDSafePathsTests' do
     inherit! :search_paths
