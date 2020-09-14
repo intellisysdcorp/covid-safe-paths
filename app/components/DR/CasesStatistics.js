@@ -109,20 +109,18 @@ class CasesStatistics extends React.Component {
             ]}>
             {t('label.date_dashboard_label')}
           </Text>
-          <View style={{ alignSelf: 'center' }}>
-            <CalendarButton
-              style={{ backgroundColor: '#FFF' }}
-              date={
-                date
-                  ? moment(date, 'YYYY-MM-DD').format('DD-MM-YYYY')
-                  : moment(new Date()).format('DD-MM-YYYY')
-              }
-              onChange={date => {
-                this.getCases(moment(date, 'DD-MM-YYYY').format('YYYY-MM-DD'));
-              }}
-              minDate={'2020-07-17'}
-            />
-          </View>
+          <CalendarButton
+            style={{ backgroundColor: '#FFF', alignSelf: 'center' }}
+            date={
+              date
+                ? moment(date, 'YYYY-MM-DD').format('DD-MM-YYYY')
+                : moment(new Date()).format('DD-MM-YYYY')
+            }
+            onChange={date => {
+              this.getCases(moment(date, 'DD-MM-YYYY').format('YYYY-MM-DD'));
+            }}
+            minDate='17-07-2020'
+          />
         </View>
 
         <View style={styles.actualSituationContainer}>
