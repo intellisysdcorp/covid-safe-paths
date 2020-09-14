@@ -9,17 +9,15 @@ import { getAllCases } from '../../services/DR/getAllCases.js';
 import styles from '../../views/DR/HomeScreen/style';
 import DashboardCards from './DashboardCards.js';
 
-const miniumDate = '2020-07-17';
 class CasesStatistics extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      lastUpdate: 0,
       confirmed: 0,
       deaths: 0,
       recovered: 0,
       current: 0,
-      date: undefined,
+      date: '',
     };
   }
   componentDidMount() {
@@ -27,7 +25,7 @@ class CasesStatistics extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextState.confirmed ? true : false;
+    return nextState.confirmed || nextProps ? true : false;
   }
 
   // This fuction is to abreviate or separate numbers, ex: 1000 => 1,000, 100000 => 100K
@@ -63,13 +61,19 @@ class CasesStatistics extends React.Component {
     getAllCases(date).then(response => {
       const { t } = this.props;
       if (response === 404) {
-        Alert.alert(t('dashboard.error_title'), t('dashboard.error_message'));
+        return Alert.alert(
+          t('dashboard.error_title'),
+          t('dashboard.error_message'),
+        );
       }
 
       const { lastUpdate, confirmed, deaths, recovered, current } = response;
 
+      const dateOfData = moment(lastUpdate).format('YYYY-MM-DD');
+
+      date = date === '' ? dateOfData : date;
+
       this.setState(() => ({
-        lastUpdate,
         date,
         ...this.separateOrAbreviate({
           confirmed,
@@ -105,18 +109,20 @@ class CasesStatistics extends React.Component {
             ]}>
             {t('label.date_dashboard_label')}
           </Text>
-          <CalendarButton
-            style={{ backgroundColor: '#FFF' }}
-            date={
-              date
-                ? moment(date, 'YYYY-MM-DD').format('DD-MM-YYYY')
-                : moment(new Date()).format('DD-MM-YYYY')
-            }
-            onChange={date => {
-              this.getCases(moment(date, 'DD-MM-YYYY').format('YYYY-MM-DD'));
-            }}
-            minDate={moment(miniumDate)}
-          />
+          <View style={{ alignSelf: 'center' }}>
+            <CalendarButton
+              style={{ backgroundColor: '#FFF' }}
+              date={
+                date
+                  ? moment(date, 'YYYY-MM-DD').format('DD-MM-YYYY')
+                  : moment(new Date()).format('DD-MM-YYYY')
+              }
+              onChange={date => {
+                this.getCases(moment(date, 'DD-MM-YYYY').format('YYYY-MM-DD'));
+              }}
+              minDate={'2020-07-17'}
+            />
+          </View>
         </View>
 
         <View style={styles.actualSituationContainer}>

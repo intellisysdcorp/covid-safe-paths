@@ -14,8 +14,8 @@
     "ok": "Ok"
   },
   "dashboard": {
-    "error_title": "An error has ocurred",
-    "error_message": "The data from date specified was not found"
+    "error_title": "Oops!, an error has occurred",
+    "error_message": "Sorry! We do not have the information for the specified date in our database, please try another date"
   },
   "history": {
     "no_exposure": "No known",
