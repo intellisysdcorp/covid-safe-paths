@@ -9,6 +9,10 @@
     "done": "Hecho",
     "ok": "Ok"
   },
+  "dashboard": {
+    "error_title": "Oops!, se ha producido un error",
+    "error_message": "Lo sentimos!, no tenemos la información de la fecha especificada en nuestra base de datos, por favor pruebe con otra fecha"
+  },
   "history": {
     "no_exposure": "No ha tenido contacto",
     "possible_exposure": "Posible",
