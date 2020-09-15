@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   calendar: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'white',
     alignSelf: 'center',
     width: wp('35%'),
     borderRadius: 10,

@@ -2,10 +2,7 @@ import moment from 'moment';
 import { Text } from 'native-base';
 import React from 'react';
 import { Alert, View } from 'react-native';
-import {
-  heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
-} from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 import CalendarButton from '../../components/DR/CalendarButton';
 import { getAllCases } from '../../services/DR/getAllCases.js';
