@@ -194,6 +194,8 @@ android {
             // signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            // Detox-specific additions to pro-guard
+            proguardFile "${rootProject.projectDir}/../node_modules/detox/android/detox/proguard-rules-app.pro"
             signingConfig signingConfigs.release
         }
     }
@@ -256,6 +258,8 @@ dependencies {
         implementation jscFlavor
     }
     androidTestImplementation('com.wix:detox:+') // detox: e2e testing
+    androidTestImplementation 'junit:junit:4.12'
+    implementation "androidx.annotation:annotation:1.1.0"
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
