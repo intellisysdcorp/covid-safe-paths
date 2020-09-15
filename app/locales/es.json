@@ -116,11 +116,11 @@
     "launch_enable_location": "Permitir acceso",
     "launch_enable_notif": "Permitir notificaciones",
     "launch_finish_set_up": "Finalizar configuración",
-    "launch_get_started": "Iniciar",
+    "launch_get_started": "INICIAR",
     "launch_location_access": "Acceder a tu ubicación",
     "launch_location_header": "Para recordar donde has estado, tu teléfono móvil necesita registrar tu ubicación.",
     "launch_location_subheader": "No te preocupes, estos datos nunca saldrán de tu móvil sin tu consentimiento expreso.",
-    "launch_next": "Ver más",
+    "launch_next": "VER MÁS",
     "launch_notif_header": "Con las notificaciones, podrás saber si has estado cerca de alguien con COVID.",
     "launch_notif_subheader": "No te molestaremos salvo para enviarte información sobre tu riesgo de exposición.",
     "launch_notification_access": "No te molestaremos salvo para enviarte información sobre tu riesgo de exposición.",
@@ -131,7 +131,7 @@
     "launch_screen3_subheader": "Ayuda a proteger a tu entorno más cercano.",
     "launch_screen4_header": "Compartir depende de ti. Tus datos solo se guardan en tu móvil.",
     "launch_screen4_subheader": "Si has dado positivo, solo tú eliges si quieres compartirlos.",
-    "launch_set_up_phone": "Configurar mi dispositivo",
+    "launch_set_up_phone": "CONFIGURAR MI DISPOSITIVO",
     "legal_page_title": "Aviso legal",
     "loading_public_data": "cargando datos…",
     "location_disabled_message": "COVID Safe Paths necesita tu ubicación.",
@@ -181,7 +181,7 @@
   },
   "onboarding": {
     "eula_checkbox": "Acepto el acuerdo de licencia",
-    "eula_continue": "Continuar",
+    "eula_continue": "CONTINUAR",
     "eula_message": "*Debe aceptar para poder utilizar Safe Paths"
   },
   "share": {

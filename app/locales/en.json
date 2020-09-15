@@ -120,11 +120,11 @@
     "launch_enable_location": "Enable Location",
     "launch_enable_notif": "Enable Notifications",
     "launch_finish_set_up": "Finish Setup",
-    "launch_get_started": "Get Started",
+    "launch_get_started": "GET STARTED",
     "launch_location_access": "Location access",
     "launch_location_header": "To remember where you go, your phone needs to save your location.",
     "launch_location_subheader": "Don’t worry, information never leaves your device unless you explicitly decide to share.",
-    "launch_next": "See more",
+    "launch_next": "SEE MORE",
     "launch_notif_header": "Notifications will let you know if you cross paths with an infected person.",
     "launch_notif_subheader": "We won't bother you except to share updates on your potential exposure risks.",
     "launch_notification_access": "Allow notifications",
@@ -135,7 +135,7 @@
     "launch_screen3_subheader": "Which helps keep your entire community safe.",
     "launch_screen4_header": "You're in complete control. Data is only saved on your phone.",
     "launch_screen4_subheader": "If you test positive, you alone can choose whether to share.",
-    "launch_set_up_phone": "Set up my phone",
+    "launch_set_up_phone": "SET UP MY PHONE",
     "legal_page_title": "Legal",
     "label_faqs": "FAQS",
     "faq_page_title": "Frequently Ask Questions",
@@ -185,7 +185,7 @@
   },
   "onboarding": {
     "eula_checkbox": "I accept the licensing agreement",
-    "eula_continue": "Continue",
+    "eula_continue": "CONTINUE",
     "eula_message": "*You must accept in order to use Safe Paths"
   },
   "share": {
