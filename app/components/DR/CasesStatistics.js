@@ -2,7 +2,10 @@ import moment from 'moment';
 import { Text } from 'native-base';
 import React from 'react';
 import { Alert, View } from 'react-native';
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 
 import CalendarButton from '../../components/DR/CalendarButton';
 import { getAllCases } from '../../services/DR/getAllCases.js';
@@ -110,7 +113,17 @@ class CasesStatistics extends React.Component {
             {t('label.date_dashboard_label')}
           </Text>
           <CalendarButton
-            style={[{ backgroundColor: '#FFF', alignSelf: 'center' }]}
+            style={{
+              alignSelf: 'center',
+              width: wp('35%'),
+              borderRadius: 10,
+              borderColor: '#0161F1',
+              borderWidth: 0.7,
+              marginTop: 5,
+              marginBottom: 5,
+              shadowRadius: 3.84,
+              elevation: 6.5,
+            }}
             date={
               date
                 ? moment(date, 'YYYY-MM-DD').format('DD-MM-YYYY')
