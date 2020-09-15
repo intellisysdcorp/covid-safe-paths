@@ -113,17 +113,7 @@ class CasesStatistics extends React.Component {
             {t('label.date_dashboard_label')}
           </Text>
           <CalendarButton
-            style={{
-              alignSelf: 'center',
-              width: wp('35%'),
-              borderRadius: 10,
-              borderColor: '#0161F1',
-              borderWidth: 0.7,
-              marginTop: 5,
-              marginBottom: 5,
-              shadowRadius: 3.84,
-              elevation: 6.5,
-            }}
+            style={styles.calendar}
             date={
               date
                 ? moment(date, 'YYYY-MM-DD').format('DD-MM-YYYY')

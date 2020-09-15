@@ -98,6 +98,18 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+  calendar: {
+    backgroundColor: '#FFFFFF',
+    alignSelf: 'center',
+    width: wp('35%'),
+    borderRadius: 10,
+    borderColor: Colors.BLUE_RIBBON,
+    borderWidth: 0.7,
+    marginTop: 5,
+    marginBottom: 5,
+    shadowRadius: 3.84,
+    elevation: 6.5,
+  },
 });
 
 export default styles;
