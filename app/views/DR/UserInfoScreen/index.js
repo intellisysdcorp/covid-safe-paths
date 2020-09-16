@@ -8,7 +8,7 @@ import { ActivityIndicator, ScrollView, View } from 'react-native';
 import { Dialog } from 'react-native-simple-dialogs';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-import CalendarButton from '../../../components/DR/CalendarButton/index';
+import CalendarButton from '../../../components/DR/CalendarButton';
 import styles from '../../../components/DR/Header/style';
 import Input from '../../../components/DR/Input/index';
 import PhoneInput from '../../../components/DR/PhoneInput/index';

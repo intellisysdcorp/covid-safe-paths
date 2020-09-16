@@ -237,8 +237,6 @@ android {
 }
 
 dependencies {
-    implementation project(':@react-native-community_progress-bar-android')
-    implementation project(':react-native-location')
     // loading html files
     implementation project(':react-native-local-resource')
     implementation project(':react-native-reanimated')
