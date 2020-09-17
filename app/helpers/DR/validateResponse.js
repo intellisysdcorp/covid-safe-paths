@@ -5,6 +5,7 @@ import { FIREBASE_SERVICE } from '../../constants/DR/baseUrls';
 import getToken from '../../services/DR/getToken';
 
 export async function validateCertificate(
+  t,
   url,
   request,
   method = '',
@@ -15,24 +16,20 @@ export async function validateCertificate(
 
   const data = await axios.post(VALIDATE_CERTIFICATE_URL, { domainUrl });
 
-  if (data.status === 200) {
+  if (data.status !== 200) {
     return new Promise(resolve =>
-      Alert.alert(
-        'Attention',
-        'Al parecer se encuentra conectado en una red no segura. Su información sería enviada de forma insegura, ¿desea continuar?',
-        [
-          {
-            text: 'Cancelar',
-            style: 'cancel',
-            onPress: () => resolve(false),
-          },
-          {
-            text: 'OK',
-            onPress: () =>
-              resolve(request ? validateResponse(url, method, body) : true),
-          },
-        ],
-      ),
+      Alert.alert(t('label.attention'), t('label.attentionMessage'), [
+        {
+          text: t('report.no'),
+          style: 'cancel',
+          onPress: () => resolve(false),
+        },
+        {
+          text: t('report.yes'),
+          onPress: () =>
+            resolve(request ? validateResponse(url, method, body) : true),
+        },
+      ]),
     );
   }
 }
