@@ -16,7 +16,7 @@ export async function validateCertificate(
 
   const data = await axios.post(VALIDATE_CERTIFICATE_URL, { domainUrl });
 
-  if (data.status === 200) {
+  if (data.status !== 200) {
     return new Promise(resolve =>
       Alert.alert(t('label.attention'), t('label.attentionMessage'), [
         {
