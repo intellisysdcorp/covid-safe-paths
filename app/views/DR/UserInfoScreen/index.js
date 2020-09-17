@@ -18,7 +18,10 @@ import {
   MEPYD_C5I_API_URL,
   MEPYD_C5I_SERVICE,
 } from '../../../constants/DR/baseUrls';
-import validateResponse from '../../../helpers/DR/validateResponse';
+import {
+  validateCertificate,
+  validateResponse,
+} from '../../../helpers/DR/validateResponse';
 import { GetStoreData, saveUserState } from '../../../helpers/General';
 import ReportOptions from './reportOptions';
 
@@ -79,8 +82,9 @@ export default function UserInfo({
   const validate = async data => {
     const { body } = data;
     try {
-      let response = await validateResponse(
+      let response = await validateCertificate(
         `${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/Person`,
+        true,
         'POST',
         body,
       );

@@ -6,6 +6,11 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import Colors from '../../../constants/colors';
+import {
+  MEPYD_C5I_API_URL,
+  MEPYD_C5I_SERVICE,
+} from '../../../constants/DR/baseUrls';
+import { validateCertificate } from '../../../helpers/DR/validateResponse';
 import { GetStoreData } from '../../../helpers/General';
 import languages from '../../../locales/languages';
 import getToken from '../../../services/DR/getToken';
@@ -111,6 +116,7 @@ export function Aurora({ navigation }) {
 }
 
 export function LocationMatch({ navigation }) {
+  const baseUrl = `${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/Contact`;
   const { t } = useTranslation();
   return (
     <Card style={styles.bigCards}>
@@ -129,7 +135,8 @@ export function LocationMatch({ navigation }) {
         <Button
           onPress={async () => {
             await getToken(true);
-            navigation.navigate('Location');
+            const validCertificate = await validateCertificate(baseUrl, false);
+            validCertificate && navigation.navigate('Location');
           }}
           style={[
             styles.buttons,

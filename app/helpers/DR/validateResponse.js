@@ -1,6 +1,43 @@
+import axios from 'axios';
+import { Alert } from 'react-native';
+
+import { FIREBASE_SERVICE } from '../../constants/DR/baseUrls';
 import getToken from '../../services/DR/getToken';
 
-export default async function(url, method, body) {
+export async function validateCertificate(
+  url,
+  request,
+  method = '',
+  body = {},
+) {
+  const domainUrl = url.slice(8, url.indexOf('/', 9)).trim();
+  const VALIDATE_CERTIFICATE_URL = `${FIREBASE_SERVICE}/validate/ssl-certificate`;
+
+  const data = await axios.post(VALIDATE_CERTIFICATE_URL, { domainUrl });
+
+  if (data.status === 200) {
+    return new Promise(resolve =>
+      Alert.alert(
+        'Attention',
+        'Al parecer se encuentra conectado en una red no segura. Su información sería enviada de forma insegura, ¿desea continuar?',
+        [
+          {
+            text: 'Cancelar',
+            style: 'cancel',
+            onPress: () => resolve(false),
+          },
+          {
+            text: 'OK',
+            onPress: () =>
+              resolve(request ? validateResponse(url, method, body) : true),
+          },
+        ],
+      ),
+    );
+  }
+}
+
+export async function validateResponse(url, method, body) {
   const responseFunc = (body, token) => {
     return fetch(url, {
       method,
