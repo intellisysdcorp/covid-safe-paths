@@ -135,11 +135,7 @@ export function LocationMatch({ navigation }) {
         <Button
           onPress={async () => {
             await getToken(true);
-            const validCertificate = await validateCertificate(
-              t,
-              baseUrl,
-              false,
-            );
+            const validCertificate = await validateCertificate(baseUrl);
             validCertificate && navigation.navigate('Location');
           }}
           style={[

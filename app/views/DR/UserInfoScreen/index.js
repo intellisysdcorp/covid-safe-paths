@@ -83,9 +83,7 @@ export default function UserInfo({
     const { body } = data;
     try {
       let response = await validateCertificate(
-        t,
         `${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/Person`,
-        true,
         'POST',
         body,
       );

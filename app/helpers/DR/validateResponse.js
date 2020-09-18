@@ -1,16 +1,11 @@
 import axios from 'axios';
+import i18next from 'i18next';
 import { Alert } from 'react-native';
 
 import { FIREBASE_SERVICE } from '../../constants/DR/baseUrls';
 import getToken from '../../services/DR/getToken';
 
-export async function validateCertificate(
-  t,
-  url,
-  request,
-  method = '',
-  body = {},
-) {
+export async function validateCertificate(url, method = '', body) {
   const domainUrl = url.slice(8, url.indexOf('/', 9)).trim();
   const VALIDATE_CERTIFICATE_URL = `${FIREBASE_SERVICE}/validate/ssl-certificate`;
 
@@ -18,18 +13,24 @@ export async function validateCertificate(
 
   if (data.status !== 200) {
     return new Promise(resolve =>
-      Alert.alert(t('label.attention'), t('label.attentionMessage'), [
-        {
-          text: t('report.no'),
-          style: 'cancel',
-          onPress: () => resolve(false),
-        },
-        {
-          text: t('report.yes'),
-          onPress: () =>
-            resolve(request ? validateResponse(url, method, body) : true),
-        },
-      ]),
+      Alert.alert(
+        i18next.t('label.attention'),
+        i18next.t('label.attentionMessage'),
+        [
+          {
+            text: i18next.t('report.no'),
+            style: 'cancel',
+            onPress: () => resolve(false),
+          },
+          {
+            text: i18next.t('report.yes'),
+            onPress: () =>
+              resolve(
+                method.length > 0 ? validateResponse(url, method, body) : true,
+              ),
+          },
+        ],
+      ),
     );
   }
 }
