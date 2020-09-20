@@ -25,7 +25,7 @@ export const SettingsScreen = ({ navigation }) => {
   const { t } = useTranslation();
   const [isLogging, setIsLogging] = useState(undefined);
   const [isSharing, setIsSharing] = useState(false);
-  const [isCovidPositive, setIsCovpositive] = useState([]);
+  const [userList, setUserList] = useState([]);
   const [userLocale, setUserLocale] = useState(
     supportedDeviceLanguageOrEnglish(),
   );
@@ -43,7 +43,7 @@ export const SettingsScreen = ({ navigation }) => {
     );
     GetStoreData('users', false).then(users => {
       if (users) {
-        setIsCovpositive(users);
+        setUserList(users);
       }
     });
   };
@@ -119,24 +119,22 @@ export const SettingsScreen = ({ navigation }) => {
             onPress={locationToggleButtonPressed}
           />
           <Divider />
-          {isCovidPositive.length > 0 &&
-            checkPositiveCovidUser(isCovidPositive) &&
-            getMyself(isCovidPositive) && (
-              <Item
-                last
-                label={
-                  isSharing
-                    ? t('label.share_loc_active')
-                    : t('label.share_loc_inactive')
-                }
-                icon={
-                  isSharing
-                    ? { name: 'check-circle', color: 'lightgreen', size: 27 }
-                    : { name: 'times-circle', color: 'red', size: 27 }
-                }
-                onPress={subcribeLocationToggleButtonPressed}
-              />
-            )}
+          {getMyself(userList) && (
+            <Item
+              last
+              label={
+                isSharing
+                  ? t('label.share_loc_active')
+                  : t('label.share_loc_inactive')
+              }
+              icon={
+                isSharing
+                  ? { name: 'check-circle', color: 'lightgreen', size: 27 }
+                  : { name: 'times-circle', color: 'red', size: 27 }
+              }
+              onPress={subcribeLocationToggleButtonPressed}
+            />
+          )}
           <NativePicker
             items={LOCALE_LIST}
             value={userLocale}
@@ -168,18 +166,15 @@ export const SettingsScreen = ({ navigation }) => {
             last
             icon={{ name: 'shield-virus', color: '#0161F2', size: 26 }}
             label={
-              isCovidPositive.length > 0 &&
-              checkPositiveCovidUser(isCovidPositive)
+              checkPositiveCovidUser(userList)
                 ? t('label.epidemiologic_report_title')
                 : t('label.epidemiologic_report_title_new')
             }
             description={t('label.epidemiologic_report_subtitle')}
             onPress={() => {
-              if (isCovidPositive.length > 0) {
-                navigation.navigate('UseFor');
-              } else {
-                navigation.navigate('ReportScreen', { back: true });
-              }
+              checkPositiveCovidUser(userList)
+                ? navigation.navigate('UseFor')
+                : navigation.navigate('ReportScreen', { back: true });
             }}
           />
         </Section>

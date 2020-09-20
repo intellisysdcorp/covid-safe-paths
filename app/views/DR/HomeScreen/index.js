@@ -61,11 +61,11 @@ class HomeScreen extends Component {
       );
       if (covidId && !haveBeenNotified) {
         this.filterState(userList);
-        const { use, name = 'Usted', positive } = userList.find(
+        const { use, name = 'Usted' } = userList.find(
           user => user.covidId === covidId,
         );
 
-        saveUserState({ covidId, positive, haveBeenNotified: true });
+        saveUserState({ covidId, haveBeenNotified: true });
         this.setState({
           notified: true,
           useType: use,

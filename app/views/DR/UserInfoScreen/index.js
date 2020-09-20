@@ -127,10 +127,15 @@ export default function UserInfo({
             setShowValidationDialog(true);
             setPositiveError(true);
           } else {
+            let checkCoincidense = false;
             const userList = await GetStoreData('users', false);
-            const checkCoincidense = userList.some(
-              user => user.covidId === covidId,
-            );
+
+            if (userList) {
+              checkCoincidense = userList.some(
+                user => user.covidId === covidId,
+              );
+            }
+
             if (!checkCoincidense)
               navigation.navigate('PositiveOnboarding', {
                 positive,
