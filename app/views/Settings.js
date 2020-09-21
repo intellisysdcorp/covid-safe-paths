@@ -119,7 +119,7 @@ export const SettingsScreen = ({ navigation }) => {
             onPress={locationToggleButtonPressed}
           />
           <Divider />
-          {getMyself(userList) && (
+          {userList.length > 0 && getMyself(userList) && (
             <Item
               last
               label={
@@ -166,13 +166,13 @@ export const SettingsScreen = ({ navigation }) => {
             last
             icon={{ name: 'shield-virus', color: '#0161F2', size: 26 }}
             label={
-              checkPositiveCovidUser(userList)
+              userList.length > 0 && checkPositiveCovidUser(userList)
                 ? t('label.epidemiologic_report_title')
                 : t('label.epidemiologic_report_title_new')
             }
             description={t('label.epidemiologic_report_subtitle')}
             onPress={() => {
-              checkPositiveCovidUser(userList)
+              userList.length > 0 && checkPositiveCovidUser(userList)
                 ? navigation.navigate('UseFor')
                 : navigation.navigate('ReportScreen', { back: true });
             }}
