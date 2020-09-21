@@ -37,7 +37,9 @@ export default function DataList({
     if (img.source) return img.source;
 
     const firstCropFound = crops.find(cropName => img[cropName]);
-    return firstCropFound ? { uri: img[firstCropFound] } : { uri: img.master };
+    return firstCropFound
+      ? { uri: img[firstCropFound] }
+      : { uri: Object.values(img)[0] };
   };
 
   if (data.length === 0) return <ActivityIndicator size='large' />;

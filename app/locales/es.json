@@ -68,6 +68,8 @@
     "auroraMsp_description": "Tenga contacto directo con más de 200 médicos.",
     "answers_form_next_step": "Siguientes pasos:",
     "answers_form_recomendations": "Recomendación de prueba:",
+    "attention": "Atención",
+    "attentionMessage": "Al parecer se encuentra conectado en una red no segura. Su información sería enviada de forma insegura, ¿desea continuar?",
     "bulletin_title": "Boletines",
     "bulletin_description": "Lea sobre las últimas actualizaciones de los boletines COVID de su autoridad de salud.",
     "auto_subscribe_checkbox": "Habilitar la suscripción automática",
@@ -217,7 +219,7 @@
     "share_location_data_subtitle": "Al aceptar, los datos de sus ubicaciones recientes serán compartidos con la autoridad de salud de República Dominicana.",
     "you_can_add_more": "Puedes agregar más usuarios desde la opción Reportar",
     "who_is_using": "¿Quién está usando?",
-    "hello":"Hola ",
+    "hello": "Hola ",
     "you_are_positive": "Vemos que has sido diagnosticado positivo a COVID-19",
     "insert_nickname": "Para poder darte un seguimiento apropiado y personalizado, ingresa un nombre con el que desees que la aplicación te identifique",
     "nickname_exist": "Este identificador ya existe"
