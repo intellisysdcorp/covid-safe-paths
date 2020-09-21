@@ -42,7 +42,7 @@ const PositiveOnboarding = ({ route, navigation }) => {
         navigation.navigate('EpidemiologicResponse', {
           screen: 'EpidemiologicReport',
           params: { nickname: nickname, path: false },
-          showDialog: true,
+          showDialog: use === 'mySelf' ? true : false,
         });
       } else {
         navigation.navigate('Report');

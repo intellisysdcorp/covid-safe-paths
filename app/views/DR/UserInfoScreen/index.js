@@ -103,10 +103,7 @@ export default function UserInfo({
               let name = '';
               if (data !== null) {
                 data.map(user => {
-                  if (
-                    (body.cid !== undefined && user.data.cid === body.cid) ||
-                    (body.nssid !== undefined && user.data.nssid === body.nssid)
-                  ) {
+                  if (user.covidId === covidId) {
                     same = true;
                     name = user.name;
                   }
