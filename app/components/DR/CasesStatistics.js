@@ -18,6 +18,7 @@ class CasesStatistics extends React.Component {
       recovered: 0,
       current: 0,
       date: '',
+      lastDateAvaiblable: '',
     };
   }
   componentDidMount() {
@@ -73,7 +74,9 @@ class CasesStatistics extends React.Component {
 
       date = date === '' ? dateOfData : date;
 
-      this.setState(() => ({
+      this.setState(({ lastDateAvaiblable }) => ({
+        lastDateAvaiblable:
+          lastDateAvaiblable.length < 1 ? date : lastDateAvaiblable,
         date,
         ...this.separateOrAbreviate({
           confirmed,
@@ -88,7 +91,14 @@ class CasesStatistics extends React.Component {
 
   render() {
     const { t, navigation, refresh } = this.props;
-    const { confirmed, deaths, recovered, current, date } = this.state;
+    const {
+      confirmed,
+      deaths,
+      recovered,
+      current,
+      date,
+      lastDateAvaiblable,
+    } = this.state;
 
     return (
       <>
@@ -131,6 +141,8 @@ class CasesStatistics extends React.Component {
             deaths={deaths}
             recovered={recovered}
             current={current}
+            date={lastDateAvaiblable}
+            showMap={lastDateAvaiblable === date}
           />
         </View>
       </>
