@@ -1,4 +1,5 @@
-import styled, { css } from '@emotion/native';
+import styled from '@emotion/native';
+import AsyncStorage from '@react-native-community/async-storage';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BackHandler, ScrollView, View } from 'react-native';
@@ -38,13 +39,18 @@ export const SettingsScreen = ({ navigation }) => {
     navigation.goBack();
   };
 
+  const checkPositiveCovidUser = userList =>
+    userList.some(user => user.positive === true);
+
   const getCovidpositive = () => {
     GetStoreData(SHARE_LOCATION).then(sharing =>
       setIsSharing(sharing !== null ? true : false),
     );
-    GetStoreData(USERS).then(users =>
-      setIsCovpositive(users !== null ? JSON.parse(users) : []),
-    );
+    GetStoreData(USERS, false).then(users => {
+      if (users) {
+        setIsCovpositive(users);
+      }
+    });
   };
 
   useEffect(() => {
@@ -118,22 +124,24 @@ export const SettingsScreen = ({ navigation }) => {
             onPress={locationToggleButtonPressed}
           />
           <Divider />
-          {isCovidPositive.length > 0 && getMyself(isCovidPositive) && (
-            <Item
-              last
-              label={
-                isSharing
-                  ? t('label.share_loc_active')
-                  : t('label.share_loc_inactive')
-              }
-              icon={
-                isSharing
-                  ? { name: 'check-circle', color: 'lightgreen', size: 27 }
-                  : { name: 'times-circle', color: 'red', size: 27 }
-              }
-              onPress={subcribeLocationToggleButtonPressed}
-            />
-          )}
+          {isCovidPositive.length > 0 &&
+            checkPositiveCovidUser(isCovidPositive) &&
+            getMyself(isCovidPositive) && (
+              <Item
+                last
+                label={
+                  isSharing
+                    ? t('label.share_loc_active')
+                    : t('label.share_loc_inactive')
+                }
+                icon={
+                  isSharing
+                    ? { name: 'check-circle', color: 'lightgreen', size: 27 }
+                    : { name: 'times-circle', color: 'red', size: 27 }
+                }
+                onPress={subcribeLocationToggleButtonPressed}
+              />
+            )}
           <NativePicker
             items={LOCALE_LIST}
             value={userLocale}
@@ -165,7 +173,8 @@ export const SettingsScreen = ({ navigation }) => {
             last
             icon={{ name: 'shield-virus', color: '#0161F2', size: 26 }}
             label={
-              isCovidPositive.length > 0
+              isCovidPositive.length > 0 &&
+              checkPositiveCovidUser(isCovidPositive)
                 ? t('label.epidemiologic_report_title')
                 : t('label.epidemiologic_report_title_new')
             }

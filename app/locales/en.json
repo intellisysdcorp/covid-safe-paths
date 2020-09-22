@@ -13,6 +13,10 @@
     "done": "Done",
     "ok": "Ok"
   },
+  "dashboard": {
+    "error_title": "Oops!, an error has occurred",
+    "error_message": "Sorry! We do not have the information for the specified date in our database, please try another date"
+  },
   "history": {
     "no_exposure": "No known",
     "possible_exposure": "Possible",
@@ -69,6 +73,8 @@
     "auroraMsp_description": "Have direct contact with more than 200 doctors.",
     "answers_form_next_step": "Next steps:",
     "answers_form_recomendations": "Test recomendation:",
+    "attention": "Attention",
+    "attentionMessage": "Apparently you are connected to an unsecured network. Your information would be sent insecurely, do you want to continue?",
     "bulletin_title": "Bulletins",
     "bulletin_description": "Read about the latest COVID bulletins updates from your health authority.",
     "cancel": "Cancel",
@@ -161,7 +167,7 @@
     "positive_label": "Positive Cases",
     "positive_symptoms_description": "As a positive COVID you have the option of laboratory results and daily advice",
     "positive_symptoms_label": "Support the positive",
-    "positive_covid_message": "You have turned out to be COVID positive in the laboratory results",
+    "positive_covid_message": "have turned out to be COVID positive in the laboratory results",
     "privacy_policy": "Privacy Policy",
     "push_at_risk_message": "You have crossed paths with a COVID-19 patient",
     "push_at_risk_title": "You may be at risk",
@@ -217,6 +223,7 @@
     "share_location_data_subtitle": "By accepting, the data of your recent locations will be shared with the Dominican Republic health authority.",
     "you_can_add_more": "You can add more users from the Report option",
     "who_is_using": "Who is using?",
+    "hello": "Hello ",
     "you_are_positive": "We see that you have been diagnosed positive for COVID-19",
     "insert_nickname": "In order to give you an appropriate and personalized follow-up, enter a name with which you want the application to identify you",
     "nickname_exist": "This identifier already exists"

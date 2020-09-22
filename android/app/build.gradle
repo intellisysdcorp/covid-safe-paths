@@ -154,8 +154,8 @@ android {
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
 
-        versionCode 32
-        versionName "1.2.9"
+        versionCode 34
+        versionName "1.2.11"
     }
     splits {
         abi {
@@ -235,10 +235,8 @@ android {
 }
 
 dependencies {
-    implementation project(':@react-native-community_progress-bar-android')
-    implementation project(':react-native-location')
     // loading html files
-    compile project(':react-native-local-resource')
+    implementation project(':react-native-local-resource')
     implementation project(':react-native-reanimated')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules

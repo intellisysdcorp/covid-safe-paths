@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import DocumentPicker from 'react-native-document-picker';
 
-import { USERS } from '../constants/storage';
 import { Decrypt, Encrypt } from '../encryption/encryption';
+import { FIREBASE_SERVICE } from '../constants/DR/baseUrls';
 
 /**
  * Get data from store
@@ -79,5 +79,15 @@ export async function pickFile() {
 }
 
 export function getMyself(data) {
-  return data.some(user => user.use === 'mySelf');
+  return data.some(user => user.use === 'mySelf' && user.positive === true);
+}
+
+export async function saveUserState(state) {
+  await fetch(`${FIREBASE_SERVICE}/update-state`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(state),
+  });
 }

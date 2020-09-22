@@ -1,5 +1,5 @@
 import { Button, Text } from 'native-base';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, KeyboardAvoidingView, ScrollView, View } from 'react-native';
 import {
@@ -11,58 +11,44 @@ import styles from '../../../components/DR/Header/style';
 import Input from '../../../components/DR/Input/index';
 import NavigationBarWrapper from '../../../components/NavigationBarWrapper';
 import Colors from '../../../constants/colors';
+import { GetStoreData, SetStoreData } from '../../../helpers/General';
 import { USERS } from '../../../constants/storage';
-import {
-  RemoveStoreData,
-  SetStoreData,
-  getUsers,
-} from '../../../helpers/General';
-import ShareLocationDialog from './shareLocationDialog';
 
 
 const PositiveOnboarding = ({ route, navigation }) => {
   const { positive, use, covidId } = route.params;
   const { t } = useTranslation();
-  const [showShareLocDialog, setShowShareLocDialog] = useState(false);
   const [error, showError] = useState(false);
   const [nickname, setNickname] = useState('');
-  const [nicknameArray, setNicknameArray] = useState([]);
 
-  useEffect(() => {
-    GetStoreData('users', false).then(data =>
-      setNicknameArray(data !== null ? data : []),
-    );
-  }, []);
-
-  const createEntry = (nickname, positive) => {
-    return {
-      name: nickname,
-      positive,
-      use,
-      covidId,
-    };
-  };
-
-  const getNicknamesCoincidences = (users, nickname) => {
-    let coincidence = false;
-    if (users.length > 0) {
-      users.map(user => {
-        if (user.name === nickname) {
-          coincidence = true;
-        }
-      });
+  const getCoincidences = (userList, property, propertyToSearch) => {
+    if (userList !== null) {
+      return userList.some(user => user[propertyToSearch] === property);
     }
-    return coincidence;
+
+    return false;
   };
+
   const verifyAndAccept = async () => {
-    if (!getNicknamesCoincidences(nicknameArray, nickname)) {
-      nicknameArray.push(createEntry(nickname, positive, use));
-      await SetStoreData(USERS, nicknameArray);
-      setShowShareLocDialog(true);
-      navigation.navigate('EpidemiologicResponse', {
-        screen: 'EpidemiologicReport',
-        params: { nickname: nickname, path: false, positive },
-      });
+    const userList = (await GetStoreData(USERS, false)) || [];
+    const existNickname = getCoincidences(userList, nickname, 'name');
+    const existCovidId = getCoincidences(userList, covidId, 'covidId');
+
+    if (!existNickname) {
+      if (!existCovidId) {
+        userList.push({ name: nickname, positive, use, covidId });
+        await SetStoreData(USERS, userList);
+      }
+
+      if (positive) {
+        navigation.navigate('EpidemiologicResponse', {
+          screen: 'EpidemiologicReport',
+          params: { nickname: nickname, path: false },
+          showDialog: true,
+        });
+      } else {
+        navigation.navigate('Report');
+      }
     } else {
       showError(true);
     }
@@ -78,12 +64,6 @@ const PositiveOnboarding = ({ route, navigation }) => {
           behavior='position'
           keyboardVerticalOffset={50}
           style={{ flex: 1, backgroundColor: Colors.WHITE }}>
-          <ShareLocationDialog
-            visible={showShareLocDialog}
-            t={t}
-            setVisible={setShowShareLocDialog}
-            useType={use}
-          />
           <View
             style={[
               styles.formContainer,
@@ -107,13 +87,15 @@ const PositiveOnboarding = ({ route, navigation }) => {
               />
             </View>
 
-            <Text
-              style={[
-                styles.subtitles,
-                { textAlign: 'center', alignSelf: 'center', marginLeft: 10 },
-              ]}>
-              {t('positives.you_are_positive')}
-            </Text>
+            {positive && (
+              <Text
+                style={[
+                  styles.subtitles,
+                  { textAlign: 'center', alignSelf: 'center', marginLeft: 10 },
+                ]}>
+                {t('positives.you_are_positive')}
+              </Text>
+            )}
             <View
               style={[
                 styles.bottomLine,

@@ -1,41 +1,30 @@
 import 'moment/locale/es';
 
 import moment from 'moment';
-import { Button, Card, Container, Content, Text } from 'native-base';
+import { Button, Container, Content, Text } from 'native-base';
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  ActivityIndicator,
-  ScrollView,
-  TouchableHighlight,
-  View,
-} from 'react-native';
-import {
-  heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
-} from 'react-native-responsive-screen';
+import { ActivityIndicator, ScrollView, View } from 'react-native';
 import { Dialog } from 'react-native-simple-dialogs';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-import CalendarButton from '../../../components/DR/CalendarButton/index';
-import Header from '../../../components/DR/Header';
+import CalendarButton from '../../../components/DR/CalendarButton';
 import styles from '../../../components/DR/Header/style';
 import Input from '../../../components/DR/Input/index';
 import PhoneInput from '../../../components/DR/PhoneInput/index';
 import context from '../../../components/DR/Reduces/context.js';
 import Colors from '../../../constants/colors';
 import {
-  FIREBASE_SERVICE,
   MEPYD_C5I_API_URL,
   MEPYD_C5I_SERVICE,
 } from '../../../constants/DR/baseUrls';
 import {
-  COVID_ID_LIST,
-  HAVE_BEEN_NOTIFIED,
-  USERS,
-} from '../../../constants/storage';
-import validateResponse from '../../../helpers/DR/validateResponse';
-import { GetStoreData, SetStoreData } from '../../../helpers/General';
+  validateCertificate,
+  validateResponse,
+} from '../../../helpers/DR/validateResponse';
+import { GetStoreData, saveUserState } from '../../../helpers/General';
+import ReportOptions from './reportOptions';
+import { USERS } from '../../../constants/storage';
 
 export default function UserInfo({
   navigation,
@@ -80,34 +69,6 @@ export default function UserInfo({
     final && setGlobalState({ type: 'CLEAN_ANSWERS' });
   };
 
-  const handleCovidIdCoincidense = async covidId => {
-    const covidIdList = await GetStoreData(COVID_ID_LIST, false);
-    if (covidIdList !== null) {
-      const noCoincidenseExist = covidIdList.every(
-        data => data.covidId !== covidId,
-      );
-
-      if (noCoincidenseExist) {
-        covidIdList.push({ covidId, useType: use });
-        SetStoreData(COVID_ID_LIST, covidIdList);
-      }
-    } else {
-      SetStoreData(COVID_ID_LIST, [{ covidId, useType: use }]);
-    }
-  };
-
-  const saveUserState = async state => {
-    handleCovidIdCoincidense(state.covidId);
-
-    await fetch(`${FIREBASE_SERVICE}/update-state`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(state),
-    });
-  };
-
   const validateCovidPositive = async info => {
     const body =
       type === 'PositiveReport' ? { ...info, IamPositive: true } : info;
@@ -122,7 +83,7 @@ export default function UserInfo({
   const validate = async data => {
     const { body } = data;
     try {
-      let response = await validateResponse(
+      let response = await validateCertificate(
         `${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/Person`,
         'POST',
         body,
@@ -133,10 +94,14 @@ export default function UserInfo({
         if (response.valid) {
           getAge(birth);
           const { positive, covidId } = await validateCovidPositive(body);
-          saveUserState({ covidId, positive });
+          saveUserState({
+            covidId,
+            positive,
+            haveBeenNotified: positive,
+            useType: use,
+          });
           closeDialog(false);
           if (positive) {
-            SetStoreData(HAVE_BEEN_NOTIFIED, true);
             GetStoreData(USERS, false).then(data => {
               let same = false;
               let name = '';
@@ -164,7 +129,19 @@ export default function UserInfo({
             setShowValidationDialog(true);
             setPositiveError(true);
           } else {
-            navigation.navigate('Report');
+            const userList = await GetStoreData('users', false);
+            const checkCoincidense = userList.some(
+              user => user.covidId === covidId,
+            );
+            if (!checkCoincidense)
+              navigation.navigate('PositiveOnboarding', {
+                positive,
+                use,
+                covidId,
+              });
+            else {
+              navigation.navigate('Report');
+            }
           }
         } else {
           setError(true);
@@ -384,94 +361,15 @@ export default function UserInfo({
                 </Button>
               </View>
             </Dialog>
-
-            <Header
-              title={t('report.userInfo.insert_data_title')}
-              text={t('report.userInfo.insert_data_subtitle')}
+            <ReportOptions
               navigation={navigation}
-              close
-              iconName='chevron-left'
-              style={{ height: wp('38%') }}
+              setShowDialog={setShowDialog}
+              setUseIdCard={setUseIdCard}
+              setUsePassport={setUsePassport}
+              setUseNss={setUseNss}
+              t={t}
+              type={type}
             />
-            <View
-              style={{
-                height: hp('60%'),
-                alignItems: 'center',
-                marginTop: 20,
-              }}>
-              <TouchableHighlight
-                onPress={() => {
-                  setShowDialog(true);
-                  setUseIdCard(true);
-                }}
-                underlayColor='#FFF'>
-                <Card style={[styles.bigCards, styles.userDataCard]}>
-                  <Text
-                    style={[
-                      styles.textSemiBold,
-                      { marginVertical: 10, marginHorizontal: 12 },
-                    ]}>
-                    {t('report.userInfo.start_with_id')}
-                  </Text>
-                  <Icon
-                    name='id-card'
-                    size={wp('8.5%')}
-                    color={Colors.BLUE_RIBBON}
-                  />
-                </Card>
-              </TouchableHighlight>
-              {!type && (
-                <TouchableHighlight
-                  onPress={() => {
-                    setShowDialog(true);
-                    setUsePassport(true);
-                  }}
-                  underlayColor='#FFF'>
-                  <Card style={[styles.bigCards, styles.userDataCard]}>
-                    <Text
-                      style={[
-                        styles.textSemiBold,
-                        { marginVertical: 10, marginHorizontal: 12 },
-                      ]}>
-                      {t('report.userInfo.start_with_passport')}
-                    </Text>
-                    <Icon
-                      name='passport'
-                      size={wp('9%')}
-                      color={Colors.BLUE_RIBBON}
-                    />
-                  </Card>
-                </TouchableHighlight>
-              )}
-              {!type && (
-                <TouchableHighlight
-                  onPress={() => {
-                    setShowDialog(true);
-                    setUseNss(true);
-                  }}
-                  underlayColor='#FFF'>
-                  <Card
-                    style={[
-                      styles.bigCards,
-                      styles.userDataCard,
-                      { alignItems: 'center' },
-                    ]}>
-                    <Text
-                      style={[
-                        styles.textSemiBold,
-                        { marginVertical: 10, marginHorizontal: 12 },
-                      ]}>
-                      {t('report.userInfo.start_with_nss')}
-                    </Text>
-                    <Icon
-                      name='id-card-alt'
-                      size={wp('8.5%')}
-                      color={Colors.BLUE_RIBBON}
-                    />
-                  </Card>
-                </TouchableHighlight>
-              )}
-            </View>
           </View>
         </ScrollView>
       </Content>
