@@ -18,13 +18,12 @@ import {
 } from '../constants/history';
 import {
   AUTHORITY_NEWS,
-  AUTHORITY_SOURCE_SETTINGS,
   CROSSED_PATHS,
   LAST_CHECKED,
   LOCATION_DATA,
 } from '../constants/storage';
 import { DEBUG_MODE } from '../constants/storage';
-import validateResponse from '../helpers/DR/validateResponse';
+import { validateResponse } from '../helpers/DR/validateResponse';
 import {
   GetStoreData,
   RemoveStoreData,
