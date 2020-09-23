@@ -106,10 +106,7 @@ export default function UserInfo({
               let name = '';
               if (data !== null) {
                 data.map(user => {
-                  if (
-                    (body.cid !== undefined && user.data.cid === body.cid) ||
-                    (body.nssid !== undefined && user.data.nssid === body.nssid)
-                  ) {
+                  if (user.covidId === covidId) {
                     same = true;
                     name = user.name;
                   }
@@ -130,10 +127,15 @@ export default function UserInfo({
             setShowValidationDialog(true);
             setPositiveError(true);
           } else {
+            let checkCoincidense = false;
             const userList = await GetStoreData('users', false);
-            const checkCoincidense = userList.some(
-              user => user.covidId === covidId,
-            );
+
+            if (userList) {
+              checkCoincidense = userList.some(
+                user => user.covidId === covidId,
+              );
+            }
+
             if (!checkCoincidense)
               navigation.navigate('PositiveOnboarding', {
                 positive,
