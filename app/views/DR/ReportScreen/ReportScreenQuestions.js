@@ -20,7 +20,7 @@ import styles from '../../../components/DR/Header/style';
 import context from '../../../components/DR/Reduces/context';
 import Colors from '../../../constants/colors';
 import { COVID_ID } from '../../../constants/storage';
-import validateResponse from '../../../helpers/DR/validateResponse';
+import { validateResponse } from '../../../helpers/DR/validateResponse';
 import { SetStoreData } from '../../../helpers/General';
 import StepAdress from './sections/SetpAdress';
 import StepAge from './sections/StepAge';
