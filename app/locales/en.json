@@ -14,6 +14,7 @@
     "ok": "Ok"
   },
   "dashboard": {
+    "attention_message": "Map only available for the date",
     "error_title": "Oops!, an error has occurred",
     "error_message": "Sorry! We do not have the information for the specified date in our database, please try another date"
   },

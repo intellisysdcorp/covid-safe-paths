@@ -76,7 +76,7 @@ class CasesStatistics extends React.Component {
 
       this.setState(({ lastDateAvaiblable }) => ({
         lastDateAvaiblable:
-          lastDateAvaiblable.length < 1 ? date : lastDateAvaiblable,
+          lastDateAvaiblable > date ? lastDateAvaiblable : date,
         date,
         ...this.separateOrAbreviate({
           confirmed,
