@@ -10,7 +10,7 @@ import {
   MEPYD_C5I_SERVICE,
 } from '../constants/DR/baseUrls';
 import { CROSSED_PATHS, PARTICIPATE } from '../constants/storage';
-import validateResponse from '../helpers/DR/validateResponse';
+import { validateResponse } from '../helpers/DR/validateResponse';
 import { GetStoreData, SetStoreData } from '../helpers/General';
 import languages from '../locales/languages';
 
