@@ -8,6 +8,8 @@ import getToken from '../../services/DR/getToken';
 export async function validateCertificate(url, method = '', body) {
   const domainUrl = url.slice(8, url.indexOf('/', 9)).trim();
   const VALIDATE_CERTIFICATE_URL = `${FIREBASE_SERVICE}/validate/ssl-certificate`;
+  const validateMethod =
+    method.length > 0 ? validateResponse(url, method, body) : true;
 
   const data = await axios.post(VALIDATE_CERTIFICATE_URL, { domainUrl });
 
@@ -24,15 +26,14 @@ export async function validateCertificate(url, method = '', body) {
           },
           {
             text: i18next.t('report.yes'),
-            onPress: () =>
-              resolve(
-                method.length > 0 ? validateResponse(url, method, body) : true,
-              ),
+            onPress: () => resolve(validateMethod),
           },
         ],
       ),
     );
   }
+
+  return validateMethod;
 }
 
 export async function validateResponse(url, method, body) {
