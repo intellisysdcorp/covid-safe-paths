@@ -28,6 +28,12 @@ import {
   SetStoreData,
   saveUserState,
 } from '../../../helpers/General';
+import {
+  StateEnum,
+  StateIcon,
+  checkCurrentState,
+  getMainText,
+} from '../../../helpers/LocationHelpers';
 import DialogAdvice from '../../DialogAdvices';
 import styles from './style';
 
@@ -40,7 +46,19 @@ class HomeScreen extends Component {
       refreshing: false,
       covidId: '',
       covidUserNickname: '',
+      statusVisible: true,
+      currentState: StateEnum.NO_CONTACT,
     };
+    try {
+      checkCurrentState(this.changeCurrentState.bind(this));
+    } catch (e) {
+      // statements
+      console.log(e);
+    }
+  }
+
+  changeCurrentState(newState) {
+    this.setState({ currentState: newState });
   }
 
   filterState = async userList => {
@@ -104,6 +122,10 @@ class HomeScreen extends Component {
   };
 
   async componentDidMount() {
+    // setTimeout(() => {
+    //   this.setState({ statusVisible: false })
+    // }, 1500000);
+
     const covidIdList = await GetStoreData('covidIdList', false);
     let userList = await GetStoreData('users', false);
 
@@ -131,9 +153,8 @@ class HomeScreen extends Component {
   render() {
     const {
       props: { t, navigation },
-      state: { refreshing, notified, covidUserNickname },
+      state: { refreshing, notified, covidUserNickname, statusVisible },
     } = this;
-
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <View style={{ flex: 1, backgroundColor: Colors.BLUE_RIBBON }}>
@@ -165,12 +186,26 @@ class HomeScreen extends Component {
                 refresh={refreshing}
                 refreshing={this.handlerRefresh}
               />
-              <LocationMatch navigation={this.props.navigation} />
-              <Aurora navigation={this.props.navigation} />
+              <LocationMatch navigation={navigation} />
+              <Aurora navigation={navigation} />
               <Footer navigation={navigation} />
             </View>
             {this.getSettings()}
           </ScrollView>
+          {statusVisible && (
+            <View style={styles.contactInfo}>
+              <Text>{getMainText(this.state.currentState, styles.text)}</Text>
+              <View
+                style={{
+                  height: 30,
+                  padding: 0,
+                  backgroundColor: 'red',
+                  resizemode: 'contain',
+                }}>
+                <StateIcon size={560} status={this.state.currentState} />
+              </View>
+            </View>
+          )}
         </View>
         <DialogAdvice
           visible={notified}
