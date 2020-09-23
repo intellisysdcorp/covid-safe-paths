@@ -61,29 +61,36 @@ class HomeScreen extends Component {
     this.setState({ currentState: newState });
   }
 
-  filterState = async userList => {
+  filterState = async (userList, userCovidId) => {
     const filterUserList = userList.filter(user => user.covidId !== undefined);
-    await SetStoreData('users', filterUserList);
+    const userListConvert = filterUserList.map(user =>
+      user.covidId === userCovidId ? { ...user, positive: true } : user,
+    );
+
+    await SetStoreData('users', userListConvert);
   };
 
-  handler = userList => {
+  setAndGetUserState = userList => {
     const promiseList = userList.map(userState => {
       return fetch(`${FIREBASE_SERVICE}/covid-state/${userState.covidId}`);
     });
 
     Promise.all(promiseList).then(state => {
-      const {
-        data: { covidId = false, haveBeenNotified = false },
-      } = state.find(
+      const negativeUserToPositive = state.find(
         ({ data }) => data.positive === true && data.haveBeenNotified === false,
       );
-      if (covidId && !haveBeenNotified) {
-        this.filterState(userList);
-        const { use, name = 'Usted', positive } = userList.find(
+
+      if (negativeUserToPositive) {
+        const {
+          data: { covidId },
+        } = negativeUserToPositive;
+
+        this.filterState(userList, covidId);
+        const { use, name = 'Usted' } = userList.find(
           user => user.covidId === covidId,
         );
 
-        saveUserState({ covidId, positive, haveBeenNotified: true });
+        saveUserState({ covidId, positive: true, haveBeenNotified: true });
         this.setState({
           notified: true,
           useType: use,
@@ -129,12 +136,14 @@ class HomeScreen extends Component {
     const covidIdList = await GetStoreData('covidIdList', false);
     let userList = await GetStoreData('users', false);
 
-    if (covidIdList !== null) {
-      userList = userList.concat(covidIdList);
-      RemoveStoreData(covidIdList);
-      this.handler(userList);
-    } else {
-      this.handler(userList);
+    if (userList) {
+      if (covidIdList) {
+        userList = userList.concat(covidIdList);
+        RemoveStoreData(covidIdList);
+        this.setAndGetUserState(userList);
+      } else {
+        this.setAndGetUserState(userList);
+      }
     }
   }
 

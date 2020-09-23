@@ -25,11 +25,11 @@ export default function ReportScreen({
   const { t } = useTranslation();
 
   const [, setGlobalState] = useContext(context);
-  const [users, setUsers] = useState([]);
+  const [userList, setUserList] = useState([]);
 
   useEffect(() => {
     GetStoreData('users', false).then(data => {
-      setUsers(data !== null ? data : []);
+      data && setUserList(data);
     });
   }, []);
 
@@ -55,7 +55,7 @@ export default function ReportScreen({
             <Text style={[styles.text, { marginVertical: 30, fontSize: 17 }]}>
               {t('report.usage.subtitle')}
             </Text>
-            {!(users.length > 0 && getMyself(users)) && (
+            {!getMyself(userList) && (
               <Button
                 style={[
                   styles.buttons,
