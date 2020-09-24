@@ -18,7 +18,10 @@ import {
   MEPYD_C5I_API_URL,
   MEPYD_C5I_SERVICE,
 } from '../../../constants/DR/baseUrls';
-import validateResponse from '../../../helpers/DR/validateResponse';
+import {
+  validateCertificate,
+  validateResponse,
+} from '../../../helpers/DR/validateResponse';
 import { GetStoreData, saveUserState } from '../../../helpers/General';
 import ReportOptions from './reportOptions';
 
@@ -79,7 +82,7 @@ export default function UserInfo({
   const validate = async data => {
     const { body } = data;
     try {
-      let response = await validateResponse(
+      let response = await validateCertificate(
         `${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/Person`,
         'POST',
         body,
@@ -103,10 +106,7 @@ export default function UserInfo({
               let name = '';
               if (data !== null) {
                 data.map(user => {
-                  if (
-                    (body.cid !== undefined && user.data.cid === body.cid) ||
-                    (body.nssid !== undefined && user.data.nssid === body.nssid)
-                  ) {
+                  if (user.covidId === covidId) {
                     same = true;
                     name = user.name;
                   }
@@ -127,10 +127,15 @@ export default function UserInfo({
             setShowValidationDialog(true);
             setPositiveError(true);
           } else {
+            let checkCoincidense = false;
             const userList = await GetStoreData('users', false);
-            const checkCoincidense = userList.some(
-              user => user.covidId === covidId,
-            );
+
+            if (userList) {
+              checkCoincidense = userList.some(
+                user => user.covidId === covidId,
+              );
+            }
+
             if (!checkCoincidense)
               navigation.navigate('PositiveOnboarding', {
                 positive,

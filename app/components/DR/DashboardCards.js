@@ -1,6 +1,7 @@
+import moment from 'moment';
 import { Card, Text } from 'native-base';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { Alert, TouchableOpacity } from 'react-native';
 
 import Colors from '../../constants/colors';
 import styles from '../../views/DR/HomeScreen/style';
@@ -12,6 +13,8 @@ export default function DashboardCards({
   deaths,
   recovered,
   current,
+  date,
+  showMap,
 }) {
   const dashboardCategories = [
     { label: 'label.positive_label', styles: '', value: confirmed },
@@ -39,9 +42,17 @@ export default function DashboardCards({
       style={styles.shadowBorder}
       key={obj.label}
       onPress={() =>
-        navigation.navigate('Details', {
-          source: { uri: CONFIRMED_COVID_CASES_URL },
-        })
+        showMap
+          ? navigation.navigate('Details', {
+              source: { uri: CONFIRMED_COVID_CASES_URL },
+            })
+          : Alert.alert(
+              t('label.attention'),
+              `${t('dashboard.attention_message')} ${moment(
+                date,
+                'YYYY-MM-DD',
+              ).format('DD-MM-YYYY')}`,
+            )
       }>
       <Card style={styles.infoCards}>
         <Text style={[styles.dataText, obj.styles]}>{obj.value}</Text>
