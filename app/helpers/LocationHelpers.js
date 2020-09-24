@@ -24,23 +24,27 @@ export const StateEnum = {
 
 export const StateIcon = ({ status, size, style, type }) => {
   let icon;
-  console.log(status);
+  let color;
   switch (status) {
     case StateEnum.UNKNOWN:
-      icon = type === 'icon' ? 'check-circle' : StateUnknown;
+      icon = type === 'icon' ? 'question-circle' : StateUnknown;
+      color = '#919191';
       break;
     case StateEnum.AT_RISK:
       icon = type === 'icon' ? 'exclamation-circle' : StateAtRisk;
+      color = '#ffe41f';
       break;
     case StateEnum.NO_CONTACT:
       icon = type === 'icon' ? 'check-circle' : StateNoContact;
+      color = '#32ad5b';
       break;
     case StateEnum.SETTING_OFF:
       icon = type === 'icon' ? 'question-circle' : StateUnknown;
+      color = '#919191';
       break;
   }
   return type === 'icon' ? (
-    <Icon name={icon} size={size} style={style} />
+    <Icon name={icon} size={size} style={{ color: color }} />
   ) : (
     <SvgXml
       style={style}

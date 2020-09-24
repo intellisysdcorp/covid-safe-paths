@@ -129,9 +129,9 @@ class HomeScreen extends Component {
   };
 
   async componentDidMount() {
-    // setTimeout(() => {
-    //   this.setState({ statusVisible: false })
-    // }, 1500000);
+    setTimeout(() => {
+      this.setState({ statusVisible: false });
+    }, 3000);
 
     const covidIdList = await GetStoreData('covidIdList', false);
     let userList = await GetStoreData('users', false);
@@ -203,15 +203,13 @@ class HomeScreen extends Component {
           </ScrollView>
           {statusVisible && (
             <View style={styles.contactInfo}>
-              <Text>{getMainText(this.state.currentState, styles.text)}</Text>
-              <View
-                style={{
-                  height: 30,
-                  padding: 0,
-                  backgroundColor: 'red',
-                  resizemode: 'contain',
-                }}>
-                <StateIcon size={560} status={this.state.currentState} />
+              <View style={styles.contactInfoContainer}>
+                <StateIcon
+                  type='icon'
+                  size={30}
+                  status={this.state.currentState}
+                />
+                {getMainText(this.state.currentState, styles.contactInfoText)}
               </View>
             </View>
           )}
