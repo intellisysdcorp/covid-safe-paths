@@ -1,6 +1,7 @@
 import React from 'react';
 import { PERMISSIONS, RESULTS, check } from 'react-native-permissions';
 import { SvgXml } from 'react-native-svg';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import StateAtRisk from './../assets/svgs/stateAtRisk';
 import StateNoContact from './../assets/svgs/stateNoContact';
@@ -21,24 +22,32 @@ export const StateEnum = {
   SETTING_OFF: 3,
 };
 
-export const StateIcon = ({ status, size }) => {
+export const StateIcon = ({ status, size, style, type }) => {
   let icon;
+  console.log(status);
   switch (status) {
     case StateEnum.UNKNOWN:
-      icon = StateUnknown;
+      icon = type === 'icon' ? 'check-circle' : StateUnknown;
       break;
     case StateEnum.AT_RISK:
-      icon = StateAtRisk;
+      icon = type === 'icon' ? 'exclamation-circle' : StateAtRisk;
       break;
     case StateEnum.NO_CONTACT:
-      icon = StateNoContact;
+      icon = type === 'icon' ? 'check-circle' : StateNoContact;
       break;
     case StateEnum.SETTING_OFF:
-      icon = StateUnknown;
+      icon = type === 'icon' ? 'question-circle' : StateUnknown;
       break;
   }
-  return (
-    <SvgXml xml={icon} width={size ? size : 80} height={size ? size : 80} />
+  return type === 'icon' ? (
+    <Icon name={icon} size={size} style={style} />
+  ) : (
+    <SvgXml
+      style={style}
+      xml={icon}
+      width={size ? size : 80}
+      height={size ? size : 80}
+    />
   );
 };
 
