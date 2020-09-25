@@ -131,7 +131,7 @@ class HomeScreen extends Component {
   async componentDidMount() {
     setTimeout(() => {
       this.setState({ statusVisible: false });
-    }, 3000);
+    }, 7000);
 
     const covidIdList = await GetStoreData('covidIdList', false);
     let userList = await GetStoreData('users', false);
