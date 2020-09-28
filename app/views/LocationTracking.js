@@ -2,7 +2,6 @@ import BackgroundGeolocation from '@mauron85/react-native-background-geolocation
 import React, { Component } from 'react';
 import {
   AppState,
-  BackHandler,
   Dimensions,
   Image,
   ImageBackground,
@@ -13,12 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {
-  PERMISSIONS,
-  RESULTS,
-  check,
-  openSettings,
-} from 'react-native-permissions';
+import { openSettings } from 'react-native-permissions';
 import Pulse from 'react-native-pulse';
 import { SvgXml } from 'react-native-svg';
 
@@ -26,161 +20,59 @@ import BackgroundImageAtRisk from './../assets/images/backgroundAtRisk.png';
 import exportImage from './../assets/images/export.png';
 import BackgroundImage from './../assets/images/launchScreenBackground.png';
 import settingsIcon from './../assets/svgs/settingsIcon';
-import StateAtRisk from './../assets/svgs/stateAtRisk';
-import StateNoContact from './../assets/svgs/stateNoContact';
-import StateUnknown from './../assets/svgs/stateUnknown';
-import { isPlatformiOS } from './../Util';
 import { Button } from '../components/Button';
 import NextSteps from '../components/DR/LocationTracking/NextSteps';
 import { Typography } from '../components/Typography';
 import Colors from '../constants/colors';
 import fontFamily from '../constants/fonts';
-import {
-  CROSSED_PATHS,
-  DEBUG_MODE,
-  LOCATION_DATA,
-  PARTICIPATE,
-} from '../constants/storage';
+import { LOCATION_DATA, PARTICIPATE } from '../constants/storage';
 import { Theme } from '../constants/themes';
 import {
   GetStoreData,
   RemoveStoreData,
   SetStoreData,
 } from '../helpers/General';
-import { checkIntersect } from '../helpers/Intersect';
+import {
+  StateEnum,
+  StateIcon,
+  checkCurrentState,
+  checkIfUserAtRisk,
+  getMainText,
+} from '../helpers/LocationHelpers';
 import languages from '../locales/languages';
 import BackgroundTaskServices from '../services/BackgroundTaskService';
-import { HCAService } from '../services/HCAService';
 import LocationServices from '../services/LocationService';
 
 const MAYO_COVID_URL = 'https://www.mayoclinic.org/coronavirus-covid-19';
-
-const StateEnum = {
-  UNKNOWN: 0,
-  AT_RISK: 1,
-  NO_CONTACT: 2,
-  SETTING_OFF: 3,
-};
-
-const StateIcon = ({ status, size }) => {
-  let icon;
-  switch (status) {
-    case StateEnum.UNKNOWN:
-      icon = StateUnknown;
-      break;
-    case StateEnum.AT_RISK:
-      icon = StateAtRisk;
-      break;
-    case StateEnum.NO_CONTACT:
-      icon = StateNoContact;
-      break;
-    case StateEnum.SETTING_OFF:
-      icon = StateUnknown;
-      break;
-  }
-  return (
-    <SvgXml xml={icon} width={size ? size : 80} height={size ? size : 80} />
-  );
-};
-
 const height = Dimensions.get('window').height;
 
 class LocationTracking extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       appState: AppState.currentState,
       timer_intersect: null,
       isLogging: '',
       currentState: StateEnum.NO_CONTACT,
     };
+
     try {
-      this.checkCurrentState();
+      checkCurrentState(this.changeCurrentState.bind(this));
     } catch (e) {
       // statements
       console.log(e);
     }
   }
 
-  /*  Check current state
-        1) determine if user has correct location permissions
-        2) check if they are at risk -> checkIfUserAtRisk()
-        3) set state accordingly */
-  checkCurrentState() {
-    // NEED TO TEST ON ANDROID
-    let locationPermission;
-    if (isPlatformiOS()) {
-      locationPermission = PERMISSIONS.IOS.LOCATION_ALWAYS;
-    } else {
-      locationPermission = PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION;
-    }
-
-    // If user has location enabled & permissions, start logging
-    GetStoreData(PARTICIPATE, false).then(isParticipating => {
-      if (isParticipating && HCAService.isAutosubscriptionEnabled()) {
-        check(locationPermission)
-          .then(result => {
-            switch (result) {
-              case RESULTS.GRANTED:
-                this.checkIfUserAtRisk();
-                HCAService.findNewAuthorities();
-                return;
-              case RESULTS.UNAVAILABLE:
-              case RESULTS.BLOCKED:
-                console.log('NO LOCATION');
-                this.setState({ currentState: StateEnum.UNKNOWN });
-            }
-          })
-          .catch(error => {
-            console.log('error checking location: ' + error);
-          });
-      } else {
-        this.setState({ currentState: StateEnum.SETTING_OFF });
-      }
-    });
-  }
-
-  checkIfUserAtRisk() {
-    BackgroundTaskServices.start();
-    // If the user has location tracking disabled, set enum to match
-    GetStoreData(PARTICIPATE, false).then(isParticipating => {
-      if (isParticipating === false) {
-        this.setState({
-          currentState: StateEnum.SETTING_OFF,
-        });
-      }
-      //Location enable
-      else {
-        this.crossPathCheck();
-      }
-    });
-  }
-  //Due to Issue 646 moved below code from checkIfUserAtRisk function
-  crossPathCheck() {
-    GetStoreData(DEBUG_MODE).then(dbgMode => {
-      if (dbgMode != 'true') {
-        // already set on 12h timer, but run when this screen opens too
-        checkIntersect();
-      }
-      GetStoreData(CROSSED_PATHS).then(dayBin => {
-        dayBin = JSON.parse(dayBin);
-        if (dayBin !== null && dayBin.reduce((a, b) => a + b, 0) > 0) {
-          console.log('Found crossed paths');
-          this.setState({ currentState: StateEnum.AT_RISK });
-        } else {
-          console.log("Can't find crossed paths");
-          this.setState({ currentState: StateEnum.NO_CONTACT });
-        }
-      });
-    });
+  changeCurrentState(newState) {
+    this.setState({ currentState: newState });
   }
 
   componentDidMount() {
     AppState.addEventListener('change', this.handleAppStateChange);
     // refresh state if settings have changed
     this.unsubscribe = this.props.navigation.addListener('focus', () => {
-      this.checkIfUserAtRisk();
+      checkIfUserAtRisk(this.changeCurrentState.bind(this));
     });
     GetStoreData(PARTICIPATE, false)
       .then(isParticipating => {
@@ -222,7 +114,7 @@ class LocationTracking extends Component {
       this.state.appState.match(/inactive|background/) &&
       nextAppState === 'active'
     ) {
-      this.checkCurrentState();
+      checkCurrentState(this.changeCurrentState.bind(this));
     }
     this.setState({ appState: nextAppState });
   };
@@ -307,35 +199,6 @@ class LocationTracking extends Component {
     );
   }
 
-  getMainText() {
-    switch (this.state.currentState) {
-      case StateEnum.NO_CONTACT:
-        return (
-          <Typography style={styles.mainTextBelow}>
-            {languages.t('label.home_no_contact_header')}
-          </Typography>
-        );
-      case StateEnum.AT_RISK:
-        return (
-          <Typography style={styles.mainTextAbove}>
-            {languages.t('label.home_at_risk_header')}
-          </Typography>
-        );
-      case StateEnum.UNKNOWN:
-        return (
-          <Typography style={styles.mainTextBelow}>
-            {languages.t('label.home_unknown_header')}
-          </Typography>
-        );
-      case StateEnum.SETTING_OFF:
-        return (
-          <Text style={styles.mainTextBelow}>
-            {languages.t('label.home_setting_off_header')}
-          </Text>
-        );
-    }
-  }
-
   getSubText() {
     switch (this.state.currentState) {
       case StateEnum.NO_CONTACT:
@@ -407,13 +270,15 @@ class LocationTracking extends Component {
 
           <View style={styles.mainContainer}>
             <View style={styles.contentAbovePulse}>
-              {hasPossibleExposure && this.getMainText()}
+              {hasPossibleExposure &&
+                getMainText(this.state.currentState, styles.mainTextAbove)}
               <Typography style={styles.subsubheaderText}>
                 {this.getSubSubText()}
               </Typography>
             </View>
             <View style={styles.contentBelowPulse}>
-              {!hasPossibleExposure && this.getMainText()}
+              {!hasPossibleExposure &&
+                getMainText(this.state.currentState, styles.mainTextBelow)}
               <Typography style={styles.subheaderText}>
                 {this.getSubText()}
               </Typography>
