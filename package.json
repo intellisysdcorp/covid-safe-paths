@@ -189,6 +189,14 @@
           "type": "iPhone 11"
         }
       },
+      "iphone11.sim.debug": {
+        "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/COVIDSafePaths.app",
+        "build": "xcodebuild -workspace ios/COVIDSafePaths.xcworkspace -scheme COVIDSafePaths -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "device": {
+          "type": "iPhone 11"
+        }
+      },
       "iphone8.sim": {
         "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/COVIDSafePaths.app",
         "build": "xcodebuild -workspace ios/COVIDSafePaths.xcworkspace -scheme COVIDSafePaths -configuration Release -sdk iphonesimulator -derivedDataPath ios/build",
