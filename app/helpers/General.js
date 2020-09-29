@@ -23,16 +23,14 @@ export async function GetStoreData(key, isString = true) {
         PHONE_STORAGE_SECRET_KEY,
       ).toString(CryptoJS.enc.Utf8);
 
-      if (decryptData) {
+      if (decryptData === '') {
+        SetStoreData(key, getData);
+      } else if (decryptData) {
         getData = decryptData;
-      }
-
-      if (!isString) {
-        getData = JSON.parse(getData);
       }
     }
 
-    return getData;
+    return isString ? getData : JSON.parse(getData);
   } catch (error) {
     console.log(error.message);
   }
