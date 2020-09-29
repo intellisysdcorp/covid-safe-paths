@@ -831,6 +831,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = Z3K77LA9JQ;
 				ENABLE_BITCODE = NO;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoogleMaps-3.8.0/Base/Frameworks",
@@ -919,6 +920,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = Z3K77LA9JQ;
 				ENABLE_BITCODE = NO;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoogleMaps-3.8.0/Base/Frameworks",
