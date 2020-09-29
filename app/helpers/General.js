@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
+import CryptoJS from 'react-native-crypto-js';
 import DocumentPicker from 'react-native-document-picker';
 
 import { FIREBASE_SERVICE } from '../constants/DR/baseUrls';
@@ -10,14 +11,26 @@ import { FIREBASE_SERVICE } from '../constants/DR/baseUrls';
  * @param {boolean} isString
  */
 export async function GetStoreData(key, isString = true) {
-  try {
-    let data = await AsyncStorage.getItem(key);
+  const secretKey = '12345';
 
-    if (isString) {
-      return data;
+  try {
+    let getData = await AsyncStorage.getItem(key);
+
+    if (getData !== null) {
+      const decryptData = CryptoJS.AES.decrypt(getData, secretKey).toString(
+        CryptoJS.enc.Utf8,
+      );
+
+      if (decryptData) {
+        getData = decryptData;
+      }
+
+      if (!isString) {
+        getData = JSON.parse(getData);
+      }
     }
 
-    return JSON.parse(data);
+    return getData;
   } catch (error) {
     console.log(error.message);
   }
@@ -31,6 +44,8 @@ export async function GetStoreData(key, isString = true) {
  * @param {object} item
  */
 export async function SetStoreData(key, item) {
+  const secretKey = '12345';
+
   try {
     //we want to wait for the Promise returned by AsyncStorage.setItem()
     //to be resolved to the actual value before returning the value
@@ -38,7 +53,9 @@ export async function SetStoreData(key, item) {
       item = JSON.stringify(item);
     }
 
-    return await AsyncStorage.setItem(key, item);
+    const encryptItem = CryptoJS.AES.encrypt(item, secretKey).toString();
+
+    return await AsyncStorage.setItem(key, encryptItem);
   } catch (error) {
     console.log(error.message);
   }
