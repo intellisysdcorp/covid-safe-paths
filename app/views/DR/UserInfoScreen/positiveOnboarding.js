@@ -81,7 +81,11 @@ const PositiveOnboarding = ({ route, navigation }) => {
                   alignSelf: 'center',
                   marginBottom: 25,
                 }}
-                source={require('../../../assets/images/covidSick.jpg')}
+                source={
+                  positive
+                    ? require('../../../assets/images/covidSick.jpg')
+                    : require('../../../assets/images/covidTest.jpg')
+                }
               />
             </View>
 
