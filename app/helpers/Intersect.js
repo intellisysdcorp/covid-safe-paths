@@ -7,6 +7,7 @@
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import { NativeModules } from 'react-native';
+import base64 from 'react-native-base64';
 import PushNotification from 'react-native-push-notification';
 
 import { isPlatformiOS } from './../Util';
@@ -18,13 +19,12 @@ import {
 } from '../constants/history';
 import {
   AUTHORITY_NEWS,
-  AUTHORITY_SOURCE_SETTINGS,
   CROSSED_PATHS,
   LAST_CHECKED,
   LOCATION_DATA,
 } from '../constants/storage';
 import { DEBUG_MODE } from '../constants/storage';
-import validateResponse from '../helpers/DR/validateResponse';
+import { validateResponse } from '../helpers/DR/validateResponse';
 import {
   GetStoreData,
   RemoveStoreData,
@@ -399,7 +399,20 @@ function notifyUserOfRisk() {
  * @param {*} url
  */
 async function retrieveUrlAsJson(url) {
-  return await validateResponse(url, 'GET');
+  const authorities = await validateResponse(url, 'GET');
+  authorities.concern_points = authorities.concern_points.map(location => {
+    if (isNaN(+location.latitude)) {
+      return {
+        ...location,
+        latitude: base64.decode(location.latitude),
+        longitude: base64.decode(location.longitude),
+        time: base64.decode(location.time),
+      };
+    }
+
+    return location;
+  });
+  return authorities;
 }
 
 /** Set the app into debug mode */

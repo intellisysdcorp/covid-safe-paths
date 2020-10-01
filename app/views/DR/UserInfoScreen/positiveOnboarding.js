@@ -42,7 +42,7 @@ const PositiveOnboarding = ({ route, navigation }) => {
         navigation.navigate('EpidemiologicResponse', {
           screen: 'EpidemiologicReport',
           params: { nickname: nickname, path: false },
-          showDialog: true,
+          showDialog: use === 'mySelf' ? true : false,
         });
       } else {
         navigation.navigate('Report');
@@ -55,7 +55,7 @@ const PositiveOnboarding = ({ route, navigation }) => {
 
   return (
     <NavigationBarWrapper
-      title={t('label.epidemiologic_report_title')}
+      title={positive && 'label.epidemiologic_report_title'}
       onBackPress={() => navigation.popToTop()}>
       <ScrollView>
         <KeyboardAvoidingView
@@ -81,7 +81,11 @@ const PositiveOnboarding = ({ route, navigation }) => {
                   alignSelf: 'center',
                   marginBottom: 25,
                 }}
-                source={require('../../../assets/images/covidSick.jpg')}
+                source={
+                  positive
+                    ? require('../../../assets/images/covidSick.jpg')
+                    : require('../../../assets/images/covidTest.jpg')
+                }
               />
             </View>
 
