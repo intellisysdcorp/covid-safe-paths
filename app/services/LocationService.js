@@ -1,6 +1,7 @@
 import BackgroundGeolocation from '@mauron85/react-native-background-geolocation';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import { NativeModules, Platform } from 'react-native';
+import base64 from 'react-native-base64';
 import RNLocation from 'react-native-location';
 import PushNotification from 'react-native-push-notification';
 
@@ -270,9 +271,9 @@ export default class LocationServices {
 
               if (isPositive) {
                 const body = {
-                  latitude: location.latitude,
-                  longitude: location.longitude,
-                  time: location.timestamp,
+                  latitude: base64.encode(location.latitude.toString()),
+                  longitude: base64.encode(location.longitude.toString()),
+                  time: base64.encode(location.timestamp.toString()),
                   covidId: COVID_BASE_ID,
                 };
 
