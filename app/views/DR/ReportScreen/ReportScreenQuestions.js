@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-community/async-storage';
 import { Button, Text } from 'native-base';
 import React, { useContext, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -21,7 +20,7 @@ import context from '../../../components/DR/Reduces/context';
 import Colors from '../../../constants/colors';
 import { COVID_ID } from '../../../constants/storage';
 import { validateResponse } from '../../../helpers/DR/validateResponse';
-import { SetStoreData } from '../../../helpers/General';
+import { GetStoreData, SetStoreData } from '../../../helpers/General';
 import StepAdress from './sections/SetpAdress';
 import StepAge from './sections/StepAge';
 import StepCovidContact from './sections/StepCovidContact';
@@ -56,7 +55,7 @@ export default function ReportScreenQuestions({ navigation }) {
   const sendDataToApi = async () => {
     let merged = {};
     if (answers.usage === 'mySelf') {
-      let userInfo = await AsyncStorage.getItem('UserPersonalInfo');
+      let userInfo = await GetStoreData('UserPersonalInfo', false);
       userInfo = await JSON.parse(userInfo);
       merged = { ...userInfo, ...answers };
     } else {

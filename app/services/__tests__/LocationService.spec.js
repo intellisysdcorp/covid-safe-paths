@@ -7,6 +7,9 @@ import { Reason } from '../LocationService';
 import LocationServices from '../LocationService';
 
 jest.mock('@mauron85/react-native-background-geolocation');
+jest.mock('../../constants/DR/baseUrls', () => ({
+  PHONE_STORAGE_SECRET_KEY: '12345',
+}));
 
 function mockBackgroundGeolocationCheckStatus(data) {
   BackgroundGeolocation.checkStatus.mockImplementation(callback => {
