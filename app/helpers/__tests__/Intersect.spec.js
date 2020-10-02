@@ -18,6 +18,7 @@ import {
 
 jest.mock('../../constants/DR/baseUrls', () => ({
   GOV_DO_TOKEN: '',
+  PHONE_STORAGE_SECRET_KEY: '12345',
 }));
 
 // Base moment used in all tests.

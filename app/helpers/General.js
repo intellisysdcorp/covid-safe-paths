@@ -1,7 +1,11 @@
 import AsyncStorage from '@react-native-community/async-storage';
+import CryptoJS from 'react-native-crypto-js';
 import DocumentPicker from 'react-native-document-picker';
 
-import { FIREBASE_SERVICE } from '../constants/DR/baseUrls';
+import {
+  FIREBASE_SERVICE,
+  PHONE_STORAGE_SECRET_KEY,
+} from '../constants/DR/baseUrls';
 
 /**
  * Get data from store
@@ -11,13 +15,22 @@ import { FIREBASE_SERVICE } from '../constants/DR/baseUrls';
  */
 export async function GetStoreData(key, isString = true) {
   try {
-    let data = await AsyncStorage.getItem(key);
+    let getData = await AsyncStorage.getItem(key);
 
-    if (isString) {
-      return data;
+    if (getData !== null) {
+      const decryptData = CryptoJS.AES.decrypt(
+        getData,
+        PHONE_STORAGE_SECRET_KEY,
+      ).toString(CryptoJS.enc.Utf8);
+
+      if (decryptData === '') {
+        SetStoreData(key, getData);
+      } else if (decryptData) {
+        getData = decryptData;
+      }
     }
 
-    return JSON.parse(data);
+    return isString ? getData : JSON.parse(getData);
   } catch (error) {
     console.log(error.message);
   }
@@ -38,7 +51,12 @@ export async function SetStoreData(key, item) {
       item = JSON.stringify(item);
     }
 
-    return await AsyncStorage.setItem(key, item);
+    const encryptItem = CryptoJS.AES.encrypt(
+      item,
+      PHONE_STORAGE_SECRET_KEY,
+    ).toString();
+
+    return await AsyncStorage.setItem(key, encryptItem);
   } catch (error) {
     console.log(error.message);
   }
