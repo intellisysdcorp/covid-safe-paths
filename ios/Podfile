@@ -50,6 +50,10 @@ target 'COVIDSafePaths' do
 
 
 
+  pod 'RNFBApp', :path => '../node_modules/@react-native-firebase/app'
+
+  pod 'RNFBAnalytics', :path => '../node_modules/@react-native-firebase/analytics'
+
   target 'COVIDSafePathsTests' do
     inherit! :search_paths
     # Pods for testing

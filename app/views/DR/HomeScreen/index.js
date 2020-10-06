@@ -1,3 +1,4 @@
+import analytics from '@react-native-firebase/analytics';
 import dayjs from 'dayjs';
 import { Left, Text } from 'native-base';
 import React, { Component } from 'react';
@@ -129,6 +130,18 @@ class HomeScreen extends Component {
   };
 
   async componentDidMount() {
+    await analytics().logEvent('covid', {
+      id: 3745092,
+      item: 'mens grey t-shirt',
+      description: ['round neck', 'long sleeved'],
+      size: 'L',
+    });
+
+    await analytics().logSelectContent({
+      content_type: 'dark vader',
+      item_id: 'CovidDR',
+    });
+
     setTimeout(() => {
       this.setState({ statusVisible: false });
     }, 7000);

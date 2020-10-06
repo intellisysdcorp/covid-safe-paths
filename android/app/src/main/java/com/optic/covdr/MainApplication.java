@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import io.invertase.firebase.analytics.ReactNativeFirebaseAnalyticsPackage;
+import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 import com.swmansion.reanimated.ReanimatedPackage;
 import com.marianhello.bgloc.BackgroundGeolocationFacade;
 import com.facebook.react.ReactNativeHost;
