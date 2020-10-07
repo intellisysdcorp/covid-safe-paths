@@ -121,10 +121,10 @@ export const SettingsScreen = ({ navigation }) => {
               locationToggleButtonPressed();
 
               try {
-                await analytics().logEvent('test123', {
+                await analytics().logEvent('Location', {
                   eventAction: 'press',
                   region: 'button',
-                  value: isLogging,
+                  value: isLogging ? 'false' : 'true',
                 });
               } catch (error) {
                 console.log('Something went wrong with analytics ', error);
