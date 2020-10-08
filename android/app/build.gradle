@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'realm-android'
-
+apply plugin: 'com.google.gms.google-services'
 project.ext.envConfigFiles = [
     debug: ".env",
     staging: ".env.staging",
@@ -237,6 +237,7 @@ android {
 }
 
 dependencies {
+    implementation platform('com.google.firebase:firebase-bom:25.10.0')
     // loading html files
     implementation project(':react-native-local-resource')
     implementation project(':react-native-reanimated')
@@ -266,15 +267,15 @@ allprojects {
     repositories {
         configurations.all {
             // To fix the app start crash error
-            resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-                def requested = details.requested
-                if (requested.group == 'com.google.android.gms') {
-                    details.useVersion '12.0.1'
-                }
-                if (requested.group == 'com.google.firebase') {
-                    details.useVersion '12.0.1'
-                }
-            }
+            // resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            //     def requested = details.requested
+            //     if (requested.group == 'com.google.android.gms') {
+            //         details.useVersion '12.0.1'
+            //     }
+            //     if (requested.group == 'com.google.firebase') {
+            //         details.useVersion '12.0.1'
+            //     }
+            // }
         }
         jcenter()
         maven {

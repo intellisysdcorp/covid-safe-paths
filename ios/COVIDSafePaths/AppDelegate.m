@@ -17,12 +17,15 @@
 #import <MAURLocation.h>
 #import <MAURBackgroundGeolocationFacade.h>
 #import "COVIDSafePaths-Swift.h"
-
+#import <Firebase.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  if ([FIRApp defaultApp] == nil) {
+    [FIRApp configure];
+  }
   MAURBackgroundGeolocationFacade.locationTransform = ^(MAURLocation * location) {
     MAURLocation *locationToInsert = [location copy];
     [[SecureStorage shared] saveDeviceLocationWithBackgroundLocation:locationToInsert];

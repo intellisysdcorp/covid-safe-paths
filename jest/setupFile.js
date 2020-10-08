@@ -20,6 +20,12 @@ jest.mock('react-native-location', () => ({
   addEventListener: jest.fn(),
   requestPermissions: jest.fn(),
 }));
+
+jest.mock('@react-native-firebase/analytics', () => ({
+  addEventListener: jest.fn(),
+  requestPermissions: jest.fn(),
+}));
+
 // Silence YellowBox useNativeDriver warning
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
 
