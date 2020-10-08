@@ -1,5 +1,6 @@
 import styled from '@emotion/native';
 import AsyncStorage from '@react-native-community/async-storage';
+import analytics from '@react-native-firebase/analytics';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BackHandler, ScrollView, View } from 'react-native';
@@ -116,7 +117,19 @@ export const SettingsScreen = ({ navigation }) => {
                 ? { name: 'check-circle', color: 'lightgreen', size: 27 }
                 : { name: 'times-circle', color: 'red', size: 27 }
             }
-            onPress={locationToggleButtonPressed}
+            onPress={async () => {
+              locationToggleButtonPressed();
+
+              try {
+                await analytics().logEvent('Location', {
+                  eventAction: 'press',
+                  region: 'button',
+                  value: isLogging ? 'false' : 'true',
+                });
+              } catch (error) {
+                console.log('Something went wrong with analytics ', error);
+              }
+            }}
           />
           <Divider />
           {userList.length > 0 && getMyself(userList) && (
