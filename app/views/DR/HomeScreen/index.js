@@ -1,3 +1,4 @@
+import analytics from '@react-native-firebase/analytics';
 import dayjs from 'dayjs';
 import { Left, Text } from 'native-base';
 import React, { Component } from 'react';
@@ -133,8 +134,20 @@ class HomeScreen extends Component {
       this.setState({ statusVisible: false });
     }, 7000);
 
+    const locationState = await GetStoreData('locationState', false);
     const covidIdList = await GetStoreData('covidIdList', false);
     let userList = await GetStoreData('users', false);
+
+    if (!locationState) {
+      try {
+        await analytics().logEvent('Location_status', {
+          value: this.state.currentState === 0 ? 'false' : 'true',
+        });
+        await SetStoreData('locationState', true);
+      } catch (error) {
+        console.log('Something went wrong with analytics ', error);
+      }
+    }
 
     if (userList) {
       if (covidIdList) {
