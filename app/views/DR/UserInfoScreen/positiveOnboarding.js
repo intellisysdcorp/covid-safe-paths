@@ -55,7 +55,7 @@ const PositiveOnboarding = ({ route, navigation }) => {
 
   return (
     <NavigationBarWrapper
-      title={positive && 'label.epidemiologic_report_title'}
+      title={positive && t('label.epidemiologic_report_title')}
       onBackPress={() => navigation.popToTop()}>
       <ScrollView>
         <KeyboardAvoidingView
