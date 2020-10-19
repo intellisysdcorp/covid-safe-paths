@@ -154,8 +154,8 @@ android {
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
 
-        versionCode 37
-        versionName "1.2.14"
+        versionCode 38
+        versionName "1.2.15"
     }
     splits {
         abi {
