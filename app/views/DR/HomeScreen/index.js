@@ -14,7 +14,6 @@ import { SvgXml } from 'react-native-svg';
 
 import settingsIcon from '../../../assets/svgs/settingsIcon';
 import {
-  Aurora,
   Feels,
   Footer,
   LocationMatch,
@@ -209,7 +208,7 @@ class HomeScreen extends Component {
                 refreshing={this.handlerRefresh}
               />
               <LocationMatch navigation={navigation} />
-              <Aurora navigation={navigation} />
+              {/* <Aurora navigation={navigation} /> */}
               <Footer navigation={navigation} />
             </View>
             {this.getSettings()}

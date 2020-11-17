@@ -6,7 +6,7 @@ import Colors from './constants/colors';
 import NavEntry from './NavEntry';
 import AboutScreen from './views/About';
 import ChooseProviderScreen from './views/ChooseProvider';
-import AuroraScreen from './views/DR/Aurora';
+// import AuroraScreen from './views/DR/Aurora';
 import EpidemiologicScreen from './views/DR/EpidemiologicalResponseScreen';
 import UseFor from './views/DR/EpidemiologicalResponseScreen/useFor';
 import FAQ from './views/DR/FAQ';
@@ -119,19 +119,19 @@ const screens = [
     component: ResultsScreen,
     options: { headerShown: false },
   },
-  {
-    name: 'AuroraScreen',
-    component: AuroraScreen,
-    options: {
-      headerTitle: '',
-      headerTintColor: Colors.WHITE,
-      headerBackTitle: ' ',
-      headerStyle: {
-        backgroundColor: Colors.BLUE_RIBBON,
-        height: hp('7%'),
-      },
-    },
-  },
+  // {
+  //   name: 'AuroraScreen',
+  //   component: AuroraScreen,
+  //   options: {
+  //     headerTitle: '',
+  //     headerTintColor: Colors.WHITE,
+  //     headerBackTitle: ' ',
+  //     headerStyle: {
+  //       backgroundColor: Colors.BLUE_RIBBON,
+  //       height: hp('7%'),
+  //     },
+  //   },
+  // },
   {
     name: 'UserInfo',
     component: UserInfo,

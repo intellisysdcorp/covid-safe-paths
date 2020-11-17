@@ -85,35 +85,35 @@ export class Feels extends Component {
   }
 }
 
-export function Aurora({ navigation }) {
-  const { t } = useTranslation();
-  return (
-    <Card style={styles.bigCards}>
-      <View style={styles.auroraContainer}>
-        <Image
-          style={styles.auroraImage}
-          source={require('../../../assets/images/aurora_logo.png')}
-        />
-        <Text style={[styles.textHeader, { marginLeft: 8 }]}>
-          {t('label.auroraMsp_title')}
-        </Text>
-      </View>
-      <View style={styles.tester}>
-        <Left>
-          <Text style={styles.text}>{t('label.auroraMsp_description')}</Text>
-        </Left>
-        <Button
-          onPress={() => navigation.navigate('AuroraScreen')}
-          style={[
-            styles.buttons,
-            { backgroundColor: BLUE_RIBBON, marginLeft: 10 },
-          ]}>
-          <Text style={styles.buttonText}>{t('label.conversar_label')}</Text>
-        </Button>
-      </View>
-    </Card>
-  );
-}
+// export function Aurora({ navigation }) {
+//   const { t } = useTranslation();
+//   return (
+//     <Card style={styles.bigCards}>
+//       <View style={styles.auroraContainer}>
+//         <Image
+//           style={styles.auroraImage}
+//           source={require('../../../assets/images/aurora_logo.png')}
+//         />
+//         <Text style={[styles.textHeader, { marginLeft: 8 }]}>
+//           {t('label.auroraMsp_title')}
+//         </Text>
+//       </View>
+//       <View style={styles.tester}>
+//         <Left>
+//           <Text style={styles.text}>{t('label.auroraMsp_description')}</Text>
+//         </Left>
+//         <Button
+//           onPress={() => navigation.navigate('AuroraScreen')}
+//           style={[
+//             styles.buttons,
+//             { backgroundColor: BLUE_RIBBON, marginLeft: 10 },
+//           ]}>
+//           <Text style={styles.buttonText}>{t('label.conversar_label')}</Text>
+//         </Button>
+//       </View>
+//     </Card>
+//   );
+// }
 
 export function LocationMatch({ navigation }) {
   const baseUrl = `${MEPYD_C5I_SERVICE}/${MEPYD_C5I_API_URL}/Contact`;
