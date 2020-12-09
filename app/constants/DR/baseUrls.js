@@ -1,5 +1,8 @@
 import env from 'react-native-config';
 
+export const EPIDEMIOLOGICAL_INFO_URL = env.EPIDEMIOLOGICAL_INFO_URL;
+export const USERNAME_CREDENTIAL = env.USERNAME_CREDENTIAL;
+export const PASSWORD_CREDENTIAL = env.PASSWORD_CREDENTIAL;
 export const MEPYD_C5I_SERVICE = __DEV__
   ? 'https://webapps.mepyd.gob.do'
   : env.MEPYD_C5I_URL.replace('" #ignoreline', '');
