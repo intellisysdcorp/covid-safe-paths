@@ -24,6 +24,7 @@ export default function QRview({ navigation }) {
       type: 'text',
       title: '',
       url: shopUrl,
+      failOnCancel: false,
     };
 
     Share.open(shareOptions)
@@ -40,7 +41,13 @@ export default function QRview({ navigation }) {
           top: 80,
           alignItems: 'center',
         }}>
-        <Text style={{ fontSize: 18, marginBottom: 20, textAlign: 'center' }}>
+        <Text
+          style={{
+            fontSize: 18,
+            marginBottom: 20,
+            width: wp('90%'),
+            textAlign: 'center',
+          }}>
           {t('share.scanOrShare')}
         </Text>
         <QRCode value={shopUrl} size={200} />
