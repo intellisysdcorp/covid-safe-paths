@@ -12,6 +12,7 @@ import UseFor from './views/DR/EpidemiologicalResponseScreen/useFor';
 import FAQ from './views/DR/FAQ';
 import Details from './views/DR/News/Details';
 import PrivacyScreen from './views/DR/PrivacyPolicy';
+import QRview from './views/DR/QRview/';
 import ReportScreen from './views/DR/ReportScreen';
 import Report from './views/DR/ReportScreen/ReportScreenQuestions';
 import ReportType from './views/DR/ReportScreen/ReportType';
@@ -185,6 +186,11 @@ const screens = [
   {
     name: 'FAQ',
     component: FAQ,
+    options: { headerShown: false },
+  },
+  {
+    name: 'QRview',
+    component: QRview,
     options: { headerShown: false },
   },
 ];

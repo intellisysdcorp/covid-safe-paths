@@ -226,6 +226,11 @@ export const SettingsScreen = ({ navigation }) => {
             label={t('label.label_faqs')}
             onPress={() => navigation.navigate('FAQ')}
           />
+          <Item
+            icon={{ name: 'question-circle', color: '#0161F2', size: 22 }}
+            label={t('label.share')}
+            onPress={() => navigation.navigate('QRview')}
+          />
         </Section>
       </ScrollView>
     </NavigationBarWrapper>
