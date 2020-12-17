@@ -33,21 +33,21 @@ export default function QRview({ navigation }) {
 
   return (
     <NavigationBarWrapper
-      title={t('label.share')}
+      title={t('label.share_app')}
       onBackPress={backToMain.bind(this)}>
       <View
         style={{
           top: 80,
           alignItems: 'center',
         }}>
-        <Text style={{ fontSize: 18, marginBottom: 20 }}>
-          Scan or share this QR code to share the app
+        <Text style={{ fontSize: 18, marginBottom: 20, textAlign: 'center' }}>
+          {t('share.scanOrShare')}
         </Text>
         <QRCode value={shopUrl} size={200} />
         <Button
           onPress={openShareScreen}
           style={{ ...buttonStyle.buttonStyle, marginLeft: 0, marginTop: 100 }}>
-          <Text style={{ fontSize: wp('4%') }}>share</Text>
+          <Text style={{ fontSize: wp('4%') }}>{t('label.share')}</Text>
         </Button>
       </View>
     </NavigationBarWrapper>

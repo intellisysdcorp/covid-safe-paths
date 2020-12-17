@@ -180,7 +180,8 @@
     "report_symptoms_title": "How you feel?",
     "see_exposure_history": "See exposure history",
     "settings_title": "Dashboard",
-    "share": "Share app",
+    "share": "Share",
+    "share_app": "Share app",
     "share_loc_active": "You are sharing your location with the Ministry of Health.",
     "share_loc_inactive": "You are not sharing your location with the Ministry of Health.",
     "skip_this_step": "Skip this step",
@@ -200,6 +201,7 @@
     "button_text": "Share location data",
     "paragraph_first": "If you test positive for COVID-19, please do your part by sharing your location history with local authorities.",
     "paragraph_second": "Location is shared as a simple list of times and places, no additional information.",
+    "scanOrShare": "Scan or share this QR code to share the app",
     "subtitle": "Your private data can be transferred to health authorities, backed up, or otherwise shared.",
     "title": "Share location history"
   },

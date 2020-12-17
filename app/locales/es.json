@@ -176,7 +176,8 @@
     "report_symptoms_title": "¿Cómo te sientes?",
     "see_exposure_history": "Ver historial de exposición",
     "settings_title": "Panel de control",
-    "share": "Compartir aplicación",
+    "share": "Compartir",
+    "share_app": "Compartir aplicación",
     "share_loc_active": "Estás compartiendo tu ubicación con el Ministerio de Salud Pública.",
     "share_loc_inactive": "No estás compartiendo tu ubicación con el Ministerio de Salud Pública.",
     "skip_this_step": "Omitir este paso",
@@ -196,6 +197,7 @@
     "button_text": "Comparte tus datos",
     "paragraph_first": "Si has dado positivo en COVID-19, ayuda a las autoridades locales compartiendo tu historial de ubicaciones.",
     "paragraph_second": "Tu historial se envía como una simple lista de ubicaciones en el tiempo, sin revelar datos personales.",
+    "scanOrShare":"Escanee o comparta este código QR para compartir la aplicación",
     "subtitle": "Puedes compartir tus datos con las autoridades sanitarias u otros agentes, o guardar una copia de seguridad",
     "title": "Compartir ubicaciones"
   },
