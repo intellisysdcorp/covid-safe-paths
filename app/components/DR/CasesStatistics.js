@@ -58,44 +58,58 @@ class CasesStatistics extends React.Component {
     };
   };
 
-  getCases = date => {
-    getAllCases(date).then(response => {
-      const { t } = this.props;
-      if (response === 404) {
-        return Alert.alert(
-          t('dashboard.error_title'),
-          t('dashboard.error_message'),
-        );
-      }
+  getCases = async date => {
+    const correctDateAPI =
+      date.length === 0
+        ? moment()
+            .subtract(1, 'day')
+            .format('YYYY-MM-DD')
+        : moment(date)
+            .subtract(1, 'day')
+            .format('YYYY-MM-DD');
 
-      const { lastUpdate, confirmed, deaths, recovered, current } = response;
+    const data = await getAllCases(correctDateAPI);
 
-      const dateOfData = moment(lastUpdate).format('YYYY-MM-DD');
+    const { t } = this.props;
+    const {
+      casos_acumulados,
+      defunciones_acumuladas,
+      recuperados,
+      nuevas_muestras,
+    } = data[0];
+    if (!casos_acumulados) {
+      return Alert.alert(
+        t('dashboard.error_title'),
+        t('dashboard.error_message'),
+      );
+    }
 
-      date = date ? date : dateOfData;
+    const newDate =
+      date.length === 0
+        ? moment().format('YYYY-MM-DD')
+        : moment(date).format('YYYY-MM-DD');
 
-      this.setState(({ lastDateAvaiblable }) => ({
-        lastDateAvaiblable:
-          lastDateAvaiblable > date ? lastDateAvaiblable : date,
-        date,
-        ...this.separateOrAbreviate({
-          confirmed,
-          deaths,
-          recovered,
-          current,
-        }), // To take all the cards' content and abreviate them
-      }));
-      this.props.refreshing();
-    });
+    this.setState(({ lastDateAvaiblable }) => ({
+      lastDateAvaiblable:
+        lastDateAvaiblable > newDate ? lastDateAvaiblable : newDate,
+      date: newDate,
+      ...this.separateOrAbreviate({
+        confirmed: casos_acumulados,
+        deaths: defunciones_acumuladas,
+        recovered: recuperados,
+        current: nuevas_muestras,
+      }), // To take all the cards' content and abreviate them
+    }));
+    this.props.refreshing();
   };
 
   render() {
     const { t, navigation, refresh } = this.props;
     const {
-      confirmed,
-      deaths,
-      recovered,
-      current,
+      confirmed, // Casos acumulados
+      deaths, // defunciones_acumuladas
+      recovered, // recuperados
+      current, // nuevas_muestras
       date,
       lastDateAvaiblable,
     } = this.state;
@@ -124,7 +138,7 @@ class CasesStatistics extends React.Component {
             date={
               date
                 ? moment(date, 'YYYY-MM-DD').format('DD-MM-YYYY')
-                : moment(new Date()).format('DD-MM-YYYY')
+                : moment().format('DD-MM-YYYY')
             }
             onChange={date => {
               this.getCases(moment(date, 'DD-MM-YYYY').format('YYYY-MM-DD'));
