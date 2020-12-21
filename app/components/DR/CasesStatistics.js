@@ -58,9 +58,9 @@ class CasesStatistics extends React.Component {
     };
   };
 
-  getCases = async date => {
+  getCases = date => {
     const correctDateAPI =
-      date.length === 0
+      !date || date.length === 0
         ? moment()
             .subtract(1, 'day')
             .format('YYYY-MM-DD')
@@ -68,39 +68,39 @@ class CasesStatistics extends React.Component {
             .subtract(1, 'day')
             .format('YYYY-MM-DD');
 
-    const data = await getAllCases(correctDateAPI);
+    getAllCases(correctDateAPI).then(data => {
+      const { t } = this.props;
+      const {
+        casos_acumulados,
+        defunciones_acumuladas,
+        recuperados,
+        casos_nuevos,
+      } = data[0];
+      if (!casos_acumulados) {
+        return Alert.alert(
+          t('dashboard.error_title'),
+          t('dashboard.error_message'),
+        );
+      }
 
-    const { t } = this.props;
-    const {
-      casos_acumulados,
-      defunciones_acumuladas,
-      recuperados,
-      casos_nuevos,
-    } = data[0];
-    if (!casos_acumulados) {
-      return Alert.alert(
-        t('dashboard.error_title'),
-        t('dashboard.error_message'),
-      );
-    }
+      const newDate =
+        !date || date.length === 0
+          ? moment().format('YYYY-MM-DD')
+          : moment(date).format('YYYY-MM-DD');
 
-    const newDate =
-      date.length === 0
-        ? moment().format('YYYY-MM-DD')
-        : moment(date).format('YYYY-MM-DD');
-
-    this.setState(({ lastDateAvaiblable }) => ({
-      lastDateAvaiblable:
-        lastDateAvaiblable > newDate ? lastDateAvaiblable : newDate,
-      date: newDate,
-      ...this.separateOrAbreviate({
-        confirmed: casos_acumulados,
-        deaths: defunciones_acumuladas,
-        recovered: recuperados,
-        current: casos_nuevos,
-      }), // To take all the cards' content and abreviate them
-    }));
-    this.props.refreshing();
+      this.setState(({ lastDateAvaiblable }) => ({
+        lastDateAvaiblable:
+          lastDateAvaiblable > newDate ? lastDateAvaiblable : newDate,
+        date: newDate,
+        ...this.separateOrAbreviate({
+          confirmed: casos_acumulados,
+          deaths: defunciones_acumuladas,
+          recovered: recuperados,
+          current: casos_nuevos,
+        }), // To take all the cards' content and abreviate them
+      }));
+      this.props.refreshing();
+    });
   };
 
   render() {
