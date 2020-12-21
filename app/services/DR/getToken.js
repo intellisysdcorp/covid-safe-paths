@@ -1,6 +1,7 @@
-import Axios from 'axios';
-
 import {
+  MEPID_PASSWORD,
+  MEPID_URL_API,
+  MEPID_USERNAME,
   MEPYD_C5I_API_URL,
   MEPYD_C5I_SERVICE,
   TOKEN_KEY,
@@ -36,21 +37,19 @@ export async function getTokenGov(needNewToken = false) {
 export async function getTokenMepid(needNewToken = false) {
   const savedToken = await GetStoreData('MEPID_API_TOKEN', true);
 
-  const mepidUrl = 'https://covidrdapi.msp.gob.do:8443';
-  const mepidUsername = 'covidrd';
-  const mepidPassword = 'msp@2020app';
-
   if (savedToken && !needNewToken) {
     return savedToken;
   } else {
     try {
-      const response = await Axios.post(
-        `${mepidUrl}/api/auth?username=${mepidUsername}&password=${mepidPassword}`,
+      const response = await fetch(
+        `${MEPID_URL_API}/api/auth?username=${MEPID_USERNAME}&password=${MEPID_PASSWORD}`,
+        { method: 'POST' },
       );
+      const { token } = await response.json();
 
-      SetStoreData('MEPID_API_TOKEN', response.data.token);
+      SetStoreData('MEPID_API_TOKEN', token);
 
-      return response.data.token;
+      return token;
     } catch (e) {
       console.log('Ha ocurrido un error', e);
     }

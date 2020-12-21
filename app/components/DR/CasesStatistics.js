@@ -75,7 +75,7 @@ class CasesStatistics extends React.Component {
       casos_acumulados,
       defunciones_acumuladas,
       recuperados,
-      nuevas_muestras,
+      casos_nuevos,
     } = data[0];
     if (!casos_acumulados) {
       return Alert.alert(
@@ -97,7 +97,7 @@ class CasesStatistics extends React.Component {
         confirmed: casos_acumulados,
         deaths: defunciones_acumuladas,
         recovered: recuperados,
-        current: nuevas_muestras,
+        current: casos_nuevos,
       }), // To take all the cards' content and abreviate them
     }));
     this.props.refreshing();
@@ -106,10 +106,10 @@ class CasesStatistics extends React.Component {
   render() {
     const { t, navigation, refresh } = this.props;
     const {
-      confirmed, // Casos acumulados
+      confirmed, // casos_acumulados
       deaths, // defunciones_acumuladas
       recovered, // recuperados
-      current, // nuevas_muestras
+      current, // casos_nuevos
       date,
       lastDateAvaiblable,
     } = this.state;
