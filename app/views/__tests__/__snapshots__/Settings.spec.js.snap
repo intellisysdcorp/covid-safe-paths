@@ -823,6 +823,74 @@ exports[`<Settings /> renders correctly with google import flag 1`] = `
                 </Text>
               </View>
             </View>
+            <View
+              accessible={true}
+              focusable={true}
+              isTVSelectable={true}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "margin": 3,
+                  "opacity": 1,
+                  "paddingBottom": 18,
+                  "paddingLeft": 0,
+                  "paddingRight": 0,
+                  "paddingTop": 18,
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  Array [
+                    Object {
+                      "color": "#0161F2",
+                      "fontSize": 22,
+                    },
+                    Object {
+                      "marginRight": 12,
+                      "marginTop": 2.5,
+                    },
+                    Object {
+                      "fontFamily": "FontAwesome5Free-Solid",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    Object {
+                      "fontWeight": "900",
+                    },
+                  ]
+                }
+              >
+                
+              </Text>
+              <View
+                style={
+                  Object {
+                    "flexBasis": 0,
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                    "justifyContent": "center",
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "fontFamily": "IBMPlexSans",
+                      "fontSize": 18,
+                      "fontWeight": "normal",
+                      "lineHeight": 24,
+                      "writingDirection": "ltr",
+                    }
+                  }
+                  use="body1"
+                >
+                  Share
+                </Text>
+              </View>
+            </View>
           </View>
         </View>
       </View>
@@ -1651,6 +1719,74 @@ exports[`<Settings /> renders correctly without google import flag 1`] = `
                   use="body1"
                 >
                   FAQS
+                </Text>
+              </View>
+            </View>
+            <View
+              accessible={true}
+              focusable={true}
+              isTVSelectable={true}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "margin": 3,
+                  "opacity": 1,
+                  "paddingBottom": 18,
+                  "paddingLeft": 0,
+                  "paddingRight": 0,
+                  "paddingTop": 18,
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  Array [
+                    Object {
+                      "color": "#0161F2",
+                      "fontSize": 22,
+                    },
+                    Object {
+                      "marginRight": 12,
+                      "marginTop": 2.5,
+                    },
+                    Object {
+                      "fontFamily": "FontAwesome5Free-Solid",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    Object {
+                      "fontWeight": "900",
+                    },
+                  ]
+                }
+              >
+                
+              </Text>
+              <View
+                style={
+                  Object {
+                    "flexBasis": 0,
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                    "justifyContent": "center",
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "fontFamily": "IBMPlexSans",
+                      "fontSize": 18,
+                      "fontWeight": "normal",
+                      "lineHeight": 24,
+                      "writingDirection": "ltr",
+                    }
+                  }
+                  use="body1"
+                >
+                  Share
                 </Text>
               </View>
             </View>

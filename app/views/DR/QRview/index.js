@@ -19,7 +19,7 @@ export default function QRview({ navigation }) {
     navigation.goBack();
   };
 
-  const openShareScreen = () => {
+  const openShareScreen = async () => {
     const shareOptions = {
       type: 'text',
       title: '',
@@ -27,9 +27,11 @@ export default function QRview({ navigation }) {
       failOnCancel: false,
     };
 
-    Share.open(shareOptions)
-      .then(res => console.log(res))
-      .catch(err => console.error(err));
+    try {
+      await Share.open(shareOptions);
+    } catch (error) {
+      console.log('Something went wrong with the QR code ', error);
+    }
   };
 
   return (
