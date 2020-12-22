@@ -3,7 +3,7 @@ import i18next from 'i18next';
 import { Alert } from 'react-native';
 
 import { FIREBASE_SERVICE } from '../../constants/DR/baseUrls';
-import getToken from '../../services/DR/getToken';
+import { getTokenGov } from '../../services/DR/getToken';
 
 export async function validateCertificate(url, method = '', body) {
   const domainUrl = url.slice(8, url.indexOf('/', 9)).trim();
@@ -48,7 +48,7 @@ export async function validateResponse(url, method, body) {
     });
   };
 
-  const token = await getToken();
+  const token = await getTokenGov();
 
   try {
     let response = await responseFunc(body, token);
@@ -56,7 +56,7 @@ export async function validateResponse(url, method, body) {
     if (response.status !== 200) {
       console.log('TOKEN NOT WORKING???');
       // CODE 401 TOKEN NOT VALID
-      const newToken = await getToken(true);
+      const newToken = await getTokenGov(true);
 
       response = await responseFunc(body, newToken);
     }
