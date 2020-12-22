@@ -21,12 +21,13 @@ export async function getAllCases(date) {
     }
 
     if (!response.data[0].casos_acumulados) {
-      const dateBefore = moment(date)
+      date = moment(date)
         .subtract(1, 'day')
         .format('YYYY-MM-DD');
-      response = await responseFunc(dateBefore, savedToken);
+      response = await responseFunc(date, savedToken);
     }
 
+    response.data.push(date);
     return response.data;
   } catch (err) {
     return err.response.status;

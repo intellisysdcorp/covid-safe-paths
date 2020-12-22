@@ -83,10 +83,7 @@ class CasesStatistics extends React.Component {
         );
       }
 
-      const newDate =
-        !date || date.length === 0
-          ? moment().format('YYYY-MM-DD')
-          : moment(date).format('YYYY-MM-DD');
+      const newDate = moment(data[1]).add(1, 'day');
 
       this.setState(({ lastDateAvaiblable }) => ({
         lastDateAvaiblable:
