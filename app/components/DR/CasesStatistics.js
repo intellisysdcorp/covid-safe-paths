@@ -22,7 +22,7 @@ class CasesStatistics extends React.Component {
     };
   }
   componentDidMount() {
-    this.getCases(this.state.date);
+    this.setCases(this.state.date, true);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -58,37 +58,46 @@ class CasesStatistics extends React.Component {
     };
   };
 
-  getCases = date => {
-    const correctDateAPI =
-      !date || date.length === 0
-        ? moment()
-            .subtract(1, 'day')
-            .format('YYYY-MM-DD')
-        : moment(date)
-            .subtract(1, 'day')
-            .format('YYYY-MM-DD');
+  getCases = async (date, subtractDay = 1, firstUse) => {
+    const { t } = this.props;
 
-    getAllCases(correctDateAPI).then(data => {
-      const { t } = this.props;
+    date = date
+      ? moment(date)
+          .subtract(1, 'day')
+          .format('YYYY-MM-DD')
+      : moment()
+          .subtract(subtractDay, 'day')
+          .format('YYYY-MM-DD');
+
+    const data = await getAllCases(date);
+
+    if (!data[0].casos_acumulados && !firstUse) {
+      console.log(data[0].casos_acumulados);
+      Alert.alert(t('dashboard.error_title'), t('dashboard.error_message'));
+    }
+
+    return data[0].casos_acumulados
+      ? [data[0], date]
+      : this.getCases(date, subtractDay + 1);
+  };
+
+  setCases = (date, firstUse = false) => {
+    this.getCases(date, 1, firstUse).then(data => {
       const {
         casos_acumulados,
         defunciones_acumuladas,
         recuperados,
         casos_nuevos,
       } = data[0];
-      if (!casos_acumulados) {
-        return Alert.alert(
-          t('dashboard.error_title'),
-          t('dashboard.error_message'),
-        );
-      }
 
-      const newDate = moment(data[1]).add(1, 'day');
+      const dateOfData = moment(data[1])
+        .add(1, 'day')
+        .format('YYYY-MM-DD');
 
       this.setState(({ lastDateAvaiblable }) => ({
         lastDateAvaiblable:
-          lastDateAvaiblable > newDate ? lastDateAvaiblable : newDate,
-        date: newDate,
+          lastDateAvaiblable > dateOfData ? lastDateAvaiblable : dateOfData,
+        date: dateOfData,
         ...this.separateOrAbreviate({
           confirmed: casos_acumulados,
           deaths: defunciones_acumuladas,
@@ -113,7 +122,7 @@ class CasesStatistics extends React.Component {
 
     return (
       <>
-        {refresh && this.getCases()}
+        {refresh && this.setCases(moment().format('YYYY-MM-DD'), true)}
 
         <View style={styles.actualSituationContent}>
           <Text
@@ -138,7 +147,7 @@ class CasesStatistics extends React.Component {
                 : moment().format('DD-MM-YYYY')
             }
             onChange={date => {
-              this.getCases(moment(date, 'DD-MM-YYYY').format('YYYY-MM-DD'));
+              this.setCases(moment(date, 'DD-MM-YYYY').format('YYYY-MM-DD'));
             }}
             minDate='17-07-2020'
           />
