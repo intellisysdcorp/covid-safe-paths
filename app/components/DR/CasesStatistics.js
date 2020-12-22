@@ -72,7 +72,6 @@ class CasesStatistics extends React.Component {
     const data = await getAllCases(date);
 
     if (!data[0].casos_acumulados && !firstUse) {
-      console.log(data[0].casos_acumulados);
       Alert.alert(t('dashboard.error_title'), t('dashboard.error_message'));
     }
 

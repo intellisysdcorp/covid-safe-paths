@@ -1,5 +1,3 @@
-import moment from 'moment';
-
 import { MEPID_URL_API } from '../../constants/DR/baseUrls';
 import fetch from '../../helpers/Fetch';
 import { getTokenMepid } from './getToken';
@@ -20,14 +18,6 @@ export async function getAllCases(date) {
       response = await responseFunc(date, savedToken);
     }
 
-    if (!response.data[0].casos_acumulados) {
-      date = moment(date)
-        .subtract(1, 'day')
-        .format('YYYY-MM-DD');
-      response = await responseFunc(date, savedToken);
-    }
-
-    response.data.push(date);
     return response.data;
   } catch (err) {
     return err.response.status;
