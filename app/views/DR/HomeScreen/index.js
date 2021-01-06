@@ -136,7 +136,6 @@ class HomeScreen extends Component {
     const locationState = await GetStoreData('locationState', false);
     const userList = await GetStoreData('users', false);
     if (userList) {
-      userList[0].positive = true;
       this.validateUserState(userList);
     }
 
