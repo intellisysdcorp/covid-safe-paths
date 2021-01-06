@@ -20,6 +20,7 @@ import {
 } from '../../../components/DR/ActionCards/ActionCards.js';
 import CasesStatistics from '../../../components/DR/CasesStatistics';
 import Colors from '../../../constants/colors';
+import { MEPID_URL_API } from '../../../constants/DR/baseUrls';
 import { GetStoreData, SetStoreData } from '../../../helpers/General';
 import {
   StateEnum,
@@ -27,13 +28,16 @@ import {
   checkCurrentState,
   getMainText,
 } from '../../../helpers/LocationHelpers';
-// import DialogAdvice from '../../DialogAdvices';
+import { getTokenMepid } from '../../../services/DR/getToken';
+import DialogAdvice from '../../DialogAdvices';
 import styles from './style';
 
 class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      userNickName: '',
+      showDialog: false,
       refreshing: false,
       statusVisible: true,
       currentState: StateEnum.NO_CONTACT,
@@ -46,27 +50,6 @@ class HomeScreen extends Component {
     }
   }
 
-  changeCurrentState(newState) {
-    this.setState({ currentState: newState });
-  }
-
-  validateUserState = userList => {
-    console.log(userList);
-    // if (covidUserNickname === 'Usted') {
-    //   this.props.navigation.navigate('PositiveOnboarding', {
-    //     positive: true,
-    //     use: useType,
-    //     covidId,
-    //   });
-    // } else {
-    //   this.props.navigation.navigate('EpidemiologicResponse', {
-    //     screen: 'EpidemiologicReport',
-    //     params: { nickname: covidUserNickname, path: false },
-    //     showDialog: useType === 'mySelf' ? true : false,
-    //   });
-    // }
-  };
-
   refresh = () => {
     this.setState(state => ({ ...state, refreshing: true }));
   };
@@ -75,16 +58,58 @@ class HomeScreen extends Component {
     this.setState({ refreshing: false });
   };
 
+  changeCurrentState(newState) {
+    this.setState({ currentState: newState });
+  }
+
+  validateUserState = async userList => {
+    const token = await getTokenMepid();
+
+    const promiseList = userList.map(user => {
+      return fetch(`${MEPID_URL_API}/api/resultado/${user.covidId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+    });
+
+    Promise.all(promiseList).then(data => {
+      console.log(data);
+
+      const userDischarge = userList.find(
+        (user, index) =>
+          user.covidId === data[index].covidId &&
+          user.positive !== data[index].positive,
+      );
+
+      if (userDischarge) {
+        this.setState({ userNickName: userDischarge.name, showDialog: true });
+
+        if (userDischarge.positive) {
+          this.props.navigation.navigate('PositiveOnboarding', {
+            positive: true,
+            use: userDischarge.use,
+            covidId: userDischarge.covidId,
+          });
+        } else {
+          this.props.navigation.navigate('EpidemiologicResponse', {
+            screen: 'EpidemiologicReport',
+            params: { nickname: userDischarge.name, path: false },
+            showDialog: userDischarge.use === 'mySelf' ? true : false,
+          });
+        }
+      }
+    });
+  };
+
   async componentDidMount() {
     setTimeout(() => {
       this.setState({ statusVisible: false });
     }, 7000);
 
     const locationState = await GetStoreData('locationState', false);
-    // const userList = await GetStoreData('users', false);
-    // if (userList) {
-    //   this.validateUserState(userList);
-    // }
+    const userList = await GetStoreData('users', false);
+    if (userList) {
+      this.validateUserState(userList);
+    }
 
     if (!locationState) {
       try {
@@ -113,7 +138,7 @@ class HomeScreen extends Component {
   render() {
     const {
       props: { t, navigation },
-      state: { refreshing, statusVisible },
+      state: { refreshing, statusVisible, showDialog, userNickName },
     } = this;
     return (
       <SafeAreaView style={{ flex: 1 }}>
@@ -165,11 +190,10 @@ class HomeScreen extends Component {
             </View>
           )}
         </View>
-        {/* <DialogAdvice
-          visible={notified}
-          text={`${covidUserNickname} ${t('label.positive_covid_message')}`}
-          close={this.handlerPositiveState}
-        /> */}
+        <DialogAdvice
+          visible={showDialog}
+          text={`${userNickName} ${t('label.positive_covid_message')}`}
+        />
       </SafeAreaView>
     );
   }
