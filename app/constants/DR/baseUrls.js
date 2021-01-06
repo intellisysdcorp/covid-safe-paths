@@ -14,3 +14,6 @@ export const COVID_BASE_ID = (env.COVID_BASE_ID || '').replace(
   '',
 );
 export const TOKEN_KEY = (env.TOKEN_KEY || '').replace('" #ignoreline', '');
+export const MEPID_URL_API = env.MEPID_URL_API;
+export const MEPID_USERNAME = env.MEPID_USERNAME;
+export const MEPID_PASSWORD = env.MEPID_PASSWORD;

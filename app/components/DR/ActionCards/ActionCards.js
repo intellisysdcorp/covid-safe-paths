@@ -13,7 +13,7 @@ import {
 import { validateCertificate } from '../../../helpers/DR/validateResponse';
 import { GetStoreData } from '../../../helpers/General';
 import languages from '../../../locales/languages';
-import getToken from '../../../services/DR/getToken';
+import { getTokenGov } from '../../../services/DR/getToken';
 import styles from './styles';
 
 const { ORANGE, GREEN, BLUE_RIBBON, GRAY } = Colors;
@@ -134,7 +134,7 @@ export function LocationMatch({ navigation }) {
         </Left>
         <Button
           onPress={async () => {
-            await getToken(true);
+            await getTokenGov(true);
             const validCertificate = await validateCertificate(baseUrl);
             validCertificate && navigation.navigate('Location');
           }}
