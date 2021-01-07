@@ -22,7 +22,7 @@ import {
   validateCertificate,
   validateResponse,
 } from '../../../helpers/DR/validateResponse';
-import { GetStoreData, saveUserState } from '../../../helpers/General';
+import { GetStoreData } from '../../../helpers/General';
 import ReportOptions from './reportOptions';
 
 export default function UserInfo({
@@ -93,12 +93,6 @@ export default function UserInfo({
         if (response.valid) {
           getAge(birth);
           const { positive, covidId } = await validateCovidPositive(body);
-          saveUserState({
-            covidId,
-            positive,
-            haveBeenNotified: positive,
-            useType: use,
-          });
           closeDialog(false);
           if (positive) {
             GetStoreData('users', false).then(data => {

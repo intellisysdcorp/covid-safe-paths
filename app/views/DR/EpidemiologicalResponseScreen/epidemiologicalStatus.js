@@ -12,15 +12,21 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import styles from '../../../components/DR/Header/style';
 import ToggleButtons from '../../../components/DR/ToggleButtons';
 import Colors from '../../../constants/colors';
+import { RemoveStoreData } from '../../../helpers/General';
 
 const EpidemiologicalStatus = ({ route, navigation }) => {
   //Change for a call to the goverment's epidemiology department API, to validate the status of the user
   //by the moment the response state is always waiting dor results.
-  const { nickname } = route.params;
-  const valid = true;
+  const { nickname, valid = true, use } = route.params;
   const { t } = useTranslation();
   const [todaysFeeling, setTodaysFeeling] = useState('');
   const [showDialog, setShowDialog] = useState(false);
+
+  if (use === 'mySelf') {
+    setTimeout(async () => {
+      await RemoveStoreData('shareLocation');
+    }, 500);
+  }
 
   const closeDialog = () => {
     setShowDialog(false);

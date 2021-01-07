@@ -8,7 +8,7 @@ import { Dialog } from 'react-native-simple-dialogs';
 import DialogStyle from '../components/DR/Header/style';
 import Colors from '../constants/colors';
 
-const DialogAdvices = ({ visible, text, close }) => {
+const DialogAdvices = ({ visible, text, onClose }) => {
   const { t } = useTranslation();
   return (
     <Dialog visible={visible} dialogStyle={{ backgroundColor: Colors.WHITE }}>
@@ -24,7 +24,7 @@ const DialogAdvices = ({ visible, text, close }) => {
             },
           ]}
           onPress={() => {
-            close();
+            onClose();
           }}>
           <Text style={[DialogStyle.text, { color: Colors.WHITE }]}>
             {t('label.accept')}

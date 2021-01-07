@@ -2,10 +2,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import CryptoJS from 'react-native-crypto-js';
 import DocumentPicker from 'react-native-document-picker';
 
-import {
-  FIREBASE_SERVICE,
-  PHONE_STORAGE_SECRET_KEY,
-} from '../constants/DR/baseUrls';
+import { PHONE_STORAGE_SECRET_KEY } from '../constants/DR/baseUrls';
 
 /**
  * Get data from store
@@ -95,14 +92,4 @@ export async function pickFile() {
 
 export function getMyself(data) {
   return data.some(user => user.use === 'mySelf' && user.positive === true);
-}
-
-export async function saveUserState(state) {
-  await fetch(`${FIREBASE_SERVICE}/update-state`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(state),
-  });
 }
